@@ -1,0 +1,26 @@
+# Basic commands for Git
+alias gs='git status'                               # Show status
+alias gmc='git merge --continue'                    # Continue merge
+alias gma='git merge --abort'                       # Abort merge
+alias gm='git merge'                                # Merge branch <params>
+alias ga='git add'                                  # Add file <params>
+alias gaa='git add .'                               # Add all files
+alias gc='git commit -m'                            # Commit changes <params>
+alias gca='git commit --amend'                      # Amend commit
+alias gp='git push'                                 # Push changes <params>
+alias gpo='git push origin'                         # Push changes to origin
+alias gpl='git pull'                                # Pull changes <params>
+alias grbc='git rebase --continue'                  # Continue rebase
+alias grba='git rebase --abort'                     # Abort rebase
+alias gco='git checkout'                            # Checkout branch <params>
+alias gcob='git checkout -b'                        # Checkout new branch <params>
+alias gb='git branch'                               # Show branches
+alias gbd='git branch -D'                           # Delete branch <params>
+alias gl='git log --oneline --graph --decorate'     # Show log
+alias gdf='git diff'                                # Show diff
+alias grm='git rm'                                  # Remove file <params>
+alias gcl='git clone'                               # Clone repository <params>
+alias gstash='git stash'                            # Stash changes <params>
+alias gstashp='git stash pop'                       # Pop stash
+alias gfetch='git fetch --all --prune'              # Fetch changes
+alias greset='git reset --hard HEAD'                # Reset changes
