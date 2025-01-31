@@ -1,0 +1,6 @@
+# .github/ISSUE_TEMPLATE/config.yml
+blank_issues_enabled: false
+contact_links:
+  - name: Contact support
+    url: https://carlosleoncode.com
+    about: If you have questions, please reach out to us.
