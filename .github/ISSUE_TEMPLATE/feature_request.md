@@ -1,22 +1,20 @@
-### Descripción de la característica
-> Describe la nueva funcionalidad que deseas que se implemente.
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
-### Beneficios de esta característica
-> ¿Cómo mejorará el sistema o la experiencia del usuario con esta característica?
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
----
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
 
-### Posible implementación
-> Si tienes una idea de cómo se podría implementar esta característica, compártela.
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
 
----
-
-### Impacto en el sistema
-> ¿Cómo afectaría esta característica a otras partes del sistema?
-
----
-
-### Otros comentarios
-> Información adicional que pueda ser útil para considerar esta solicitud.
+**Additional context**
+Add any other context or screenshots about the feature request here.
