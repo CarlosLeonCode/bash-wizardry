@@ -24,4 +24,6 @@ alias gstash='git stash'                            # Stash changes <params>
 alias gstashp='git stash pop'                       # Pop stash
 alias gfetch='git fetch --all --prune'              # Fetch changes
 alias greset='git reset --hard HEAD'                # Reset changes
-alias some='git rebase -i'                          # Interactive Rebase
+alias grbi='git rebase -i'                          # Interactive Rebase
+alias grstr='git restore'                           # Restore file <params>
+alias gchrr='git cherry-pick'                       # Cherry pick commit <params>
