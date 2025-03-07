@@ -17,3 +17,7 @@ alias yrnadv='yarn add --dev'               # Add dev dependencies <params>
 alias yrnb='yarn build'                     # Build project
 alias yrns='yarn start'                     # Start project
 alias yrnu='yarn upgrade'                   # Upgrade dependencies
+
+# Basic commands for NPM
+alias ndver='npm -v'                        # Show npm version
+alias ndrdev='npm run dev -- -H 0.0.0.0'    # Run dev server with host <params>
