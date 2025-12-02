@@ -1,63 +1,112 @@
-# 🧙‍♂️ Bash Wizardry: Magia en tu Terminal ✨  
-¡Potencia tu terminal con una colección de **aliases mágicos** para optimizar tu flujo de trabajo! 🚀  
-Ahorra tiempo, automatiza comandos repetitivos y comparte tus mejores trucos con la comunidad.  
+# 🧙‍♂️ bash-wizardry
+
+### Tu terminal, con superpoderes.
+
+`bash-wizardry` no es solo una colección de alias. Es un framework de productividad para tu línea de comandos que aprende tus flujos de trabajo, te protege de errores y unifica las herramientas que usas a diario.
+
+## 🤔 ¿Por qué `bash-wizardry`?
+
+*   🧠 **Inteligente y Contextual:** Comandos como `nr` te dan un menú interactivo de tus scripts, y `ni` sabe si tu proyecto usa `npm`, `yarn` o `pnpm`.
+*   🛡️ **Seguro por Defecto:** Operaciones destructivas como `git branch -D`, `git reset` o la limpieza de Docker ahora piden confirmación. Di adiós al "¡Uy!".
+*   🌐 **Unificado y Simple:** Usa el mismo comando (`na`, `nr`, `n-clean`) en todos tus proyectos de Node.js. Memoriza un set de herramientas, no tres.
+*   🚀 **Hecho para la Velocidad:** Flujos de trabajo completos, como sincronizar una rama (`gup`) o resetear una base de datos de Rails (`rdbreset`), se reducen a un solo comando.
+
+## 🚀 Instalación Rápida
+
+Pega esto en tu terminal. La magia se encargará del resto.
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh)"
+```
+> Después, **reinicia tu terminal** o ejecuta `source ~/.bashrc` (o `~/.zshrc`).
 
 ---
 
-## 🎩 ¿Cómo usar?  
-Ya sea que uses **Bash**, **Zsh** u otra shell, sigue estos pasos para activar la magia:  
+## ✨ Un Vistazo a la Magia
 
-### 1️⃣ Abre una terminal y navega al root:  
+Haz clic en cada módulo para descubrir algunos de sus hechizos más poderosos.
+
+<details>
+<summary><b>🐙 Módulo de Git</b></summary>
+
+| Comando | Descripción |
+| :--- | :--- |
+| `gup` | **Sincroniza tu rama:** hace `pull --rebase` y luego `push`. Indispensable. |
+| `gclean` | Limpia tu repositorio local eliminando ramas que ya han sido fusionadas. |
+| `gundo` | Deshace el último commit, pero mantiene todos los cambios en tus archivos. |
+| `gbd <branch>` | Borra una rama local, **pidiendo confirmación**. |
+| `gco` + `Tab` | Autocompleta con nombres de ramas locales **y remotas**. |
+
+</details>
+
+<details>
+<summary><b>📦 Módulo de Node.js (npm/yarn/pnpm)</b></summary>
+
+El sistema detecta automáticamente qué gestor usar. ¡Los mismos comandos para todos tus proyectos!
+
+| Comando | Descripción |
+| :--- | :--- |
+| `ni` | Instala dependencias (`npm i`, `yarn`, o `pnpm i`). |
+| `na <pkg>` | Añade una nueva dependencia. |
+| `nr` | **Muestra un menú interactivo** para que elijas qué script ejecutar. |
+| `n-reinstall` | Soluciona el 99% de los problemas de dependencias (`rm -rf node_modules` y reinstala). |
+| `p i` | Usa `p`, `y`, o `n` para forzar el uso de un gestor de paquetes específico. |
+
+</details>
+
+<details>
+<summary><b>🐳 Módulo de Docker</b></summary>
+
+| Comando | Descripción |
+| :--- | :--- |
+| `dkrinto` | Entra a un contenedor. **Muestra un menú interactivo** si no especificas un ID. |
+| `dkrlogs` | Muestra los logs de un contenedor. También es interactivo. |
+| `dkrclean` | Inicia un **asistente seguro e interactivo** para limpiar todo (contenedores, imágenes, volúmenes). |
+| `dkrip` | Muestra las direcciones IP de todos los contenedores en ejecución. |
+
+</details>
+
+<details>
+<summary><b>🚂 Módulos de Backend (Django & Rails)</b></summary>
+
+| Comando | Descripción |
+| :--- | :--- |
+| `djstartapp <app>`| (Django) Crea una app Y **la añade automáticamente a `INSTALLED_APPS`**. |
+| `djshell` | (Django) Inicia `shell_plus` con auto-importación de modelos si está disponible. |
+| `rdbreset` | (Rails) **Resetea toda la BD:** drop, create, migrate & seed (pide confirmación). |
+| `rcs` | (Rails) Abre una consola en modo `sandbox` (los cambios no se guardan). |
+
+</details>
+
+---
+
+## 🛠️ Scripts Independientes
+
+Herramientas que puedes ejecutar desde cualquier lugar, como `docker-cleanup.sh`:
+
 ```sh
-cd ~
-```
-### 2️⃣ Clona este libro de hechizos (repositorio):
-```sh
-# 🪄 Con SSH (más seguro si tienes configurada tu clave)
-git clone git@github.com:CarlosLeonCode/bash-wizardry.git
+# Limpiar solo contenedores y volúmenes, sin pedir confirmación
+docker-cleanup.sh --containers --volumes --force
 
-# 🔓 Sin SSH (acceso universal)
-git clone https://github.com/CarlosLeonCode/bash-wizardry.
+# Limpiar todas las imágenes no usadas (no solo las "dangling")
+docker-cleanup.sh --images --deep
 ```
 
-### 3️⃣ Verifica que el libro se haya clonado correctamente:
-```sh
-ls -la | grep bash-wizardry
+## ⚙️ Configuración y Personalización
 
-# Deberías ver algo como esto:
-# drwxr-xr-x@  11 <tu_usuario> staff  352 Jan 30 14:34 bash-wizardry
+El script de instalación crea automáticamente tu archivo de configuración personal en `~/.bash-wizardry/config.sh`. Puedes editar este archivo en cualquier momento para habilitar o deshabilitar los módulos que necesites.
+
+Por ejemplo, para desactivar el módulo de Django:
+```bash
+# Abre el archivo ~/.bash-wizardry/config.sh y cambia la línea:
+WIZADRY_DJANGO_ENABLED="false"
 ```
-### 4️⃣ Edita el archivo de configuración de tu shell
-Dependiendo de la shell que uses, edita el archivo correspondiente:
+Los cambios se aplicarán la próxima vez que abras una nueva terminal.
 
-- **Bash** → `~/.bashrc`
-- **Zsh** → `~/.zshrc`
-- **Fish** → `~/.config/fish/config.fish` (requiere adaptación)
+## 🤝 Contribuye
 
-Abre el archivo con tu editor favorito:
-```sh
-# ✏️ Con Nano
-nano ~/.zshrc  # Si usas Bash, cambia a ~/.bashrc  
+¿Tienes tu propia magia? ¡Compártela! Haz un Fork, añade tu hechizo y envía un Pull Request.
 
-# 🖥️ Con VS Code
-EDITOR="code --wait" ~/.zshrc
-```
+## 📜 Licencia
 
-### 5️⃣ Agrega estas líneas al final del archivo:
-Esto cargará automáticamente todos los aliases de la carpeta. 🔥
-```sh
-for file in ~/bash-wizardry/*.sh; do
-  [ -r "$file" ] && source "$file"
-done
-```
-
-### 6️⃣ Guarda los cambios y reinicia la terminal:
-```sh
-source ~/.zshrc  # ó source ~/.bashrc según tu shell
-```
-
-## 🎉 ¡Listo!
-Ahora puedes usar tus alias sin esfuerzo. 
-
-## 🏆¿Tienes un alias épico? 
-¡Compártelo con la comunidad! 🚀
+[MIT](https://github.com/CarlosLeonCode/bash-wizardry/blob/main/LICENSE)
