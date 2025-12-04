@@ -45,6 +45,8 @@ _dckr_select_container() {
 # Builds a Docker image. If no tag is provided, it uses the current
 # directory name as the image name.
 # Usage: dckrbuild my-image:latest | dckrbuild
+unalias dckrbuild &>/dev/null
+unset -f dckrbuild &> /dev/null
 dckrbuild() {
   local tag=${1:-$(basename "$PWD"):latest}
   docker build . -t "$tag"
@@ -53,6 +55,8 @@ dckrbuild() {
 # Executes a command in a container. If no container ID is given,
 # it presents an interactive menu to choose one. Defaults to /bin/bash.
 # Usage: dckrexec <container_id> [command] | dckrexec
+unalias dckrexec &>/dev/null
+unset -f dckrexec &> /dev/null
 dckrexec() {
   local container_id=$1
   local command_to_run=${2:-/bin/bash} # Default to a bash shell
@@ -67,6 +71,8 @@ dckrexec() {
 
 # Shows logs for a container. Presents an interactive menu if no ID is given.
 # Usage: dckrlogs <container_id> | dckrlogs
+unalias dckrlogs &>/dev/null
+unset -f dckrlogs &> /dev/null
 dckrlogs() {
   local container_id=$1
   if [ -z "$container_id" ]; then
@@ -104,6 +110,8 @@ dckrrm() { _dkr_manage_container "rm" "$1"; }
 # Safely prunes the Docker system. It explains what it does and asks for confirmation.
 # The original alias used '-af' which can be too aggressive without confirmation.
 # Usage: dckrprune
+unalias dckrprune &>/dev/null
+unset -f dckrprune &> /dev/null
 dckrprune() {
   read -p "This will remove all stopped containers, unused networks, and dangling images. Are you sure? [y/N] " -n 1 -r
   echo
@@ -114,6 +122,8 @@ dckrprune() {
 
 # It asks for confirmation before cleaning each resource type.
 # Usage: dckrclean
+unalias dckrclean &>/dev/null
+unset -f dckrclean &> /dev/null
 dckrclean() {
   echo "This script will help you clean up Docker resources."
 

@@ -31,6 +31,8 @@ _n_get_manager() {
 
 # Install dependencies.
 # Usage: ni
+unalias ni &>/dev/null
+unset -f ni &> /dev/null
 ni() {
   local pm=$(_n_get_manager)
   echo "-> Using '$pm' to install dependencies..."
@@ -39,6 +41,8 @@ ni() {
 
 # Add a new dependency.
 # Usage: na <package_name>
+unalias na &>/dev/null
+unset -f na &> /dev/null
 na() {
   local pm=$(_n_get_manager)
   echo "-> Using '$pm' to add '$1'..."
@@ -51,6 +55,8 @@ na() {
 
 # Add a new dev dependency.
 # Usage: nad <package_name>
+unalias nad &>/dev/null
+unset -f nad &> /dev/null
 nad() {
   local pm=$(_n_get_manager)
   echo "-> Using '$pm' to add '$1' as a dev dependency..."
@@ -63,6 +69,8 @@ nad() {
 
 # Remove a dependency.
 # Usage: nrm <package_name>
+unalias nrm &>/dev/null
+unset -f nrm &> /dev/null
 nrm() {
   local pm=$(_n_get_manager)
   echo "-> Using '$pm' to remove '$1'..."
@@ -76,6 +84,8 @@ nrm() {
 # Run a script from package.json.
 # This function is smarter and provides an interactive menu if no script is specified.
 # Usage: nr [script_name] [args] | nr
+unalias nr &>/dev/null
+unset -f nr &> /dev/null
 nr() {
   if [ -z "$1" ]; then
     # Interactive mode if no script name is provided
@@ -109,6 +119,8 @@ alias nrd='nr dev'
 
 # Upgrade dependencies (interactive for yarn/pnpm, outdated for npm).
 # Usage: nup
+unalias nup &>/dev/null
+unset -f nup &> /dev/null
 nup() {
   local pm=$(_n_get_manager)
   echo "-> Using '$pm' to handle upgrades..."
@@ -126,6 +138,8 @@ nup() {
 # A powerful command to completely clean the project workspace.
 # Removes node_modules and all lockfiles.
 # Usage: n-clean
+unalias n-clean &>/dev/null
+unset -f n-clean &> /dev/null
 n-clean() {
   read -p "This will remove node_modules/ and lockfiles. Are you sure? [y/N] " -n 1 -r
   echo
@@ -144,6 +158,8 @@ n-reinstall() {
 
 # An inspector to find out why a package is installed.
 # Usage: n-why <package_name>
+unalias n-why &>/dev/null
+unset -f n-why &> /dev/null
 n-why() {
     local pm=$(_n_get_manager)
     if [ "$pm" = "npm" ]; then
@@ -155,7 +171,7 @@ n-why() {
 
 # Global package management (these don't need detection).
 alias nrlsg='npm list -g --depth=0'
-alias nrig='npm install -g'
+alias nig='npm install -g'
 alias nrug='npm uninstall -g'
 
 # -----------------------------------------------------------------------------

@@ -1,24 +1,41 @@
 # 🧙‍♂️ bash-wizardry
 
-### Tu terminal, con superpoderes.
+### Tu terminal, con superpoderes. Simple, seguro y bajo tu control.
 
-`bash-wizardry` no es solo una colección de alias. Es un framework de productividad para tu línea de comandos que aprende tus flujos de trabajo, te protege de errores y unifica las herramientas que usas a diario.
+Una suite de herramientas para la línea de comandos diseñada para ser **simple, segura y estar bajo tu control**. `bash-wizardry` transforma comandos largos y flujos de trabajo repetitivos en hechizos cortos e inteligentes, sin modificar nunca tu sistema de forma automática.
 
-## 🤔 ¿Por qué `bash-wizardry`?
+## ✨ Filosofía y Características
 
 *   🧠 **Inteligente y Contextual:** Comandos como `nr` te dan un menú interactivo de tus scripts, y `ni` sabe si tu proyecto usa `npm`, `yarn` o `pnpm`.
-*   🛡️ **Seguro por Defecto:** Operaciones destructivas como `git branch -D`, `git reset` o la limpieza de Docker ahora piden confirmación. Di adiós al "¡Uy!".
-*   🌐 **Unificado y Simple:** Usa el mismo comando (`na`, `nr`, `n-clean`) en todos tus proyectos de Node.js. Memoriza un set de herramientas, no tres.
+*   🛡️ **Seguro por Defecto:** Operaciones destructivas como `git branch -D` o `git reset` ahora piden confirmación, protegiéndote de errores.
+*   🌐 **Unificado y Simple:** Usa el mismo comando (`na`, `nr`, `n-clean`) en todos tus proyectos de Node.js.
+*   🚫 **Sin Magia Negra: 100% Transparente:** No hay instaladores que modifican tus archivos de configuración sin que lo sepas. Tú tienes el control total sobre la instalación, que consiste en una sola línea en tu `.zshrc` o `.bashrc`.
 *   🚀 **Hecho para la Velocidad:** Flujos de trabajo completos, como sincronizar una rama (`gup`) o resetear una base de datos de Rails (`rdbreset`), se reducen a un solo comando.
 
-## 🚀 Instalación Rápida
+## 🚀 Instalación Manual (El Método Seguro y Recomendado)
 
-Pega esto en tu terminal. La magia se encargará del resto.
+La instalación es un proceso manual de dos pasos que te da control total y tarda menos de 30 segundos.
 
+**Paso 1: Clona el Repositorio**
+
+Elige un lugar permanente para el código. `~/.bash-wizardry` es una buena convención.
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh)"
+git clone https://github.com/CarlosLeonCode/bash-wizardry.git ~/.bash-wizardry
 ```
-> Después, **reinicia tu terminal** o ejecuta `source ~/.bashrc` (o `~/.zshrc`).
+
+**Paso 2: Conecta tu Shell**
+
+Abre tu archivo de configuración (`~/.zshrc` para Zsh o `~/.bashrc` para Bash) y añade la siguiente línea **al final del archivo**:
+
+```bash
+# ~/.zshrc o ~/.bashrc
+
+# ... (otro contenido de tu configuración) ...
+
+# Cargar bash-wizardry
+source ~/.bash-wizardry/init.sh
+```
+Después, **reinicia tu terminal** y todos los comandos estarán disponibles.
 
 ---
 
@@ -80,28 +97,25 @@ El sistema detecta automáticamente qué gestor usar. ¡Los mismos comandos para
 
 ---
 
-## 🛠️ Scripts Independientes
+## 🔄 Actualización
 
-Herramientas que puedes ejecutar desde cualquier lugar, como `docker-cleanup.sh`:
-
+Cuando quieras actualizar `bash-wizardry` a la última versión, simplemente haz un `pull` en el repositorio:
 ```sh
-# Limpiar solo contenedores y volúmenes, sin pedir confirmación
-docker-cleanup.sh --containers --volumes --force
-
-# Limpiar todas las imágenes no usadas (no solo las "dangling")
-docker-cleanup.sh --images --deep
+cd ~/.bash-wizardry && git pull
 ```
+Reinicia tu terminal para que los nuevos cambios se carguen.
 
-## ⚙️ Configuración y Personalización
+## 🛠️ Desarrollo y Pruebas Locales
 
-El script de instalación crea automáticamente tu archivo de configuración personal en `~/.bash-wizardry/config.sh`. Puedes editar este archivo en cualquier momento para habilitar o deshabilitar los módulos que necesites.
+¿Quieres añadir tu propia magia o probar cambios de forma segura?
 
-Por ejemplo, para desactivar el módulo de Django:
-```bash
-# Abre el archivo ~/.bash-wizardry/config.sh y cambia la línea:
-WIZADRY_DJANGO_ENABLED="false"
-```
-Los cambios se aplicarán la próxima vez que abras una nueva terminal.
+1.  Navega al directorio donde clonas tus proyectos para desarrollo (ej. `~/Dev/bash-wizardry`).
+2.  Abre una terminal limpia en esa ubicación.
+3.  Carga el sistema en tu sesión actual con el comando:
+    ```sh
+    source init.sh
+    ```
+4.  ¡Listo! Ahora puedes probar todos los alias y funciones. Cuando hagas un cambio en el código, simplemente vuelve a ejecutar `source init.sh` para recargar.
 
 ## 🤝 Contribuye
 

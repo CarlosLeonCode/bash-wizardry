@@ -40,6 +40,8 @@ alias rdr='rails db:rollback'
 # Destructive operations converted to safe functions with confirmation.
 # Drops the database after asking for confirmation.
 # Usage: rdbd
+unalias rdbd &>/dev/null
+unset -f rdbd &> /dev/null
 rdbd() {
   read -p "Are you sure you want to drop the database? [y/N] " -n 1 -r
   echo
@@ -51,6 +53,8 @@ rdbd() {
 # A powerful function to completely reset the database.
 # It drops, creates, migrates, and seeds. Very common in development.
 # Usage: rdbreset
+unalias rdbreset &>/dev/null
+unset -f rdbreset &> /dev/null
 rdbreset() {
   read -p "This will DROP, CREATE, MIGRATE, and SEED the database. Are you sure? [y/N] " -n 1 -r
   echo
@@ -67,7 +71,9 @@ alias rr='rails routes'
 
 # A smart function to filter routes. It's case-insensitive.
 # Usage: rrg <pattern> (e.g., rrg user)
-rrg() {
+unalias rrts &>/dev/null
+unset -f rrts &> /dev/null
+rrts() {
   if [ -z "$1" ]; then
     # Show all routes if no pattern is provided
     rails routes
@@ -90,6 +96,8 @@ alias rspec='bundle exec rspec' # Essential shortcut for projects using RSpec.
 # A flexible log tailer. Defaults to the development log but can accept
 # an environment name as an argument.
 # Usage: rlog | rlog test
+unalias rlog &>/dev/null
+unset -f rlog &> /dev/null
 rlog() {
   local env=${1:-development}
   local log_file="log/${env}.log"
