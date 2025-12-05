@@ -30,6 +30,8 @@ alias be='bundle exec'
 # A more versatile test runner.
 # It automatically detects if RSpec or Minitest is in the bundle and runs the correct command.
 # Usage: btest [path_to_spec_or_test_file]
+unalias btest &>/dev/null
+unset -f btest &> /dev/null
 btest() {
   if bundle list | grep -q 'rspec-core'; then
     echo "-> RSpec detected. Running 'bundle exec rspec $@'..."
@@ -59,6 +61,8 @@ _rb_get_manager() {
 
 # Unified command to list installed Ruby versions.
 # Usage: rb-v
+unalias rb-v &>/dev/null
+unset -f rb-v &> /dev/null
 rb-v() {
   case $(_rb_get_manager) in
     "asdf") asdf list ruby ;;
@@ -70,6 +74,8 @@ rb-v() {
 
 # Unified command to set the global Ruby version.
 # Usage: rb-glo <version>
+unalias rb-glo &>/dev/null
+unset -f rb-glo &> /dev/null
 rb-glo() {
   if [ -z "$1" ]; then
     echo "Usage: rb-global <version>" >&2
@@ -85,6 +91,8 @@ rb-glo() {
 
 # Unified command to set the local (project-specific) Ruby version.
 # Usage: rb-local <version>
+unalias rb-lcl &>/dev/null
+unset -f rb-lcl &> /dev/null
 rb-lcl() {
   if [ -z "$1" ]; then
     echo "Usage: rb-local <version>" >&2
@@ -109,6 +117,8 @@ rb-lcl() {
 
 # A single command to show all relevant versions.
 # Usage: rb-info
+unalias rb-info &>/dev/null
+unset -f rb-info &> /dev/null
 rb-info() {
   echo -e "Ruby Version:"
   ruby -v

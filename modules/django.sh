@@ -13,6 +13,8 @@
 # This avoids repeating 'python manage.py' and checks if the file exists.
 # All other aliases and functions should use this as their base.
 # Usage: djm <command> [args]
+unalias djm &>/dev/null
+unset -f djm &> /dev/null
 djm() {
   if [ ! -f "manage.py" ]; then
     echo "Error: 'manage.py' not found in the current directory." >&2
@@ -27,6 +29,8 @@ djm() {
 
 # Runs the development server. If an argument is provided, it's used as the port.
 # Usage: djrs | djrs 8080
+unalias djrs &>/dev/null
+unset -f djrs &> /dev/null
 djrs() {
   local port=${1:-8000} # Default to port 8000
   djm runserver "0.0.0.0:${port}"
@@ -35,6 +39,8 @@ djrs() {
 # Creates migrations. If an app name is provided, it targets that app.
 # If a second argument is provided, it's used to auto-name the migration file.
 # Usage: djmm | djmm users | djmm users "add_user_profile"
+unalias djmm &>/dev/null
+unset -f djmm &> /dev/null
 djmm() {
   if [ -z "$1" ]; then
     djm makemigrations
@@ -56,6 +62,8 @@ alias djcsu='djm createsuperuser'
 
 # Runs tests. If an argument is provided, it targets a specific app or test case.
 # Usage: djt | djt my_app.tests.test_views
+unalias djt &>/dev/null
+unset -f djt &> /dev/null
 djt() {
   if [ -z "$1" ]; then
     djm test
@@ -67,6 +75,8 @@ djt() {
 # Opens the enhanced Django shell from django-extensions if available.
 # This shell auto-imports all your models, which is a huge time-saver.
 # Usage: djshell
+unalias djshell &>/dev/null
+unset -f djshell &> /dev/null
 djshell() {
   if djm shell_plus --version &> /dev/null; then
     echo "Found django-extensions. Starting shell_plus..."
@@ -89,6 +99,8 @@ alias djddt='djm dumpdata'
 # Starts an app and automatically tries to add it to INSTALLED_APPS
 # in the most common settings file patterns ('settings.py' or 'base.py').
 # Usage: djstartapp <app_name>
+unalias djstartapp &>/dev/null
+unset -f djstartapp &> /dev/null
 djstartapp() {
   if [ -z "$1" ]; then
     echo "Error: App name must be provided." >&2
@@ -117,6 +129,8 @@ djstartapp() {
 # Deletes migration files for a specific app.
 # Extremely useful in early development but very destructive. Requires confirmation.
 # Usage: djflushmigrations <app_name>
+unalias djflushmigrations &>/dev/null
+unset -f djflushmigrations &> /dev/null
 djflushmigrations() {
   if [ -z "$1" ]; then
     echo "Error: App name must be provided." >&2
