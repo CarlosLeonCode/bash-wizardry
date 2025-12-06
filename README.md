@@ -1,4 +1,8 @@
 # 🧙‍♂️ bash-wizardry
+<p align="center">
+<img width="250" height="250" alt="Untitled design" src="https://github.com/user-attachments/assets/0ecc72f6-e94f-45f5-a0cf-a47ee32297b1" />
+
+</p>
 
 ### Tu terminal, con superpoderes. Simple, seguro y bajo tu control.
 
