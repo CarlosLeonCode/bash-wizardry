@@ -187,3 +187,11 @@ gclean() {
     echo "Cleaning branches merged into origin/$default_branch..."
     git branch --merged "origin/$default_branch" | grep -v "\* $default_branch" | xargs -r git branch -d
 }
+
+# -----------------------------------------------------------------------------
+#  TAGS MANAGEMENT
+# -----------------------------------------------------------------------------
+
+alias gtagls='git tag -l'
+alias gtagd='git tag -d'
+alias gtagp='git push --tags'
