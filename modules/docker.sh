@@ -98,10 +98,10 @@ _dckr_manage_container() {
   docker "$action" "$container_id"
 }
 
-dckrstop() { _dkr_manage_container "stop" "$1"; }
-dckrstart() { _dkr_manage_container "start" "$1"; }
-dckrrestart() { _dkr_manage_container "restart" "$1"; }
-dckrrm() { _dkr_manage_container "rm" "$1"; }
+dckrstop() { _dckr_manage_container "stop" "$1"; }
+dckrstart() { _dckr_manage_container "start" "$1"; }
+dckrrestart() { _dckr_manage_container "restart" "$1"; }
+dckrrm() { _dckr_manage_container "rm" "$1"; }
 
 # -----------------------------------------------------------------------------
 #  CLEANUP & UTILITY FUNCTIONS
@@ -110,8 +110,6 @@ dckrrm() { _dkr_manage_container "rm" "$1"; }
 # Safely prunes the Docker system. It explains what it does and asks for confirmation.
 # The original alias used '-af' which can be too aggressive without confirmation.
 # Usage: dckrprune
-unalias dckrprune &>/dev/null
-unset -f dckrprune &> /dev/null
 dckrprune() {
   read -p "This will remove all stopped containers, unused networks, and dangling images. Are you sure? [y/N] " -n 1 -r
   echo
@@ -122,8 +120,6 @@ dckrprune() {
 
 # It asks for confirmation before cleaning each resource type.
 # Usage: dckrclean
-unalias dckrclean &>/dev/null
-unset -f dckrclean &> /dev/null
 dckrclean() {
   echo "This script will help you clean up Docker resources."
 
@@ -143,5 +139,9 @@ dckrclean() {
 # Very useful for development and debugging.
 # Usage: dckrip
 dckrip() {
+  if [ -z "$(docker ps -q)" ]; then
+    echo "No running containers found." >&2
+    return 1
+  fi
   docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q)
 }

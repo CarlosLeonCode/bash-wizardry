@@ -1,130 +1,144 @@
 # 🧙‍♂️ bash-wizardry
-<p align="center">
-<img width="250" height="250" alt="Untitled design" src="https://github.com/user-attachments/assets/0ecc72f6-e94f-45f5-a0cf-a47ee32297b1" />
 
+<p align="center">
+<img width="250" height="250" alt="bash-wizardry logo" src="https://github.com/user-attachments/assets/0ecc72f6-e94f-45f5-a0cf-a47ee32297b1" />
 </p>
 
-### Tu terminal, con superpoderes. Simple, seguro y bajo tu control.
+### Your terminal, with superpowers. Simple, secure, and under your control.
 
-Una suite de herramientas para la línea de comandos diseñada para ser **simple, segura y estar bajo tu control**. `bash-wizardry` transforma comandos largos y flujos de trabajo repetitivos en hechizos cortos e inteligentes, sin modificar nunca tu sistema de forma automática.
+A suite of command-line tools designed to be **simple, secure, and under your control**. `bash-wizardry` transforms long commands and repetitive workflows into short, intelligent spells without ever automatically modifying your system.
 
-## ✨ Filosofía y Características
+## ✨ Philosophy & Features
 
-*   🧠 **Inteligente y Contextual:** Comandos como `nr` te dan un menú interactivo de tus scripts, y `ni` sabe si tu proyecto usa `npm`, `yarn` o `pnpm`.
-*   🛡️ **Seguro por Defecto:** Operaciones destructivas como `git branch -D` o `git reset` ahora piden confirmación, protegiéndote de errores.
-*   🌐 **Unificado y Simple:** Usa el mismo comando (`na`, `nr`, `n-clean`) en todos tus proyectos de Node.js.
-*   🚫 **Sin Magia Negra: 100% Transparente:** No hay instaladores que modifican tus archivos de configuración sin que lo sepas. Tú tienes el control total sobre la instalación, que consiste en una sola línea en tu `.zshrc` o `.bashrc`.
-*   🚀 **Hecho para la Velocidad:** Flujos de trabajo completos, como sincronizar una rama (`gup`) o resetear una base de datos de Rails (`rdbreset`), se reducen a un solo comando.
+*   🧠 **Intelligent & Contextual:** Commands like `nr` give you an interactive menu of your scripts, and `ni` knows if your project uses `npm`, `yarn`, or `pnpm`.
+*   🛡️ **Secure by Default:** Destructive operations like `git branch -D` or `git reset` now ask for confirmation, protecting you from mistakes.
+*   🌐 **Unified & Simple:** Use the same command (`na`, `nr`, `n-clean`) across all your Node.js projects.
+*   🚫 **No Black Magic: 100% Transparent:** No installers that modify your config files without you knowing. You have total control over the installation, which consists of just one line in your `.zshrc` or `.bashrc`.
+*   🚀 **Built for Speed:** Complete workflows, like syncing a branch (`gup`) or resetting a Rails database (`rdbreset`), are reduced to a single command.
 
-## 🚀 Instalación Manual (El Método Seguro y Recomendado)
+## 🚀 Installation (The Safe & Recommended Way)
 
-La instalación es un proceso manual de dos pasos que te da control total y tarda menos de 30 segundos.
+You can install `bash-wizardry` with a single command that does everything for you safely.
 
-**Paso 1: Clona el Repositorio**
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
+```
 
-Elige un lugar permanente para el código. `~/.bash-wizardry` es una buena convención.
-```sh
+### Manual Installation
+
+If you prefer full control, follow these two steps:
+
+**Step 1: Clone the Repository**
+
+Choose a permanent location for the code. `~/.bash-wizardry` is a good convention.
+
+```bash
 git clone https://github.com/CarlosLeonCode/bash-wizardry.git ~/.bash-wizardry
 ```
 
-**Paso 2: Conecta tu Shell**
+**Step 2: Connect your Shell**
 
-Abre tu archivo de configuración (`~/.zshrc` para Zsh o `~/.bashrc` para Bash) y añade la siguiente línea **al final del archivo**:
+Open your configuration file (`~/.zshrc` for Zsh or `~/.bashrc` for Bash) and add the following line **at the end of the file**:
 
 ```bash
-# ~/.zshrc o ~/.bashrc
+# ~/.zshrc or ~/.bashrc
 
-# ... (otro contenido de tu configuración) ...
-
-# Cargar bash-wizardry
+# Load bash-wizardry
 source ~/.bash-wizardry/init.sh
 ```
-Después, **reinicia tu terminal** y todos los comandos estarán disponibles.
+
+Then, **restart your terminal** and all commands will be available.
 
 ---
 
-## ✨ Un Vistazo a la Magia
+## ✨ A Glimpse of the Magic
 
-Haz clic en cada módulo para descubrir algunos de sus hechizos más poderosos.
+Click on each module to discover some of its most powerful spells.
 
 <details>
-<summary><b>🐙 Módulo de Git</b></summary>
+<summary><b>🐙 Git Module</b></summary>
 
-| Comando | Descripción |
+| Command | Description |
 | :--- | :--- |
-| `gup` | **Sincroniza tu rama:** hace `pull --rebase` y luego `push`. Indispensable. |
-| `gclean` | Limpia tu repositorio local eliminando ramas que ya han sido fusionadas. |
-| `gundo` | Deshace el último commit, pero mantiene todos los cambios en tus archivos. |
-| `gbd <branch>` | Borra una rama local, **pidiendo confirmación**. |
-| `gco` + `Tab` | Autocompleta con nombres de ramas locales **y remotas**. |
+| `gup` | **Sync your branch:** performs `pull --rebase` and then `push`. Indispensable. |
+| `gclean` | Cleans your local repository by deleting branches that have already been merged. |
+| `gundo` | Undoes the last commit, but keeps all changes in your files. |
+| `gbd <branch>` | Deletes a local branch, **asking for confirmation**. |
+| `gco` + `Tab` | Autocompletes with local **and remote** branch names. |
 
 </details>
 
 <details>
-<summary><b>📦 Módulo de Node.js (npm/yarn/pnpm)</b></summary>
+<summary><b>📦 Node.js Module (npm/yarn/pnpm)</b></summary>
 
-El sistema detecta automáticamente qué gestor usar. ¡Los mismos comandos para todos tus proyectos!
+The system automatically detects which manager to use. The same commands for all your projects!
 
-| Comando | Descripción |
+| Command | Description |
 | :--- | :--- |
-| `ni` | Instala dependencias (`npm i`, `yarn`, o `pnpm i`). |
-| `na <pkg>` | Añade una nueva dependencia. |
-| `nr` | **Muestra un menú interactivo** para que elijas qué script ejecutar. |
-| `n-reinstall` | Soluciona el 99% de los problemas de dependencias (`rm -rf node_modules` y reinstala). |
-| `p i` | Usa `p`, `y`, o `n` para forzar el uso de un gestor de paquetes específico. |
+| `ni` | Installs dependencies (`npm i`, `yarn`, or `pnpm i`). |
+| `na <pkg>` | Adds a new dependency. |
+| `nr` | **Shows an interactive menu** for you to choose which script to run. |
+| `n-reinstall` | Solves 99% of dependency problems (`rm -rf node_modules` and reinstalls). |
+| `p i` | Use `p`, `y`, or `n` to force the use of a specific package manager. |
 
 </details>
 
 <details>
-<summary><b>🐳 Módulo de Docker</b></summary>
+<summary><b>🐳 Docker Module</b></summary>
 
-| Comando | Descripción |
+| Command | Description |
 | :--- | :--- |
-| `dkrinto` | Entra a un contenedor. **Muestra un menú interactivo** si no especificas un ID. |
-| `dkrlogs` | Muestra los logs de un contenedor. También es interactivo. |
-| `dkrclean` | Inicia un **asistente seguro e interactivo** para limpiar todo (contenedores, imágenes, volúmenes). |
-| `dkrip` | Muestra las direcciones IP de todos los contenedores en ejecución. |
+| `dkrinto` | Enters a container. **Shows an interactive menu** if you don't specify an ID. |
+| `dkrlogs` | Shows container logs. Also interactive. |
+| `dkrclean` | Starts a **secure and interactive wizard** to clean everything (containers, images, volumes). |
+| `dkrip` | Shows the IP addresses of all running containers. |
 
 </details>
 
 <details>
-<summary><b>🚂 Módulos de Backend (Django & Rails)</b></summary>
+<summary><b>🚂 Backend Modules (Django & Rails)</b></summary>
 
-| Comando | Descripción |
+| Command | Description |
 | :--- | :--- |
-| `djstartapp <app>`| (Django) Crea una app Y **la añade automáticamente a `INSTALLED_APPS`**. |
-| `djshell` | (Django) Inicia `shell_plus` con auto-importación de modelos si está disponible. |
-| `rdbreset` | (Rails) **Resetea toda la BD:** drop, create, migrate & seed (pide confirmación). |
-| `rcs` | (Rails) Abre una consola en modo `sandbox` (los cambios no se guardan). |
+| `djstartapp <app>`| (Django) Creates an app AND **automatically adds it to `INSTALLED_APPS`**. |
+| `djshell` | (Django) Starts `shell_plus` with model auto-import if available. |
+| `rdbreset` | (Rails) **Resets the entire DB:** drop, create, migrate & seed (asks for confirmation). |
+| `rcs` | (Rails) Opens a console in `sandbox` mode (changes are not saved). |
 
 </details>
 
 ---
 
-## 🔄 Actualización
+## 🔄 Updates
 
-Cuando quieras actualizar `bash-wizardry` a la última versión, simplemente haz un `pull` en el repositorio:
-```sh
+When you want to update `bash-wizardry` to the latest version, simply run:
+
+```bash
+bw-update
+```
+
+Or manually:
+
+```bash
 cd ~/.bash-wizardry && git pull
 ```
-Reinicia tu terminal para que los nuevos cambios se carguen.
 
-## 🛠️ Desarrollo y Pruebas Locales
+## 🛠️ Local Development & Testing
 
-¿Quieres añadir tu propia magia o probar cambios de forma segura?
+Want to add your own magic or test changes safely?
 
-1.  Navega al directorio donde clonas tus proyectos para desarrollo (ej. `~/Dev/bash-wizardry`).
-2.  Abre una terminal limpia en esa ubicación.
-3.  Carga el sistema en tu sesión actual con el comando:
-    ```sh
+1.  Navigate to the directory where you clone your development projects (e.g., `~/Dev/bash-wizardry`).
+2.  Open a clean terminal in that location.
+3.  Load the system into your current session:
+    ```bash
     source init.sh
     ```
-4.  ¡Listo! Ahora puedes probar todos los alias y funciones. Cuando hagas un cambio en el código, simplemente vuelve a ejecutar `source init.sh` para recargar.
+4.  Ready! Now you can test all aliases and functions. When you change code, simply run `source init.sh` again to reload.
 
-## 🤝 Contribuye
+## 🤝 Contributing
 
-¿Tienes tu propia magia? ¡Compártela! Haz un Fork, añade tu hechizo y envía un Pull Request.
+Do you have your own magic? Share it! Fork the repo, add your spell, and send a Pull Request.
 
-## 📜 Licencia
+## 📜 License
 
-[MIT](https://github.com/CarlosLeonCode/bash-wizardry/blob/main/LICENSE)
+[MIT](LICENSE)
