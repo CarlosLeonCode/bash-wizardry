@@ -89,6 +89,10 @@ unset -f nr &> /dev/null
 nr() {
   if [ -z "$1" ]; then
     # Interactive mode if no script name is provided
+    if ! command -v jq &> /dev/null; then
+        echo "Error: 'jq' is required for interactive mode. Please install it." >&2
+        return 1
+    fi
     local scripts=$(jq -r '.scripts | keys[]' package.json)
     if [ -z "$scripts" ]; then
         echo "No scripts found in package.json." >&2
