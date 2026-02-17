@@ -142,3 +142,9 @@ Do you have your own magic? Share it! Fork the repo, add your spell, and send a 
 ## 📜 License
 
 [MIT](LICENSE)
+
+## ☕ Support My Work
+
+If this project bring you value, you can support me here:
+
+[![☕ Support on Ko-fi](https://img.shields.io/badge/Support%20My%20Work%20on%20Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/carlosleoncode)
