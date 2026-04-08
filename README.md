@@ -50,6 +50,10 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
    ```bash
    source ~/.bash-wizardry/init.sh
    ```
+3. **Configure your spells (Optional):**
+   ```bash
+   cp ~/.bash-wizardry/config.env.example ~/.bash-wizardry/config.env
+   ```
 </details>
 
 > [!TIP]
