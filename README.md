@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-installation">Installation</a> •
   <a href="docs/en/getting-started.md">English Docs</a> •
   <a href="docs/es/empezando.md">Documentación en Español</a> •
   <a href="#-the-magic-arsenal">Modules</a>
@@ -30,16 +30,30 @@
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Installation
 
+### Simple (Recommended)
 Invoke the wizard with a single command:
-
 ```bash
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
 
+<details>
+<summary><b>Manual Installation (For Power Users)</b></summary>
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/CarlosLeonCode/bash-wizardry.git ~/.bash-wizardry
+   ```
+2. **Source the initializer:**
+   Add this line to the end of your `~/.zshrc` or `~/.bashrc`:
+   ```bash
+   source ~/.bash-wizardry/init.sh
+   ```
+</details>
+
 > [!TIP]
-> After installation, restart your terminal or run `source ~/.zshrc` (or `~/.bashrc`) to activate the magic.
+> After installation, restart your terminal or run `source ~/.zshrc` to activate the magic. For more details, see our [Full Setup Guide](docs/en/getting-started.md).
 
 ---
 
