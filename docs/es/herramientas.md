@@ -3,19 +3,19 @@
 bash-wizardry está dividido en módulos especializados. Cada uno puede activarse/desactivarse en `config.env`.
 
 ## 📂 Espacios de Trabajo (`ws`)
-*Navegación mágica.*
+*Navegación mágica.* [Ver detalles](modulos/workspaces.md)
 
 - **`ws [búsqueda]`**: Salta a un directorio de proyecto. Búsqueda interactiva con `fzf`.
 - **Hooks**: Soporta scripts `.bw-on-enter` en la raíz del proyecto.
 
 ## 📦 Node.js
-*Workflow universal de JS.*
+*Workflow universal de JS.* [Ver detalles](modulos/node.md)
 
 - **`ni`**, **`na`**, **`nr`**: Gestión agnóstica de paquetes (npm, yarn, pnpm).
 - **`n-reinstall`**: Elimina `node_modules` y reinstala desde cero.
 
 ## 🐙 Git
-*Historial rápido y seguro.*
+*Historial rápido y seguro.* [Ver detalles](modulos/git.md)
 
 - **`gup`**: La sincronización definitiva (`pull --rebase` + `push`).
 - **`gbd`**: Borrado seguro de ramas con confirmación.
