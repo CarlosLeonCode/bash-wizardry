@@ -29,7 +29,7 @@ fi
 # Helper to check if a module should be loaded (default: true)
 _bw_should_load() {
     local module_name=$(basename "$1" .sh)
-    local var_name="BW_ENABLE_${module_name^^}" # Bash 4.0+ uppercasing
+    local var_name="BW_ENABLE_$(echo "$module_name" | tr '[:lower:]' '[:upper:]')"
     if [ -z "${!var_name}" ]; then
         # If variable is unset, default to true
         return 0
