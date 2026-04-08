@@ -89,6 +89,12 @@ bw-update
 
 Distributed under the [MIT License](LICENSE). Built with ❤️ by developers, for developers.
 
+## ☕ Support My Work
+
+If this project brings you value, you can support me here:
+
+[![☕ Support on Ko-fi](https://img.shields.io/badge/Support%20My%20Work%20on%20Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/carlosleoncode)
+
 ---
 
 <p align="center">
