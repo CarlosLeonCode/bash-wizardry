@@ -34,4 +34,4 @@ If you want to force a specific manager:
 - **`p <cmd>`**: Force pnpm.
 
 ---
-[Back to Tools](../tools.md)
+[Back to Documentation Index](../README.md)

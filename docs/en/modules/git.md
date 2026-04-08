@@ -43,4 +43,4 @@ The "nuclear option" with a safety prompt.
 - **`gcob <new_branch>`**: Create and switch to a new branch.
 
 ---
-[Back to Tools](../tools.md)
+[Back to Documentation Index](../README.md)

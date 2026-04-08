@@ -32,4 +32,4 @@ Este módulo muestra consejos contextuales cada vez que entras en un directorio.
 - **Django/Rails**: Sugiere comandos de shell o base de datos.
 
 ---
-[Volver a Herramientas](../herramientas.md)
+[Volver al Índice](../README.md)

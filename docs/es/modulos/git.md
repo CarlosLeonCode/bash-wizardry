@@ -37,4 +37,4 @@ La "opción nuclear" con confirmación.
 - **`gca`**: Enmienda (amend) el último commit.
 
 ---
-[Volver a Herramientas](../herramientas.md)
+[Volver al Índice](../README.md)

@@ -35,4 +35,4 @@ The Discovery module provides context-aware tips every time you enter a director
 It scans for key files like `package.json`, `manage.py`, or `docker-compose.yml` and displays a subtle hint.
 
 ---
-[Back to Tools](../tools.md)
+[Back to Documentation Index](../README.md)

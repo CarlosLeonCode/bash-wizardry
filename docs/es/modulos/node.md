@@ -25,4 +25,4 @@ Cuando algo va mal con las dependencias.
 - **Qué hace:** Borra `node_modules` y el archivo lock (opcional), luego hace una instalación limpia.
 
 ---
-[Volver a Herramientas](../herramientas.md)
+[Volver al Índice](../README.md)

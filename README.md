@@ -11,9 +11,9 @@
 
 <p align="center">
   <a href="#-installation">Installation</a> •
-  <a href="docs/en/getting-started.md">English Docs</a> •
-  <a href="docs/es/empezando.md">Documentación en Español</a> •
-  <a href="#-the-magic-arsenal">Modules</a>
+  <a href="docs/en/README.md">English Docs</a> •
+  <a href="docs/es/README.md">Documentación (ES)</a> •
+  <a href="docs/en/changelog.md">What's New?</a>
 </p>
 
 ---
