@@ -30,7 +30,7 @@ The Discovery module provides context-aware tips every time you enter a director
 
 ### What it detects:
 - **Node.js**: Suggests `nr` for scripts.
-- **Docker**: Suggests `dkrlogs` or `dkrinto`.
+- **Docker**: Suggests `dckrexec`.
 - **Django/Rails**: Suggests shell or database commands.
 
 ### How it works:

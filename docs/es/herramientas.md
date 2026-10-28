@@ -24,9 +24,9 @@ bash-wizardry está dividido en módulos especializados. Cada uno puede activars
 ## 🐳 Docker
 *Gestión interactiva de contenedores.*
 
-- **`dkrinto`**: Entra en un contenedor (menú interactivo).
-- **`dkrclean`**: Asistente de limpieza segura.
-- **`dkrlogs`**: Streaming de logs interactivo.
+- **`dckrexec`**: Entra en un contenedor (menú interactivo).
+- **`dckrclean`**: Asistente de limpieza segura.
+- **`dckrlogs`**: Streaming de logs interactivo.
 
 ## 🌍 Selector de Entornos (`env-set`)
 *Gestión de archivos .env.*

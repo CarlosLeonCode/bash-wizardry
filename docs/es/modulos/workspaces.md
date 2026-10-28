@@ -30,7 +30,7 @@ Este módulo muestra consejos contextuales cada vez que entras en un directorio.
 
 ### Qué detecta:
 - **Node.js**: Sugiere `nr` para scripts.
-- **Docker**: Sugiere `dkrlogs` o `dkrinto`.
+- **Docker**: Sugiere `dckrexec`.
 - **Django/Rails**: Sugiere comandos de shell o base de datos.
 
 ---

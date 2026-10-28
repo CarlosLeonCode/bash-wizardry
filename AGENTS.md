@@ -31,7 +31,7 @@ The project is divided into specialized modules, each residing in the `modules/`
 | :--- | :--- | :--- |
 | **Git** | Streamlined syncing, branching, and safety. | `gup`, `gclean`, `gundo`, `gbd` |
 | **Node.js** | Manager-agnostic package & script management. | `ni`, `na`, `nr`, `n-reinstall` |
-| **Docker** | Interactive container interaction & cleanup. | `dkrinto`, `dkrlogs`, `dkrclean` |
+| **Docker** | Interactive container interaction & cleanup. | `dckrexec`, `dckrlogs`, `dckrclean` |
 | **Django** | Smart app creation and enhanced shell. | `djstartapp`, `djshell` |
 | **Rails** | Safe database resets and sandbox consoles. | `rdbreset`, `rcs` |
 | **Ruby** | Version management and gem shortcuts. | `bi`, `be` |

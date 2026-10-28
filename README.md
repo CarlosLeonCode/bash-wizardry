@@ -70,7 +70,7 @@ Our specialized modules cover every aspect of the modern developer's life.
 | **Workspaces** | `ws`       | Fast navigation & automation hooks.           |   [EN](docs/en/tools.md#📂-workspaces-ws) / [ES](docs/es/herramientas.md#📂-espacios-de-trabajo-ws)    |
 | **Git**        | `gup`      | Linear history sync & safe branch management. |                  [EN](docs/en/tools.md#🐙-git) / [ES](docs/es/herramientas.md#🐙-git)                  |
 | **Node.js**    | `nr`       | Manager-agnostic script execution.            |              [EN](docs/en/tools.md#📦-node-js) / [ES](docs/es/herramientas.md#📦-node-js)              |
-| **Docker**     | `dkrinto`  | Interactive container shell & cleanup.        |               [EN](docs/en/tools.md#🐳-docker) / [ES](docs/es/herramientas.md#🐳-docker)               |
+| **Docker**     | `dckrexec`  | Interactive container shell & cleanup.        |               [EN](docs/en/tools.md#🐳-docker) / [ES](docs/es/herramientas.md#🐳-docker)               |
 | **Env**        | `env-set`  | Secure environment file switcher.             | [EN](docs/en/tools.md#🌍-env-switcher) / [ES](docs/es/herramientas.md#🌍-selector-de-entornos-env-set) |
 
 ---
