@@ -32,7 +32,7 @@ The project uses a `config.env` file in the root directory. You can enable or di
 ## 🧙‍♂️ Basic Usage
 
 - **`bw-help`**: Shows available modules and general help.
-- **`bw-update`**: Pulls the latest changes and reloads the system.
+- **`bw-update`**: Pulls the latest changes (fast-forward only) and reloads the system in your current shell. If you have local changes that block the update, it reports an error instead.
 - **`ws`**: Jump between your workspaces.
 
 ## 🛡️ Safety First

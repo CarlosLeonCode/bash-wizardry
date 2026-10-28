@@ -109,17 +109,33 @@ djstartapp() {
 
   djm startapp "$1"
 
-  # Attempt to find the settings file
-  local settings_file=$(find . -name "settings.py" -o -name "base.py" | head -n 1)
+  # Attempt to find the settings file, skipping virtualenvs and dependencies
+  # so we never edit a library file (e.g. some package's base.py).
+  local settings_file
+  settings_file=$(find . \( -name .git -o -name node_modules -o -name .venv -o -name venv \
+      -o -name env -o -name site-packages -o -name __pycache__ \) -prune \
+      -o -type f \( -name settings.py -o -path '*/settings/base.py' \) -print | head -n 1)
 
   if [ -n "$settings_file" ]; then
     echo "-> Found settings file: $settings_file"
-    # Add the app name to INSTALLED_APPS (works on most standard formats)
-    if ! grep -q "'$1'," "$settings_file"; then
-        sed -i "/^INSTALLED_APPS = \[/a \ \ \ \ '$1'," "$settings_file"
-        echo "-> Successfully added '$1' to INSTALLED_APPS."
-    else
+    if grep -q "'$1'," "$settings_file"; then
         echo "-> '$1' already found in INSTALLED_APPS."
+    elif ! grep -q '^INSTALLED_APPS = \[' "$settings_file"; then
+        echo "Warning: 'INSTALLED_APPS = [' not found in $settings_file. Please add '$1' to INSTALLED_APPS manually."
+    else
+        # Portable insert (BSD and GNU): awk into a temp file, then copy the
+        # content back so the settings file keeps its original permissions.
+        local tmp_file
+        tmp_file=$(mktemp) || return 1
+        if awk -v app="$1" '{ print } /^INSTALLED_APPS = \[/ { print "    '"'"'" app "'"'"'," }' \
+            "$settings_file" > "$tmp_file" && cat "$tmp_file" > "$settings_file"; then
+            rm -f "$tmp_file"
+            echo "-> Successfully added '$1' to INSTALLED_APPS."
+        else
+            rm -f "$tmp_file"
+            echo "Warning: Could not update $settings_file. Please add '$1' to INSTALLED_APPS manually." >&2
+            return 1
+        fi
     fi
   else
     echo "Warning: Could not find settings file. Please add '$1' to INSTALLED_APPS manually."

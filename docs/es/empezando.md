@@ -32,7 +32,7 @@ El proyecto utiliza un archivo `config.env` en la raíz. Puedes activar o desact
 ## 🧙‍♂️ Uso Básico
 
 - **`bw-help`**: Muestra los módulos disponibles y ayuda general.
-- **`bw-update`**: Descarga los últimos cambios y recarga el sistema.
+- **`bw-update`**: Descarga los últimos cambios (solo fast-forward) y recarga el sistema en tu shell actual. Si tienes cambios locales que bloquean la actualización, muestra un error.
 - **`ws`**: Salta entre tus espacios de trabajo.
 
 ## 🛡️ Seguridad Ante Todo
