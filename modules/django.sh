@@ -142,9 +142,7 @@ djflushmigrations() {
     return 1
   fi
 
-  read -p "Are you sure you want to delete all migrations in '$migration_dir' (except __init__.py)? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "Are you sure you want to delete all migrations in '$migration_dir' (except __init__.py)?"; then
     find "$migration_dir" -type f -name "*.py" -not -name "__init__.py" -delete
     find "$migration_dir" -type f -name "*.pyc" -delete
     echo "Migration files for app '$1' have been deleted."

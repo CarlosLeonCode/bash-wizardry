@@ -83,19 +83,8 @@ gbd() {
     return 1
   fi
 
-  # Shell-agnostic prompt logic to ask for confirmation.
-  local confirmation_response
-  if [ -n "$ZSH_VERSION" ]; then
-    # Zsh native syntax for prompts is '?prompt_string'
-    read -k 1 -r "confirmation_response?Are you sure you want to force-delete branch '$1'? [y/N] "
-  else
-    # Bash standard syntax using -p
-    read -p "Are you sure you want to force-delete branch '$1'? [y/N] " -n 1 -r confirmation_response
-  fi
-  echo # Move to a new line after the user's input
-
-  # The logic to check the response remains the same.
-  if [[ "$confirmation_response" =~ ^[Yy]$ ]]; then
+  # Shell-agnostic confirmation (see _bw_confirm in init.sh).
+  if _bw_confirm "Are you sure you want to force-delete branch '$1'?"; then
     git branch -D "$1"
   else
     echo "Deletion cancelled."
@@ -161,9 +150,7 @@ alias ginit='git init'
 unalias greset &>/dev/null
 unset -f greset &> /dev/null
 greset() {
-  read -p "Are you sure you want to discard all local changes? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "Are you sure you want to discard all local changes?"; then
     git reset --hard HEAD
   fi
 }

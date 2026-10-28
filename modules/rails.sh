@@ -23,7 +23,7 @@ alias r='rails'
 alias rc='rails console'
 alias rcs='rails console --sandbox'
 alias rs='rails server'
-alias rg='rails generate'
+alias rgen='rails generate'
 alias rst='rails stats'
 
 # -----------------------------------------------------------------------------
@@ -43,9 +43,7 @@ alias rdr='rails db:rollback'
 unalias rdbd &>/dev/null
 unset -f rdbd &> /dev/null
 rdbd() {
-  read -p "Are you sure you want to drop the database? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "Are you sure you want to drop the database?"; then
     be rails db:drop
   fi
 }
@@ -56,9 +54,7 @@ rdbd() {
 unalias rdbreset &>/dev/null
 unset -f rdbreset &> /dev/null
 rdbreset() {
-  read -p "This will DROP, CREATE, MIGRATE, and SEED the database. Are you sure? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "This will DROP, CREATE, MIGRATE, and SEED the database. Are you sure?"; then
     be rails db:drop && be rails db:create && be rails db:migrate && be rails db:seed
   fi
 }

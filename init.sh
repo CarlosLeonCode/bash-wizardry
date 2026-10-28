@@ -25,6 +25,20 @@ if [ -f "${WIZARDRY_DIR}/config.env" ]; then
     source "${WIZARDRY_DIR}/config.env"
 fi
 
+# --- Shared Helpers ---
+# Shell-agnostic y/N confirmation. Returns 0 only on 'y' or 'Y'.
+# Usage: _bw_confirm "Delete everything?" && rm -rf ...
+_bw_confirm() {
+    local reply
+    if [ -n "$ZSH_VERSION" ]; then
+        read -k 1 -r "reply?$1 [y/N] "
+    else
+        read -p "$1 [y/N] " -n 1 -r reply
+    fi
+    echo
+    [[ "$reply" =~ ^[Yy]$ ]]
+}
+
 # --- Load Modules ---
 # Helper to check if a module should be loaded (default: true)
 _bw_should_load() {
