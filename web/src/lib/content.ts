@@ -307,6 +307,13 @@ export const features: Feature[] = [
     command: "nr",
   },
   {
+    icon: "🤖",
+    title: "Agent-safe by default",
+    description:
+      "Invisible to AI coding agents: in non-interactive or agent shells only scripts/ joins your PATH. And no spell ever shadows a real command, builtin or keyword.",
+    command: "bw-help",
+  },
+  {
     icon: "⚡",
     title: "Pure shell",
     description:
@@ -493,7 +500,11 @@ export const spellbook: SpellbookModule[] = [
         spells: [
           { cmd: "rc", description: "Rails console." },
           { cmd: "rcs", description: "Rails console in sandbox mode." },
-          { cmd: "rs", description: "Rails server." },
+          {
+            cmd: "rs",
+            description:
+              "Rails server (skipped where an rs command exists, like macOS).",
+          },
           {
             cmd: "rgen",
             description:

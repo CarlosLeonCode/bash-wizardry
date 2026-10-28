@@ -38,5 +38,13 @@ El proyecto utiliza un archivo `config.env` en la raíz. Puedes activar o desact
 ## 🛡️ Seguridad Ante Todo
 Comandos como `gbd` (borrar rama) o `rdbreset` (resetear base de datos) siempre pedirán confirmación. ¡Úsalos sin miedo!
 
+### 🤖 Agentes de IA y colisiones de comandos
+- **Modo agente:** cuando la shell no es interactiva o existe una variable conocida de agente (como `CLAUDECODE`), `init.sh` solo agrega `scripts/` al `PATH` y se detiene. Los agentes de programación con IA nunca ven los alias, funciones ni hooks de bash-wizardry.
+- **Protección contra colisiones:** cualquier comando que ocultaría un comando real, un builtin o una palabra reservada (por ejemplo `rs` frente a `/usr/bin/rs`, o `r` en Zsh) se omite al cargar. `bw-help` muestra los nombres omitidos.
+
+Opciones en `config.env`:
+- `BW_AGENT_MODE=auto` (`auto` detecta agentes, `1` siempre modo agente, `0` siempre carga completa)
+- `BW_ALLOW_OVERRIDE="rs"` (comandos separados por espacios que pueden ocultar comandos existentes)
+
 ---
 [Volver al README](../../README.md)

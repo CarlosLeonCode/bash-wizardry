@@ -75,6 +75,16 @@ Our specialized modules cover every aspect of the modern developer's life.
 
 ---
 
+## 🤖 Works alongside AI agents
+
+AI coding agents (Claude Code, Codex, Cursor, Gemini CLI...) often run their commands through your shell setup. bash-wizardry stays out of their way:
+
+- **Agent mode:** in non-interactive shells, or when a known agent variable such as `CLAUDECODE` is set, `init.sh` only adds `scripts/` to your `PATH`. No aliases, functions, hooks or completions are defined. Control it with `BW_AGENT_MODE=auto|1|0`.
+- **Collision guard:** a spell is skipped if it would shadow a real command, builtin or keyword (for example `rs` vs `/usr/bin/rs`, or `r` in Zsh). That is also why `rails generate` is `rgen`, so ripgrep's `rg` keeps working. Run `bw-help` to see what was skipped.
+- **Your call:** keep a skipped spell with `BW_ALLOW_OVERRIDE="rs r"` in `config.env`.
+
+---
+
 ## 🔄 Stay Updated
 
 The wizard is always learning. Keep your tools sharp with:

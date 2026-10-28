@@ -83,7 +83,10 @@ graph TD
 ### Loading Flow
 1. User sources `init.sh` in their shell profile.
 2. `init.sh` detects its own absolute path to ensure portability.
-3. It exports `scripts/` to the global `PATH`.
-4. It reads `config.env` to check which modules are enabled (e.g., `BW_ENABLE_DOCKER=true`).
-5. It loops through `modules/*.sh` and sources each one if enabled.
-6. Custom shell completions from `completions/` are loaded to assist the user.
+3. It exports `scripts/` to the global `PATH` (idempotent on re-source).
+4. It reads `config.env` (module toggles such as `BW_ENABLE_DOCKER=true`, plus `BW_AGENT_MODE`, `BW_AGENT_ENV_VARS` and `BW_ALLOW_OVERRIDE`).
+5. **Agent mode:** if the shell is non-interactive or an agent variable (e.g. `CLAUDECODE`) is set (or `BW_AGENT_MODE=1`), it exports `BW_AGENT_ACTIVE=1` and returns early. Nothing else is defined: no aliases, functions, hooks or completions.
+6. It records the alias and function names that already exist, then loops through `modules/*.sh` and sources each one if enabled.
+7. **Collision sweep:** every alias or function added by this load that would shadow an executable on `PATH`, a builtin or a reserved word is removed (unless listed in `BW_ALLOW_OVERRIDE`) and recorded in `BW_SKIPPED_COMMANDS`. Names that existed before the load are never touched.
+8. Custom shell completions from `completions/` are loaded to assist the user.
+9. Core commands `bw-update` and `bw-help` are defined.

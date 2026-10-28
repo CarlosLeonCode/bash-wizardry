@@ -38,5 +38,13 @@ The project uses a `config.env` file in the root directory. You can enable or di
 ## 🛡️ Safety First
 Commands like `gbd` (delete branch) or `rdbreset` (reset database) will always ask for confirmation. Use them without fear!
 
+### 🤖 AI agents and command collisions
+- **Agent mode:** when the shell is non-interactive or a known agent variable (like `CLAUDECODE`) is set, `init.sh` only adds `scripts/` to your `PATH` and stops. AI coding agents never see bash-wizardry aliases, functions or hooks.
+- **Collision guard:** any spell that would shadow a real command, builtin or keyword (for example `rs` vs `/usr/bin/rs`, or `r` in Zsh) is skipped at load time. `bw-help` lists the skipped names.
+
+Settings in `config.env`:
+- `BW_AGENT_MODE=auto` (`auto` detects agents, `1` always agent mode, `0` always full load)
+- `BW_ALLOW_OVERRIDE="rs"` (space-separated spells allowed to shadow existing commands)
+
 ---
 [Return to README](../../README.md)
