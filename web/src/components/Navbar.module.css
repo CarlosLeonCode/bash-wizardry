@@ -1,0 +1,174 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  background: rgba(7, 6, 15, 0.72);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--nav-height);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 650;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.desktopNav {
+  display: none;
+}
+
+.links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.links a {
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.links a:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.github {
+  display: none;
+  min-height: 38px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.88rem;
+}
+
+.menuButton {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform 0.25s var(--ease-out), opacity 0.2s ease;
+}
+
+.menuIcon {
+  position: relative;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menuIcon::before {
+  transform: translateY(-6px);
+}
+
+.menuIcon::after {
+  transform: translateY(6px);
+}
+
+.header[data-open] {
+  background: rgba(7, 6, 15, 0.97);
+}
+
+.header[data-open] .menuIcon {
+  background: transparent;
+}
+
+.header[data-open] .menuIcon::before {
+  transform: rotate(45deg);
+}
+
+.header[data-open] .menuIcon::after {
+  transform: rotate(-45deg);
+}
+
+.mobileNav {
+  border-top: 1px solid var(--border);
+}
+
+.mobileNav ul {
+  list-style: none;
+  padding-block: 0.5rem 1rem;
+}
+
+.mobileNav a {
+  display: block;
+  padding: 0.85rem 0;
+  font-size: 1.05rem;
+  color: var(--text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Lives outside the header so it stays visible while the header is hidden. */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  pointer-events: none;
+  height: 2px;
+  background: var(--gradient);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: block;
+  }
+
+  .github {
+    display: inline-flex;
+  }
+
+  .menuButton,
+  .mobileNav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuIcon,
+  .menuIcon::before,
+  .menuIcon::after {
+    transition: none;
+  }
+}

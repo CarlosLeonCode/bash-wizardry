@@ -1,0 +1,133 @@
+.root {
+  max-width: 960px;
+  margin-inline: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  overflow: hidden;
+}
+
+.tablistWrap {
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tablistWrap::-webkit-scrollbar {
+  display: none;
+}
+
+.tablist {
+  display: flex;
+  gap: 0.25rem;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.6rem;
+}
+
+.tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab[aria-selected="true"] {
+  color: var(--text);
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.35);
+}
+
+.tab:focus-visible {
+  outline-offset: -2px;
+}
+
+.panel {
+  padding: 1.25rem 1rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .panel {
+    padding: 1.75rem 2rem 2rem;
+  }
+}
+
+.panel:focus-visible {
+  outline-offset: -4px;
+}
+
+.summary {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+
+.groups {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.groupTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  margin-bottom: 0.5rem;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+}
+
+.row {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cmd {
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: var(--warn);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  vertical-align: 0.1em;
+}

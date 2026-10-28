@@ -1,0 +1,93 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5rem, 12vw, 9rem);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .row {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 5rem;
+  }
+
+  .reverse .text {
+    order: 2;
+  }
+}
+
+.text {
+  min-width: 0;
+}
+
+.visual {
+  min-width: 0;
+}
+
+.index {
+  color: var(--text-subtle);
+}
+
+.title {
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.description {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.points {
+  margin-top: 1.25rem;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.points li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--text);
+  font-size: 0.97rem;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.65rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient);
+}
+
+.commands {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.commands code {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: rgba(192, 132, 252, 0.08);
+  color: var(--primary);
+  font-size: 0.82rem;
+}
