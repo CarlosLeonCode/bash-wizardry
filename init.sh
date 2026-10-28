@@ -64,6 +64,7 @@ if [ -n "$ZSH_VERSION" ]; then
     _bw_should_load() {
         local module_name=$(basename "$1" .sh)
         local var_name="BW_ENABLE_${module_name:u}" # Zsh uppercasing
+        # shellcheck disable=SC2296 # zsh-only expansion
         local val=${(P)var_name}
         if [ -z "$val" ] || [ "$val" = "true" ]; then
              return 0
