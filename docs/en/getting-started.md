@@ -17,6 +17,21 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
    echo "source ~/.bash-wizardry/init.sh" >> ~/.zshrc
    ```
 
+### Uninstall
+Remove bash-wizardry from your shell startup files and delete `~/.bash-wizardry`:
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash
+```
+Or run the copy you already have: `~/.bash-wizardry/uninstall.sh`.
+
+- It shows what it will change and asks before doing it (`--yes` skips the question).
+- Every edited file (`~/.zshrc`, `~/.bashrc`, `~/.bash_profile`) is backed up as `<file>.bw-backup.<timestamp>`.
+- Your config in `~/.config/bash-wizardry/` is kept. Add `--purge` to delete it too (your `config.env`, user modules and trusted hooks):
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash -s -- --purge
+  ```
+- Open a new terminal afterwards: spells already loaded in the current one stay until it closes.
+
 ## ⚙️ Configuration
 
 The project uses a `config.env` file in the root directory. You can enable or disable modules and set your own workspace paths.
