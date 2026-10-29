@@ -12,7 +12,8 @@ import { gsap, MOTION_OK, SplitText, useGSAP } from "@/lib/gsap";
  *   [data-hero-text]                headline text, typed char by char
  *   [data-hero-cursor]              resting block cursor after the headline
  *   [data-hero-typing-cursor]       cursor that follows the typing
- *   [data-hero-fade]                lead, install row, film pane and split panes
+ *   [data-hero-fade]                author signature, lead, install row, film
+ *                                   pane and split panes
  *   [data-pane-you] [data-boot-line] [data-cmd-line] [data-cmd]
  *   [data-pane-agent] [data-agent-step] [data-agent-out]
  */

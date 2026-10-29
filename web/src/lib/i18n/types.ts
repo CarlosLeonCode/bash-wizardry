@@ -116,6 +116,8 @@ export interface Dictionary {
   hero: {
     titleLines: [string, string];
     lead: [string, string];
+    /** Prefix before the author link in the hero, e.g. "created by". */
+    createdBy: string;
     copyInstall: string;
     viewSource: string;
     panesLabel: string;

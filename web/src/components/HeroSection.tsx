@@ -1,3 +1,4 @@
+import Image from "next/image";
 import CopyButton from "@/components/CopyButton";
 import HeroFilm from "@/components/HeroFilm";
 import HeroMotion from "@/components/HeroMotion";
@@ -5,6 +6,7 @@ import { LOGO_STACKED, LOGO_WIDE } from "@/lib/ascii";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import {
   AGENT_COMMANDS,
+  AUTHOR,
   HERO_FILM,
   INSTALL_COMMAND,
   REPO_URL,
@@ -54,6 +56,31 @@ export default function HeroSection({
             WIZARDRY
           </span>
         </div>
+
+        <a
+          className={styles.signature}
+          href={AUTHOR.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-hero-fade
+        >
+          <Image
+            className={styles.avatar}
+            src="/avatar-carlosleoncode.webp"
+            alt=""
+            width={40}
+            height={40}
+            priority
+          />
+          <span className={styles.sigText}>
+            <span className={styles.sigLabel}>{hero.createdBy}</span>
+            <span className={styles.sigHandle}>@{AUTHOR.handle}</span>
+          </span>
+          <span className={styles.sigUrl} aria-hidden="true">
+            carlosleoncode.com ↗
+          </span>
+          <span className="sr-only"> {t.common.newTab}</span>
+        </a>
 
         <h1 id="hero-title" className={styles.title} data-hero-title>
           <span className={styles.chevron} aria-hidden="true">

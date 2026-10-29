@@ -90,6 +90,7 @@ export const es: Dictionary = {
       `${SPELL_COUNT} hechizos que entienden el contexto para git, node, docker, rails y django.`,
       "bash/zsh puro. sin binarios. sin daemons. invisible para los agentes de IA.",
     ],
+    createdBy: "creado por",
     copyInstall: "Copiar el comando de instalación",
     viewSource: "ver el código",
     panesLabel:

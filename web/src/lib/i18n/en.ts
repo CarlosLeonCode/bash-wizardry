@@ -90,6 +90,7 @@ export const en: Dictionary = {
       `${SPELL_COUNT} context-aware spells for git, node, docker, rails & django.`,
       "pure bash/zsh. no binaries. no daemons. invisible to AI agents.",
     ],
+    createdBy: "created by",
     copyInstall: "Copy install command",
     viewSource: "view source",
     panesLabel:
