@@ -1,0 +1,66 @@
+name: Feature request
+description: Suggest a new spell or an improvement to an existing one.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Tip: you can try it first as a user module in `~/.config/bash-wizardry/modules/`, no fork needed.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do, and what makes it slow or painful today?
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed spell or behavior
+      description: The command name, its usage, and what it should do. Mention if it is destructive and should ask first.
+      placeholder: |
+        `gfoo <branch>`: ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      options:
+        - Git
+        - Node.js
+        - Docker
+        - Workspaces
+        - Env switcher
+        - Discovery
+        - Django
+        - Rails
+        - Ruby
+        - bwiz / core (init.sh, bw-help, bw-update)
+        - New module
+        - Website
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other tools, existing spells, or workarounds you have tried.
+
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Would you like to contribute it?
+      options:
+        - Yes, I can open a pull request
+        - Maybe, with some guidance
+        - No
+    validations:
+      required: true

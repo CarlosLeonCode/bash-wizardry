@@ -17,5 +17,9 @@ Explora los hechizos disponibles en cada módulo:
 - **[Configuración](empezando.md)**: Cómo usar el archivo `config.env`.
 - **[Personalización](personalizacion.md)**: Tu propia configuración y tus módulos en `~/.config/bash-wizardry`, sin hacer un fork.
 
+## 🗺️ Proyecto
+- **[Hoja de ruta](../roadmap.md)** (en inglés): Lo que ya se publicó y las ideas para lo que viene.
+- **[Changelog](../../CHANGELOG.md)** (en inglés): Todas las versiones, en formato Keep a Changelog.
+
 ---
 [Volver al README Principal](../../README.md)

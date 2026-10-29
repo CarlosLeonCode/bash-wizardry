@@ -11,6 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/CarlosLeonCode/bash-wizardry"></a>
 </p>
 
 <p align="center">
@@ -67,6 +68,15 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
 
 > [!TIP]
 > After installation, restart your terminal or run `source ~/.zshrc` to activate the magic. For more details, see our [Full Setup Guide](docs/en/getting-started.md).
+
+### Uninstall
+The uninstaller removes the lines it added to your shell startup files (keeping a backup) and deletes `~/.bash-wizardry`. It asks before changing anything:
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash
+# or, from your install:
+~/.bash-wizardry/uninstall.sh
+```
+Your config in `~/.config/bash-wizardry/` is kept; add `--purge` to delete it too (with curl: `| bash -s -- --purge`). Details in the [Setup Guide](docs/en/getting-started.md#uninstall).
 
 ---
 
@@ -132,6 +142,13 @@ npm --prefix video run studio  # product film (Remotion)
 CI runs ShellCheck and the bats suite on Ubuntu and macOS. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ---
+
+## 🤝 Community
+
+- [Contributing](CONTRIBUTING.md): how to add spells and open a pull request.
+- [Code of Conduct](CODE_OF_CONDUCT.md): be kind; we follow the Contributor Covenant.
+- [Security policy](SECURITY.md): please report vulnerabilities privately, not in public issues.
+- [Changelog](CHANGELOG.md) and [Roadmap](docs/roadmap.md).
 
 ## 🛡️ License
 
