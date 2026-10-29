@@ -1,0 +1,10 @@
+# The landing site is a Next.js app in web/. Netlify applies its Next.js
+# adapter automatically; publish is resolved relative to base.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Next.js 16 requires Node.js >= 20.9.
+  NODE_VERSION = "22"
