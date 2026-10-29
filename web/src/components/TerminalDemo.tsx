@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, MOTION_OK, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import type { TerminalSession } from "@/lib/content";
+import type { TerminalSession } from "@/lib/site";
 import styles from "./TerminalDemo.module.css";
 
 interface TerminalDemoProps {
@@ -11,6 +11,8 @@ interface TerminalDemoProps {
   trigger?: "mount" | "scroll";
   /** Seconds to wait before typing starts. */
   delay?: number;
+  /** tmux pane label, e.g. "pane 1: workspaces". */
+  pane?: string;
 }
 
 const TYPE_SPEED = 0.055; // seconds per character
@@ -36,6 +38,7 @@ export default function TerminalDemo({
   session,
   trigger = "scroll",
   delay = 0,
+  pane = "pane 0",
 }: TerminalDemoProps) {
   const root = useRef<HTMLElement>(null);
 
@@ -93,7 +96,7 @@ export default function TerminalDemo({
         } else {
           ScrollTrigger.create({
             trigger: root.current,
-            start: "top 75%",
+            start: "top 78%",
             once: true,
             onEnter: () => tl.play(),
           });
@@ -106,14 +109,9 @@ export default function TerminalDemo({
   return (
     <figure className={styles.wrapper} ref={root}>
       <figcaption className="sr-only">{session.label}</figcaption>
-      <div className={styles.glow} aria-hidden="true" />
       <div className={styles.window} aria-hidden="true">
         <div className={styles.header}>
-          <span className={styles.dots}>
-            <span className={styles.dot} />
-            <span className={styles.dot} />
-            <span className={styles.dot} />
-          </span>
+          <span>── {pane} ──</span>
           <span className={styles.title}>{session.title}</span>
         </div>
 

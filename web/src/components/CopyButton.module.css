@@ -1,55 +1,52 @@
 .root {
-  position: relative;
-  display: inline-flex;
+  display: flex;
   flex-shrink: 0;
 }
 
 .button {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid var(--border-strong);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-muted);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.button:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.copied,
-.copied:hover {
-  color: var(--success);
-  border-color: rgba(74, 222, 128, 0.45);
-}
-
-.icon {
-  display: grid;
-  place-items: center;
-}
-
-.ring {
-  position: absolute;
-  inset: -1px;
-  border-radius: 10px;
-  border: 1px solid var(--success);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.toast {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 8px);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 800;
   white-space: nowrap;
-  color: var(--success);
-  pointer-events: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Full-height keycap on the right edge of a command box. */
+.key .button {
+  min-width: 7.5rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  background: var(--green);
+  color: var(--ink);
+  font-size: 0.875rem;
+}
+
+.key .button:hover {
+  background: var(--bright);
+}
+
+.key .button[data-status="error"] {
+  background: var(--red);
+}
+
+/* Small bracketed key for secondary commands. */
+.compact .button {
+  min-width: 6.5rem;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  color: var(--green);
+  font-size: 0.8125rem;
+}
+
+.compact .button:hover {
+  text-shadow: var(--glow-soft);
+}
+
+.compact .button[data-status="error"] {
+  color: var(--red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
 }

@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Transform your daily workflow with intelligent, context-aware spells.",
     start_url: "/",
     display: "standalone",
-    background_color: "#07060f",
-    theme_color: "#07060f",
+    background_color: "#020502",
+    theme_color: "#020502",
     icons: [
       {
         src: "/icon.png",

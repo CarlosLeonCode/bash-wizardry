@@ -1,12 +1,78 @@
-.header {
+.progress {
   position: fixed;
   inset: 0 0 auto;
-  z-index: 50;
-  background: rgba(7, 6, 15, 0.72);
-  backdrop-filter: saturate(160%) blur(14px);
-  -webkit-backdrop-filter: saturate(160%) blur(14px);
-  border-bottom: 1px solid var(--border);
+  z-index: 120;
+  height: 2px;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(57, 255, 106, 0.7);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
 }
+
+/* Sticky (not fixed): the project/author link strip above it scrolls away,
+   then the header pins to the top and stays there (it never hides). The
+   html scroll-padding-top in globals.css matches its height. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(2, 5, 2, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ---- tmux status line ---------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--topbar-height);
+  padding-inline: var(--gutter);
+  background: var(--green);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.windows {
+  display: flex;
+  align-items: center;
+}
+
+.session {
+  padding-right: 0.6rem;
+}
+
+.window {
+  padding-inline: 0.6rem;
+}
+
+.current {
+  background: var(--ink);
+  color: var(--green);
+}
+
+.status {
+  font-variant-numeric: tabular-nums;
+}
+
+.wide {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .wide {
+    display: inline;
+  }
+}
+
+/* ---- prompt bar ---------------------------------------------------------- */
 
 .bar {
   display: flex;
@@ -14,15 +80,14 @@
   justify-content: space-between;
   gap: 1rem;
   height: var(--nav-height);
+  padding-inline: var(--gutter);
+  font-size: 0.875rem;
 }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 650;
-  font-size: 1.02rem;
-  letter-spacing: -0.01em;
+.brand {
+  color: var(--green);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .desktopNav {
@@ -31,144 +96,154 @@
 
 .links {
   display: flex;
-  gap: 0.25rem;
-  list-style: none;
+  gap: clamp(1rem, 2.4vw, 2rem);
 }
 
-.links a {
-  display: inline-block;
-  padding: 0.45rem 0.8rem;
-  border-radius: 8px;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-  transition: color 0.2s ease, background-color 0.2s ease;
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green-2);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
-.links a:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+.link:hover,
+.link.active {
+  color: var(--green);
+  text-shadow: var(--glow-soft);
+}
+
+.dot {
+  color: var(--dim);
 }
 
 .right {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .github {
   display: none;
-  min-height: 38px;
-  padding: 0.5rem 0.95rem;
-  font-size: 0.88rem;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.github:hover {
+  text-shadow: var(--glow-soft);
 }
 
 .menuButton {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  color: var(--green);
   cursor: pointer;
+  white-space: nowrap;
 }
 
-.menuIcon,
-.menuIcon::before,
-.menuIcon::after {
-  display: block;
-  width: 18px;
-  height: 1.5px;
-  border-radius: 2px;
-  background: var(--text);
-  transition: transform 0.25s var(--ease-out), opacity 0.2s ease;
+@media (min-width: 640px) {
+  .github {
+    display: inline-flex;
+  }
 }
 
-.menuIcon {
-  position: relative;
-}
-
-.menuIcon::before,
-.menuIcon::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.menuIcon::before {
-  transform: translateY(-6px);
-}
-
-.menuIcon::after {
-  transform: translateY(6px);
-}
-
-.header[data-open] {
-  background: rgba(7, 6, 15, 0.97);
-}
-
-.header[data-open] .menuIcon {
-  background: transparent;
-}
-
-.header[data-open] .menuIcon::before {
-  transform: rotate(45deg);
-}
-
-.header[data-open] .menuIcon::after {
-  transform: rotate(-45deg);
-}
-
-.mobileNav {
-  border-top: 1px solid var(--border);
-}
-
-.mobileNav ul {
-  list-style: none;
-  padding-block: 0.5rem 1rem;
-}
-
-.mobileNav a {
-  display: block;
-  padding: 0.85rem 0;
-  font-size: 1.05rem;
-  color: var(--text);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Lives outside the header so it stays visible while the header is hidden. */
-.progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 60;
-  pointer-events: none;
-  height: 2px;
-  background: var(--gradient);
-  transform-origin: 0 50%;
-  transform: scaleX(0);
-}
-
-@media (min-width: 768px) {
+/* Five links plus lang and github need ~970px with the Spanish labels. */
+@media (min-width: 1024px) {
   .desktopNav {
     display: block;
   }
 
-  .github {
-    display: inline-flex;
+  .menuButton {
+    display: none;
   }
+}
 
-  .menuButton,
+/* ---- mobile menu --------------------------------------------------------- */
+
+.mobileNav {
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.mobileNav ul {
+  padding: 0.5rem var(--gutter) 1rem;
+}
+
+.mobileNav a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border-bottom: 1px dashed var(--line);
+  color: var(--green);
+  font-size: 1rem;
+}
+
+.mobileNav li:last-child a {
+  border-bottom: 0;
+}
+
+@media (min-width: 1024px) {
   .mobileNav {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .menuIcon,
-  .menuIcon::before,
-  .menuIcon::after {
+  .link {
+    transition: none;
+  }
+}
+
+/* ---- language switcher: "lang: [en] es" --------------------------------- */
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.langLabel {
+  display: none;
+  color: var(--dim);
+}
+
+.langList {
+  display: flex;
+  align-items: center;
+}
+
+/* 44px tall targets; padding keeps "es" comfortably clickable. */
+.langLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.3rem;
+  color: var(--green-2);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.langLink:hover {
+  color: var(--green);
+  text-shadow: var(--glow-soft);
+}
+
+.langLink[aria-current="page"] {
+  color: var(--green);
+  font-weight: 700;
+  text-shadow: var(--glow-soft);
+}
+
+@media (min-width: 640px) {
+  .langLabel {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .langLink {
     transition: none;
   }
 }

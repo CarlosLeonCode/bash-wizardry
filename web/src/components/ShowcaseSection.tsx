@@ -1,63 +1,62 @@
-import { Fragment } from "react";
 import Reveal from "@/components/Reveal";
+import RichText from "@/components/RichText";
+import SectionHead from "@/components/SectionHead";
 import TerminalDemo from "@/components/TerminalDemo";
-import { showcases } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n";
+import { SHOWCASE_IDS, SHOWCASE_SCRIPTS } from "@/lib/site";
 import styles from "./ShowcaseSection.module.css";
 
-/** Renders `backtick` spans in copy as inline code. */
-function withCode(text: string) {
-  return text.split("`").map((part, i) =>
-    i % 2 === 1 ? (
-      <code key={i} className="inline-code">
-        {part}
-      </code>
-    ) : (
-      <Fragment key={i}>{part}</Fragment>
-    ),
-  );
-}
+export default function ShowcaseSection({
+  t,
+}: {
+  t: Dictionary["showcase"];
+}) {
+  // Translated copy around the literal (English) terminal transcripts.
+  const showcases = SHOWCASE_IDS.map((id) => {
+    const { commands, session } = SHOWCASE_SCRIPTS[id];
+    const copy = t.items[id];
+    return {
+      id,
+      ...copy,
+      commands,
+      session: { ...session, label: copy.sessionLabel },
+    };
+  });
 
-export default function ShowcaseSection() {
   return (
     <section id="tour" className="section" aria-labelledby="tour-title">
       <div className="container">
-        <Reveal className="section-head section-head--center">
-          <p className="eyebrow">The tour</p>
-          <h2 id="tour-title" className="section-title">
-            See the spells in action
-          </h2>
-          <p className="section-lead">
-            Each session mirrors the messages the scripts actually print. No
-            mock features, no hidden binaries.
-          </p>
-        </Reveal>
+        <SectionHead
+          id="tour-title"
+          command={`./tour --sessions ${showcases.length}`}
+          title={t.title}
+          lead={t.lead}
+        />
 
         <div className={styles.list}>
           {showcases.map((item, index) => (
             <article
               key={item.id}
-              className={`${styles.row} ${index % 2 === 1 ? styles.reverse : ""}`}
+              className={styles.row}
               aria-labelledby={`showcase-${item.id}`}
             >
-              <Reveal className={styles.text} y={28}>
-                <p className="eyebrow">
-                  <span className={styles.index}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {item.eyebrow}
+              <Reveal className={styles.text}>
+                <p className={styles.eyebrow}>
+                  <span aria-hidden="true">## </span>
+                  {String(index + 1).padStart(2, "0")} · {item.eyebrow}
                 </p>
                 <h3 id={`showcase-${item.id}`} className={styles.title}>
                   {item.title}
                 </h3>
                 <p className={styles.description}>
-                  {withCode(item.description)}
+                  <RichText text={item.description} />
                 </p>
                 <ul className={styles.points}>
                   {item.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <ul className={styles.commands} aria-label="Commands">
+                <ul className={styles.commands} aria-label={t.commandsLabel}>
                   {item.commands.map((cmd) => (
                     <li key={cmd}>
                       <code>{cmd}</code>
@@ -66,9 +65,13 @@ export default function ShowcaseSection() {
                 </ul>
               </Reveal>
 
-              <Reveal className={styles.visual} y={40}>
-                <TerminalDemo session={item.session} trigger="scroll" />
-              </Reveal>
+              <div className={styles.visual}>
+                <TerminalDemo
+                  session={item.session}
+                  trigger="scroll"
+                  pane={`${t.pane} ${index}: ${item.id}`}
+                />
+              </div>
             </article>
           ))}
         </div>

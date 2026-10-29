@@ -1,8 +1,16 @@
-import Reveal from "@/components/Reveal";
+import SectionHead from "@/components/SectionHead";
 import SpellbookTabs from "@/components/SpellbookTabs";
-import { spellbook } from "@/lib/content";
+import RichText from "@/components/RichText";
+import type { Dictionary, Locale } from "@/lib/i18n";
+import { buildSpellbook } from "@/lib/site";
 
-export default function SpellbookSection() {
+export default function SpellbookSection({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary["spellbook"];
+}) {
   return (
     <section
       id="spellbook"
@@ -10,19 +18,22 @@ export default function SpellbookSection() {
       aria-labelledby="spellbook-title"
     >
       <div className="container">
-        <Reveal className="section-head section-head--center">
-          <p className="eyebrow">Spellbook</p>
-          <h2 id="spellbook-title" className="section-title">
-            Every spell, one glance away
-          </h2>
-          <p className="section-lead">
-            The command reference by module. Commands marked{" "}
-            <span className="inline-code">confirms</span> ask before doing
-            anything destructive.
-          </p>
-        </Reveal>
+        <SectionHead
+          id="spellbook-title"
+          command="bwiz help"
+          title={t.title}
+          lead={<RichText text={t.lead} />}
+        />
 
-        <SpellbookTabs modules={spellbook} />
+        <SpellbookTabs
+          modules={buildSpellbook(locale, t.summaries)}
+          t={{
+            tablist: t.tablist,
+            caption: t.caption,
+            columns: t.columns,
+            none: t.none,
+          }}
+        />
       </div>
     </section>
   );

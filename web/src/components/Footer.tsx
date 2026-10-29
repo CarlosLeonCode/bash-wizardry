@@ -1,51 +1,57 @@
-import { REPO_URL } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n";
+import { AUTHOR, ISSUES_URL, REPO_URL, SPELL_COUNT } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-const columns = [
-  {
-    title: "Product",
-    links: [
-      { label: "Tour", href: "#tour" },
-      { label: "Spellbook", href: "#spellbook" },
-      { label: "Install", href: "#install" },
-    ],
-  },
-  {
-    title: "Project",
-    links: [
-      { label: "Source code", href: REPO_URL },
-      { label: "Releases", href: `${REPO_URL}/releases` },
-      { label: "MIT License", href: `${REPO_URL}/blob/main/LICENSE` },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { label: "Contributing", href: `${REPO_URL}/blob/main/CONTRIBUTING.md` },
-      { label: "Issues", href: `${REPO_URL}/issues` },
-      { label: "X / Twitter", href: "https://twitter.com/CarlosLeonCode" },
-    ],
-  },
-];
+export default function Footer({ t }: { t: Dictionary }) {
+  const { footer } = t;
+  const l = footer.links;
+  const columns = [
+    {
+      title: footer.columns.product,
+      links: [
+        { label: l.tour, href: "#tour" },
+        { label: l.spellbook, href: "#spellbook" },
+        { label: l.install, href: "#install" },
+      ],
+    },
+    {
+      title: footer.columns.project,
+      links: [
+        { label: l.source, href: REPO_URL },
+        { label: l.releases, href: `${REPO_URL}/releases` },
+        { label: l.license, href: `${REPO_URL}/blob/main/LICENSE` },
+      ],
+    },
+    {
+      title: footer.columns.community,
+      links: [
+        { label: l.contributing, href: `${REPO_URL}/blob/main/CONTRIBUTING.md` },
+        { label: l.issues, href: ISSUES_URL },
+        { label: l.youtube, href: AUTHOR.youtube },
+        { label: l.kofi, href: AUTHOR.kofi },
+      ],
+    },
+  ];
 
-export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <p className={styles.logo}>
-            <span aria-hidden="true">🧙‍♂️</span> bash-wizardry
+          <p className={`${styles.logo} glow`}>
+            <span aria-hidden="true">&gt; </span>bash-wizardry
           </p>
           <p className={styles.tagline}>
-            The developer productivity toolkit that lives in your terminal.
-            Safe, fast and hackable.
+            # {footer.tagline}
           </p>
         </div>
 
-        <nav className={styles.columns} aria-label="Footer">
+        <nav className={styles.columns} aria-label={footer.label}>
           {columns.map((column) => (
             <div key={column.title}>
-              <h2 className={styles.heading}>{column.title}</h2>
+              <h2 className={styles.heading}>
+                <span aria-hidden="true">## </span>
+                {column.title}
+              </h2>
               <ul className={styles.list}>
                 {column.links.map((link) => {
                   const external = link.href.startsWith("http");
@@ -59,6 +65,13 @@ export default function Footer() {
                         })}
                       >
                         {link.label}
+                        {external && (
+                          <>
+                            {" "}
+                            <span aria-hidden="true">↗</span>
+                            <span className="sr-only"> {t.common.newTab}</span>
+                          </>
+                        )}
                       </a>
                     </li>
                   );
@@ -70,17 +83,29 @@ export default function Footer() {
       </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>© {new Date().getFullYear()} bash-wizardry · MIT License</p>
+        <p>© {new Date().getFullYear()} bash-wizardry · {footer.license}</p>
         <p>
-          Designed &amp; built by{" "}
-          <a
-            href="https://github.com/CarlosLeonCode"
+          {footer.builtBy} <a
+            href={AUTHOR.url}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Carlos Leon
+            {AUTHOR.handle}
           </a>
         </p>
+      </div>
+
+      <div className={styles.statusbar} aria-hidden="true">
+        <div className={styles.left}>
+          <span className={styles.mode}>NORMAL</span>
+          <span>main</span>
+          <span>bats ✓</span>
+        </div>
+        <div className={styles.right}>
+          <span className={styles.wide}>shellcheck ✓ │ </span>
+          <span className={styles.wide}>{SPELL_COUNT} {footer.spells} │ </span>
+          utf-8 │ bash · zsh
+        </div>
       </div>
     </footer>
   );

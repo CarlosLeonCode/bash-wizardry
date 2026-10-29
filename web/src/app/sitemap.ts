@@ -1,16 +1,16 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/content";
+import { LOCALE_PATH, LOCALES } from "@/lib/i18n";
+import { languageAlternates } from "@/lib/i18n/metadata";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = SITE_URL;
+  const languages = languageAlternates(SITE_URL);
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    // Add more routes here if the app grows
-  ];
+  return LOCALES.map((locale) => ({
+    url: `${SITE_URL}${LOCALE_PATH[locale]}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: locale === "en" ? 1 : 0.9,
+    alternates: { languages },
+  }));
 }

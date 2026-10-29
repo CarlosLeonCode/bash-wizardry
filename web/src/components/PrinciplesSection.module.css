@@ -1,0 +1,99 @@
+.man {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.manHeader,
+.manFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  color: var(--dim);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.manHeader {
+  border-bottom: 1px solid var(--line);
+}
+
+.center {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .center {
+    display: inline;
+  }
+}
+
+.heading {
+  padding: 1.1rem 1rem 0.25rem;
+  color: var(--bright);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (min-width: 768px) {
+  .heading,
+  .manHeader,
+  .manFooter {
+    padding-inline: 1.5rem;
+  }
+}
+
+.options {
+  display: grid;
+}
+
+@media (min-width: 1024px) {
+  .options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .option:nth-child(odd) {
+    border-right: 1px dashed var(--line);
+  }
+}
+
+.option {
+  padding: 1rem 1rem 1.15rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+@media (min-width: 768px) {
+  .option {
+    padding-inline: 1.5rem;
+  }
+}
+
+.flag {
+  color: var(--green);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-shadow: var(--glow-soft);
+}
+
+.body {
+  margin-top: 0.4rem;
+  padding-left: 4ch;
+  color: var(--green-2);
+  font-size: 0.84rem;
+  text-wrap: pretty;
+}
+
+.name {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.example {
+  margin-top: 0.5rem;
+  color: var(--dim);
+}
+
+.example code {
+  color: var(--green);
+}

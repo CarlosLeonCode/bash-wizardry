@@ -2,16 +2,32 @@
 
 import { useRef, useState } from "react";
 import { gsap, MOTION_OK, useGSAP } from "@/lib/gsap";
+import type { CopyButtonCopy } from "@/lib/i18n/types";
 import styles from "./CopyButton.module.css";
 
 type Status = "idle" | "copied" | "error";
 
+const GLYPHS: Record<Status, string> = {
+  idle: "⏎",
+  copied: "✔",
+  error: "✖",
+};
+
+/**
+ * Keycap-style copy button. "key" fills the right edge of a command box;
+ * "compact" is a small bracketed key for secondary commands.
+ */
 export default function CopyButton({
   text,
   label,
+  variant = "key",
+  t,
 }: {
   text: string;
   label: string;
+  variant?: "key" | "compact";
+  /** Localized keycap, tooltip and live-region text. */
+  t: CopyButtonCopy;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const root = useRef<HTMLSpanElement>(null);
@@ -23,17 +39,17 @@ export default function CopyButton({
     { scope: root },
   );
 
-  const celebrate = contextSafe(() => {
+  const flash = contextSafe(() => {
     if (!window.matchMedia(MOTION_OK).matches) return;
     gsap.fromTo(
-      "[data-icon]",
-      { scale: 0.5, rotate: -25 },
-      { scale: 1, rotate: 0, duration: 0.5, ease: "back.out(2.4)" },
-    );
-    gsap.fromTo(
-      "[data-ring]",
-      { scale: 0.6, autoAlpha: 0.7 },
-      { scale: 1.8, autoAlpha: 0, duration: 0.6, ease: "power2.out" },
+      "button",
+      { boxShadow: "0 0 0 0 rgba(57, 255, 106, 0.9)" },
+      {
+        boxShadow: "0 0 0 10px rgba(57, 255, 106, 0)",
+        duration: 0.5,
+        ease: "power2.out",
+        clearProps: "boxShadow",
+      },
     );
   });
 
@@ -41,8 +57,7 @@ export default function CopyButton({
     try {
       await copyText(text);
       setStatus("copied");
-      // Wait a frame so React has rendered the check icon before animating it.
-      requestAnimationFrame(celebrate);
+      flash();
     } catch {
       setStatus("error");
     }
@@ -52,64 +67,36 @@ export default function CopyButton({
 
   const message =
     status === "copied"
-      ? "Copied to clipboard"
+      ? t.copiedMessage
       : status === "error"
-        ? "Copy failed"
+        ? t.errorMessage
         : "";
+  const keycap = t[status];
 
   return (
-    <span ref={root} className={styles.root}>
+    <span ref={root} className={`${styles.root} ${styles[variant]}`}>
       <button
         type="button"
         onClick={handleCopy}
-        className={`${styles.button} ${status === "copied" ? styles.copied : ""}`}
+        className={styles.button}
+        data-status={status}
         aria-label={label}
-        title="Copy to clipboard"
+        title={t.title}
       >
-        <span className={styles.ring} data-ring aria-hidden="true" />
-        <span className={styles.icon} data-icon aria-hidden="true">
-          {status === "copied" ? <CheckIcon /> : <CopyIcon />}
+        <span aria-hidden="true">
+          {variant === "compact" ? (
+            <>[ {keycap.toLowerCase()} ]</>
+          ) : (
+            <>
+              {GLYPHS[status]} {keycap}
+            </>
+          )}
         </span>
       </button>
-      <span className={styles.toast} aria-live="polite" role="status">
+      <span className="sr-only" aria-live="polite" role="status">
         {message}
       </span>
     </span>
-  );
-}
-
-function CopyIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="9" y="9" width="13" height="13" rx="2" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }
 

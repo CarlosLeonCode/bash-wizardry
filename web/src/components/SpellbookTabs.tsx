@@ -2,25 +2,29 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 import { gsap, MOTION_OK, useGSAP } from "@/lib/gsap";
-import type { SpellbookModule } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
+import type { SpellbookModule } from "@/lib/site";
 import styles from "./SpellbookTabs.module.css";
 
 /**
- * Accessible tabs (WAI-ARIA tabs pattern, automatic activation):
- * roving tabindex, Left/Right/Home/End keys, aria-selected/aria-controls.
- * All panels are server-rendered; inactive ones use the `hidden` attribute.
+ * Accessible tabs (WAI-ARIA tabs pattern, automatic activation) drawn as a
+ * tmux window list: roving tabindex, Left/Right/Home/End keys,
+ * aria-selected/aria-controls. All panels are server-rendered; inactive ones
+ * use the `hidden` attribute.
  */
 export default function SpellbookTabs({
   modules,
+  t,
 }: {
   modules: SpellbookModule[];
+  t: Omit<Dictionary["spellbook"], "title" | "lead" | "summaries">;
 }) {
   const [active, setActive] = useState(0);
   const root = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const hasMounted = useRef(false);
 
-  // Animate the newly selected panel in (skipped on first render).
+  // Print the newly selected panel's rows in (skipped on first render).
   useGSAP(
     () => {
       if (!hasMounted.current) {
@@ -33,14 +37,17 @@ export default function SpellbookTabs({
       );
       if (!panel) return;
       gsap.fromTo(
-        panel.querySelectorAll("[data-row]"),
-        { autoAlpha: 0, y: 10 },
-        { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.025, overwrite: true },
-      );
-      gsap.fromTo(
-        panel.querySelector("[data-summary]"),
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.4 },
+        panel.querySelectorAll("[data-print]"),
+        { autoAlpha: 0, x: -6 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          duration: 0.12,
+          ease: "steps(2)",
+          stagger: 0.018,
+          overwrite: true,
+          clearProps: "transform",
+        },
       );
     },
     { scope: root, dependencies: [active] },
@@ -68,8 +75,11 @@ export default function SpellbookTabs({
 
   return (
     <div ref={root} className={styles.root}>
-      <div className={styles.tablistWrap}>
-        <div role="tablist" aria-label="Modules" className={styles.tablist}>
+      <div className={styles.bar}>
+        <span className={styles.session} aria-hidden="true">
+          [spellbook]
+        </span>
+        <div role="tablist" aria-label={t.tablist} className={styles.tablist}>
           {modules.map((mod, i) => (
             <button
               key={mod.id}
@@ -86,7 +96,11 @@ export default function SpellbookTabs({
               onClick={() => setActive(i)}
               onKeyDown={onKeyDown}
             >
-              {mod.label}
+              <span aria-hidden="true">{i}:</span>
+              {mod.id}
+              <span className={styles.flag} aria-hidden="true">
+                {i === active ? "*" : " "}
+              </span>
             </button>
           ))}
         </div>
@@ -103,33 +117,60 @@ export default function SpellbookTabs({
           className={styles.panel}
           data-panel={i}
         >
-          <p className={styles.summary} data-summary>
-            {mod.summary}
+          <p className={styles.summary} data-print>
+            # {mod.summary}
           </p>
-          <div className={styles.groups}>
-            {mod.groups.map((group, g) => (
-              <div key={group.title ?? g} className={styles.group}>
-                {group.title && (
-                  <h3 className={styles.groupTitle}>{group.title}</h3>
-                )}
-                <dl className={styles.list}>
+          {mod.groups.map((group) => (
+            <div key={group.module} className={styles.group}>
+              <h3 className="prompt" data-print>
+                bwiz help {group.module}
+              </h3>
+              <table className={styles.table} role="table">
+                <caption className="sr-only">
+                  {t.caption.replace("{module}", group.module)}
+                </caption>
+                <thead className={styles.head} role="rowgroup">
+                  <tr role="row" data-print>
+                    <th scope="col" role="columnheader">{t.columns.name}</th>
+                    <th scope="col" role="columnheader">{t.columns.usage}</th>
+                    <th scope="col" role="columnheader">
+                      {t.columns.description}
+                    </th>
+                    <th scope="col" role="columnheader" className={styles.safetyHead}>
+                      {t.columns.safety}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody role="rowgroup">
                   {group.spells.map((spell) => (
-                    <div key={spell.cmd} className={styles.row} data-row>
-                      <dt>
-                        <code className={styles.cmd}>{spell.cmd}</code>
-                      </dt>
-                      <dd className={styles.desc}>
+                    <tr key={spell.name} role="row" className={styles.row} data-print>
+                      <td role="cell" className={styles.name}>
+                        {spell.name}
+                      </td>
+                      <td role="cell" className={styles.usage}>
+                        <code>{spell.usage}</code>
+                      </td>
+                      <td role="cell" className={styles.desc}>
                         {spell.description}
-                        {spell.confirms && (
-                          <span className={styles.badge}>confirms</span>
+                      </td>
+                      <td role="cell" className={styles.safety}>
+                        {spell.confirms ? (
+                          <span className={styles.confirm}>[confirm]</span>
+                        ) : (
+                          <>
+                            <span className={styles.none} aria-hidden="true">
+                              —
+                            </span>
+                            <span className="sr-only">{t.none}</span>
+                          </>
                         )}
-                      </dd>
-                    </div>
+                      </td>
+                    </tr>
                   ))}
-                </dl>
-              </div>
-            ))}
-          </div>
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
       ))}
     </div>

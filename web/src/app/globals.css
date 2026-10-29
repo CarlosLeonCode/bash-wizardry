@@ -1,45 +1,49 @@
 /* -------------------------------------------------------------------------- */
-/*  Design tokens                                                             */
+/*  Design tokens: phosphor-green terminal                                    */
 /* -------------------------------------------------------------------------- */
 
 :root {
   color-scheme: dark;
 
-  --bg: #07060f;
-  --bg-elevated: #0d0b1a;
-  --surface: rgba(255, 255, 255, 0.03);
-  --surface-hover: rgba(255, 255, 255, 0.055);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  --bg: #020502;
+  --panel: #050b06;
+  --box: #031007;
+  --line: #12361a;
 
-  --text: #f4f4f6;
-  --text-muted: #a8a8b8;
-  --text-subtle: #8a8a9c;
+  --green: #39ff6a; /* 15.3:1 on --bg */
+  --green-2: #1fae4a; /* 7.0:1 on --bg, 6.8:1 on --panel */
+  --green-3: #0f5a26; /* 2.4:1: borders and decoration only, never text */
+  --dim: #4c8f5e; /* 5.3:1 on --bg: readable comments and labels */
+  --amber: #ffb000;
+  --red: #ff4d5e;
+  --cyan: #4dd7ff;
+  --text: #b9ffcb;
+  --bright: #e9fff0;
+  --ink: #021a08; /* dark text on green fills (13.6:1) */
 
-  --primary: #c084fc;
-  --secondary: #22d3ee;
-  --accent: #f472b6;
-  --success: #4ade80;
-  --warn: #fbbf24;
-  --gradient: linear-gradient(120deg, #c084fc 0%, #a78bfa 40%, #22d3ee 100%);
+  --glow: 0 0 6px rgba(57, 255, 106, 0.55), 0 0 18px rgba(57, 255, 106, 0.25);
+  --glow-soft: 0 0 8px rgba(57, 255, 106, 0.35);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo,
-    monospace;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo,
+    Consolas, monospace;
+  /* Box-drawing and block glyphs are not in the Google Fonts subsets of
+     JetBrains Mono, so ASCII art uses a system monospace face that has them. */
+  --font-box: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono",
+    Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
 
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 20px;
-  --nav-height: 64px;
+  --topbar-height: 26px;
+  --nav-height: 56px;
+  --header-height: calc(var(--topbar-height) + var(--nav-height));
+  --sidebar-width: 280px;
   --gutter: 16px;
-  --section-space: clamp(5rem, 11vw, 8.5rem);
+  --section-space: clamp(4rem, 9vw, 7rem);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (min-width: 768px) {
   :root {
     --gutter: 32px;
+    --nav-height: 60px;
   }
 }
 
@@ -58,12 +62,13 @@
 html {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
+  font-size: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
-  scroll-padding-top: calc(var(--nav-height) + 16px);
+  scroll-padding-top: calc(var(--header-height) + 16px);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -72,10 +77,12 @@ html {
   }
 }
 
+/* The page color lives on <html> (the canvas) so the fixed CRT glow at
+   z-index -1 can paint between it and the content. */
 body {
-  background: var(--bg);
   min-height: 100vh;
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   overflow-x: clip;
 }
 
@@ -87,23 +94,29 @@ a {
 button {
   font: inherit;
   color: inherit;
+  background: none;
+  border: 0;
 }
 
 code,
 kbd,
 pre {
-  font-family: var(--font-mono);
+  font-family: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 ::selection {
-  background: rgba(192, 132, 252, 0.35);
-  color: #fff;
+  background: var(--green);
+  color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--secondary);
+  outline: 2px solid var(--green);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -112,7 +125,7 @@ pre {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1180px;
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
@@ -133,131 +146,135 @@ pre {
   position: fixed;
   top: 12px;
   left: 12px;
-  z-index: 100;
+  z-index: 200;
   padding: 0.6rem 1rem;
-  border-radius: var(--radius-sm);
-  background: var(--text);
-  color: var(--bg);
-  font-weight: 600;
-  transform: translateY(-200%);
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 700;
+  transform: translateY(-300%);
 }
 
 .skip-link:focus-visible {
   transform: none;
+  outline-color: var(--bright);
 }
 
-.text-gradient {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+.glow {
+  text-shadow: var(--glow);
 }
 
-/* Section heading block shared by every section. */
+/* Page frame: optional file-tree sidebar beside the main column. */
+.frame > main {
+  min-width: 0;
+}
+
+@media (min-width: 1200px) {
+  .frame {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  }
+}
+
+/* Shell prompt line: "❯ command". */
+.prompt {
+  display: block;
+  color: var(--bright);
+  font-weight: 500;
+}
+
+.prompt::before {
+  content: "❯ ";
+  color: var(--green);
+}
+
+.comment {
+  color: var(--dim);
+}
+
+/* Section scaffolding shared by every section. */
 .section {
-  padding-block: var(--section-space);
   position: relative;
+  padding-block: var(--section-space);
+  border-top: 1px solid var(--line);
 }
 
 .section-head {
-  max-width: 680px;
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
-}
-
-.section-head--center {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 1rem;
+  max-width: 760px;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
 .section-title {
-  font-size: clamp(2rem, 4.6vw, 3.25rem);
-  font-weight: 650;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  margin-top: 0.75rem;
+  color: var(--bright);
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .section-lead {
-  margin-top: 1rem;
-  font-size: clamp(1rem, 1.6vw, 1.125rem);
-  color: var(--text-muted);
+  margin-top: 0.9rem;
+  color: var(--green-2);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
   text-wrap: pretty;
 }
 
+.section-lead::before {
+  content: "# ";
+}
+
 .inline-code {
-  font-family: var(--font-mono);
-  font-size: 0.88em;
-  padding: 0.1em 0.4em;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  color: var(--text);
+  padding: 0 0.3em;
+  border: 1px solid var(--line);
+  background: var(--box);
+  color: var(--green);
+  font-size: 0.92em;
   white-space: nowrap;
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Buttons                                                                   */
+/*  Buttons: keycaps and bracketed links                                      */
 /* -------------------------------------------------------------------------- */
 
-.btn {
+.btn-key {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 44px;
-  padding: 0.7rem 1.25rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1;
+  padding: 0.65rem 1.1rem;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 800;
   cursor: pointer;
-  transition: transform 0.25s var(--ease-out), background-color 0.25s ease,
-    border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-primary {
-  background: var(--gradient);
-  color: #0b0716;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-    0 8px 30px -8px rgba(192, 132, 252, 0.55);
+.btn-key:hover {
+  box-shadow: 0 0 18px rgba(57, 255, 106, 0.45);
 }
 
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-    0 12px 36px -8px rgba(34, 211, 238, 0.45);
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--green-3);
+  color: var(--green);
+  white-space: nowrap;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.btn-secondary {
-  background: var(--surface);
-  border-color: var(--border-strong);
-  color: var(--text);
-}
-
-.btn-secondary:hover {
-  background: var(--surface-hover);
-  border-color: rgba(255, 255, 255, 0.28);
+.btn-ghost:hover {
+  border-color: var(--green);
+  background: rgba(57, 255, 106, 0.06);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn,
-  .btn:hover {
+  .btn-key,
+  .btn-ghost {
     transition: none;
-    transform: none;
   }
 }

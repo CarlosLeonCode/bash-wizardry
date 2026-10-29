@@ -1,0 +1,275 @@
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: start;
+  }
+}
+
+.side {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.panel {
+  min-width: 0;
+  padding: 1.1rem 1rem 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+@media (min-width: 768px) {
+  .panel {
+    padding: 1.3rem 1.5rem 1.5rem;
+  }
+}
+
+.panelTitle {
+  color: var(--bright);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hash {
+  color: var(--green);
+}
+
+/* ---- detection table ---------------------------------------------------- */
+
+.table {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.head th {
+  padding: 0.4rem 1rem 0.4rem 0;
+  border-bottom: 1px dashed var(--green-3);
+  color: var(--dim);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.row th,
+.row td {
+  padding: 0.55rem 1rem 0.55rem 0;
+  border-bottom: 1px dashed var(--line);
+  vertical-align: top;
+}
+
+.row:hover th,
+.row:hover td {
+  background: rgba(57, 255, 106, 0.04);
+}
+
+.head th:last-child,
+.row td:last-child {
+  padding-right: 0;
+}
+
+.agent {
+  color: var(--bright);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.signals {
+  color: var(--text);
+}
+
+.signals code {
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.or,
+.note {
+  color: var(--dim);
+}
+
+.resultHead,
+.result {
+  text-align: right;
+}
+
+.result {
+  color: var(--green);
+  font-weight: 700;
+  white-space: nowrap;
+  text-shadow: var(--glow-soft);
+}
+
+.footnote {
+  margin-top: 0.9rem;
+  color: var(--dim);
+  font-size: 0.8rem;
+  text-wrap: pretty;
+}
+
+/* Narrow screens: each row becomes a small card (agent and result on top,
+   signals below); the ARIA roles keep the table semantics. */
+@media (max-width: 639px) {
+  .head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    row-gap: 0.2rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .row th,
+  .row td {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .signals {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* ---- what the agent gets ------------------------------------------------ */
+
+.gets {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.84rem;
+}
+
+.gets li {
+  display: grid;
+  grid-template-columns: 2.5ch minmax(0, 1fr);
+}
+
+.off {
+  color: var(--green-2);
+}
+
+.on {
+  color: var(--text);
+}
+
+.mark {
+  font-family: var(--font-box);
+  font-weight: 700;
+}
+
+.off .mark {
+  color: var(--red);
+}
+
+.on .mark {
+  color: var(--green);
+}
+
+/* ---- config.env snippet ------------------------------------------------- */
+
+.config {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--green);
+  background: var(--box);
+}
+
+.configTitle {
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--dim);
+  font-size: 0.75rem;
+}
+
+/* Wraps instead of scrolling: the variable list is already split into short
+   continuation lines, so only the comments ever wrap on a phone. */
+.code {
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Hanging indent: wrapped text lines up after the "# ". */
+.line {
+  display: block;
+  padding-left: 2ch;
+  text-indent: -2ch;
+}
+
+.value {
+  color: var(--amber);
+}
+
+/* ---- FAQ ---------------------------------------------------------------- */
+
+.faq {
+  margin-top: 1.5rem;
+}
+
+.faqList {
+  display: grid;
+  margin-top: 0.4rem;
+}
+
+@media (min-width: 1024px) {
+  .faqList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+}
+
+.faqItem {
+  padding-block: 0.8rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.faqItem:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .faqItem {
+    border-bottom: 0;
+  }
+}
+
+.question {
+  color: var(--bright);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.qmark {
+  color: var(--amber);
+}
+
+.answer {
+  margin-top: 0.35rem;
+  color: var(--green-2);
+  font-size: 0.84rem;
+  text-wrap: pretty;
+}

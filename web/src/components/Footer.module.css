@@ -1,39 +1,39 @@
 .footer {
-  border-top: 1px solid var(--border);
-  background: rgba(5, 4, 12, 0.6);
-  padding-top: 4rem;
+  position: relative;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
 }
 
 .inner {
   display: grid;
   gap: 2.5rem;
+  padding-block: clamp(2.5rem, 6vw, 3.5rem) 2rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .inner {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 3rem;
   }
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 650;
-  font-size: 1.1rem;
+  color: var(--green);
+  font-size: 1.15rem;
+  font-weight: 800;
 }
 
 .tagline {
-  margin-top: 0.75rem;
-  max-width: 320px;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  max-width: 44ch;
+  margin-top: 0.6rem;
+  color: var(--green-2);
+  font-size: 0.875rem;
 }
 
 .columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+  gap: 2rem 1.5rem;
 }
 
 @media (min-width: 640px) {
@@ -43,42 +43,93 @@
 }
 
 .heading {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
+  color: var(--bright);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.heading span {
+  color: var(--dim);
 }
 
 .list {
-  list-style: none;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.15rem;
 }
 
 .list a {
-  color: var(--text-muted);
-  font-size: 0.93rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--green-2);
+  font-size: 0.875rem;
   transition: color 0.2s ease;
 }
 
 .list a:hover {
-  color: var(--text);
+  color: var(--green);
 }
 
 .bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-top: 3rem;
-  padding-block: 1.5rem 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--text-subtle);
-  font-size: 0.88rem;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.1rem 1.25rem;
+  border-top: 1px dashed var(--line);
+  color: var(--dim);
+  font-size: 0.8125rem;
 }
 
 .bottom a {
-  color: var(--primary);
+  color: var(--green-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bottom a:hover {
+  color: var(--green);
+}
+
+/* tmux-style status line closing the page. */
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.2rem var(--gutter);
+  background: var(--green);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.left {
+  display: flex;
+  gap: 1rem;
+}
+
+.mode {
+  padding-inline: 0.5rem;
+  margin-left: -0.5rem;
+  background: var(--ink);
+  color: var(--green);
+}
+
+.wide {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .wide {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list a {
+    transition: none;
+  }
 }

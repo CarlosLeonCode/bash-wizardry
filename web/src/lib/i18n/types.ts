@@ -1,0 +1,203 @@
+// The shape every locale's dictionary must fill. en.ts and es.ts are both
+// typed as Dictionary, so TypeScript rejects a locale that misses a key.
+//
+// Conventions for the strings:
+//   - Text between `backticks` renders as inline code (see RichText).
+//   - Shell commands, program output, paths, flags and brand names are not
+//     translated; they live in src/lib/site.ts.
+
+import type {
+  AgentCommandId,
+  AgentFaqId,
+  AgentShellItemId,
+  AgentSignalId,
+  BootLine,
+  PrincipleFlag,
+  ShowcaseId,
+  SpellbookTabId,
+} from "@/lib/site";
+
+export interface ShowcaseCopy {
+  eyebrow: string;
+  title: string;
+  /** May contain `inline code`. */
+  description: string;
+  points: string[];
+  /** Plain-text description of the terminal session for assistive tech. */
+  sessionLabel: string;
+}
+
+export interface CardCopy {
+  title: string;
+  description: string;
+  cta: string;
+}
+
+export interface CopyButtonCopy {
+  /** Keycap text per status (the compact variant lowercases it). */
+  idle: string;
+  copied: string;
+  error: string;
+  /** Live-region messages. */
+  copiedMessage: string;
+  errorMessage: string;
+  /** Tooltip. */
+  title: string;
+}
+
+export interface Dictionary {
+  meta: {
+    title: string;
+    description: string;
+    keywords: string[];
+    /** SoftwareApplication description for JSON-LD. */
+    appDescription: string;
+  };
+  common: {
+    skipToContent: string;
+    /** Appended (visually hidden) to links that open a new tab. */
+    newTab: string;
+    copy: CopyButtonCopy;
+  };
+  topLinks: {
+    label: string;
+    project: string;
+    projectLinks: { github: string; issues: string; web: string };
+    authorLinks: { github: string; youtube: string; web: string; kofi: string };
+  };
+  nav: {
+    primary: string;
+    mobile: string;
+    home: string;
+    links: {
+      agents: string;
+      tour: string;
+      principles: string;
+      spellbook: string;
+      install: string;
+    };
+    menu: string;
+    close: string;
+    language: string;
+    /** tmux status line word, e.g. "128 spells". */
+    spells: string;
+  };
+  sidebar: {
+    label: string;
+    /** Screen-reader summary of the tree. */
+    summary: string;
+    userNote: string;
+  };
+  hero: {
+    titleLines: [string, string];
+    lead: [string, string];
+    copyInstall: string;
+    viewSource: string;
+    panesLabel: string;
+    paneYou: string;
+    paneAgent: string;
+    bootLog: BootLine[];
+    agentComments: Partial<Record<AgentCommandId, string>>;
+  };
+  agents: {
+    title: string;
+    lead: string;
+    detection: {
+      title: string;
+      /** Visually hidden table caption. */
+      caption: string;
+      columns: { agent: string; signal: string; result: string };
+      /** Name of the catch-all row (agents without a known variable). */
+      other: string;
+      /** Joins two signals, e.g. "or". */
+      or: string;
+      /** Extra signal shown after a row's variables. */
+      notes: Partial<Record<AgentSignalId, string>>;
+      result: string;
+      /** May contain `inline code`. */
+      footnote: string;
+    };
+    shell: {
+      title: string;
+      /** Visually hidden prefixes that replace the ✗ / ✓ glyphs. */
+      off: string;
+      on: string;
+      /** May contain `inline code`. */
+      items: Record<AgentShellItemId, string>;
+    };
+    config: {
+      label: string;
+      /** Comment lines above BW_AGENT_MODE, without the leading "# ". */
+      modeComment: string[];
+      /** Comment lines above BW_AGENT_ENV_VARS, without the leading "# ". */
+      varsComment: string[];
+    };
+    faq: {
+      title: string;
+      /** Answers may contain `inline code`. */
+      items: Record<AgentFaqId, { question: string; answer: string }>;
+    };
+  };
+  showcase: {
+    title: string;
+    lead: string;
+    commandsLabel: string;
+    /** tmux word for a pane, e.g. "pane 0: git". */
+    pane: string;
+    items: Record<ShowcaseId, ShowcaseCopy>;
+  };
+  principles: {
+    title: string;
+    lead: string;
+    userCommands: string;
+    options: string;
+    license: string;
+    items: Record<PrincipleFlag, { title: string; description: string }>;
+  };
+  spellbook: {
+    title: string;
+    /** May contain `inline code`. */
+    lead: string;
+    tablist: string;
+    /** Table caption; "{module}" is replaced by the module name. */
+    caption: string;
+    columns: { name: string; usage: string; description: string; safety: string };
+    none: string;
+    summaries: Record<SpellbookTabId, string>;
+  };
+  install: {
+    title: string;
+    lead: string;
+    steps: { run: string; reload: string; customize: string };
+    copyInstall: string;
+    copyReload: string;
+    reloadComment: string;
+    /** May contain `inline code`. */
+    note: string;
+    configLabel: string;
+  };
+  community: {
+    title: string;
+    cards: { contribute: CardCopy; issue: CardCopy; star: CardCopy };
+  };
+  footer: {
+    label: string;
+    tagline: string;
+    columns: { product: string; project: string; community: string };
+    links: {
+      tour: string;
+      spellbook: string;
+      install: string;
+      source: string;
+      releases: string;
+      license: string;
+      contributing: string;
+      issues: string;
+      youtube: string;
+      kofi: string;
+    };
+    license: string;
+    builtBy: string;
+    spells: string;
+  };
+}
