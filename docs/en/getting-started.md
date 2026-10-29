@@ -29,9 +29,13 @@ The project uses a `config.env` file in the root directory. You can enable or di
    - `BW_ENABLE_GIT=true` (Enable/Disable modules)
    - `BW_WORKSPACE_ROOTS="$HOME/Dev"` (Set your project paths)
 
+> [!TIP]
+> Keep your settings out of the repo in `~/.config/bash-wizardry/config.env`: it loads after the repo's `config.env`, wins over it, and survives updates. Your own modules go in `~/.config/bash-wizardry/modules/`. See [Customization](customization.md).
+
 ## 🧙‍♂️ Basic Usage
 
-- **`bw-help`**: Shows available modules and general help.
+- **`bw-help`**: Lists every spell by module (`bw-help git` for one module), plus skipped commands and your loaded user modules.
+- **`bwiz`**: The command-line companion on your `PATH`: `bwiz help [--json] [module]`, `bwiz modules`, `bwiz version`.
 - **`bw-update`**: Pulls the latest changes (fast-forward only) and reloads the system in your current shell. If you have local changes that block the update, it reports an error instead.
 - **`ws`**: Jump between your workspaces.
 

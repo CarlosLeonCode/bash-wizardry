@@ -26,9 +26,18 @@ if [ -d "${WIZARDRY_DIR}/scripts" ]; then
 fi
 
 # --- Load Configuration ---
+# The repo's config.env first, then the user's own config.env (outside the
+# repo, so it survives updates). The user file wins. Both load before agent
+# detection, so BW_AGENT_MODE can be set in either.
 if [ -f "${WIZARDRY_DIR}/config.env" ]; then
     source "${WIZARDRY_DIR}/config.env"
 fi
+BW_CONFIG_HOME="${BW_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/bash-wizardry}"
+if [ -f "${BW_CONFIG_HOME}/config.env" ]; then
+    source "${BW_CONFIG_HOME}/config.env"
+fi
+# User modules: <name>.sh files here load after the core modules.
+BW_USER_MODULES_DIR="${BW_USER_MODULES_DIR:-$BW_CONFIG_HOME/modules}"
 
 # --- Agent Mode ---
 # AI coding agents (Claude Code, Codex, Cursor, Gemini CLI...) often run their
@@ -91,10 +100,16 @@ _bw_confirm() {
 }
 
 # --- Load Modules ---
-# Helper to check if a module should be loaded (default: true)
+# Helper to check if a module should be loaded (default: true).
+# The variable is BW_ENABLE_<NAME>: the file name without .sh, upper-cased,
+# with anything other than letters, digits and '_' turned into '_'
+# (my-tools.sh -> BW_ENABLE_MY_TOOLS).
 _bw_should_load() {
-    local module_name=$(basename "$1" .sh)
-    local var_name="BW_ENABLE_$(echo "$module_name" | tr '[:lower:]' '[:upper:]')"
+    local module_name="${1##*/}"
+    module_name="${module_name%.sh}"
+    local var_name
+    var_name=$(printf '%s' "$module_name" | tr '[:lower:]' '[:upper:]')
+    var_name="BW_ENABLE_${var_name//[^A-Z0-9_]/_}"
     if [ -z "${!var_name}" ]; then
         # If variable is unset, default to true
         return 0
@@ -108,8 +123,10 @@ _bw_should_load() {
 # Fallback for Zsh or older Bash upper-casing
 if [ -n "$ZSH_VERSION" ]; then
     _bw_should_load() {
-        local module_name=$(basename "$1" .sh)
-        local var_name="BW_ENABLE_${module_name:u}" # Zsh uppercasing
+        local module_name="${1##*/}"
+        module_name="${module_name%.sh}"
+        # shellcheck disable=SC2296,SC2299 # zsh-only expansion
+        local var_name="BW_ENABLE_${${module_name:u}//[^A-Z0-9_]/_}" # Zsh uppercasing
         # shellcheck disable=SC2296 # zsh-only expansion
         local val=${(P)var_name}
         if [ -z "$val" ] || [ "$val" = "true" ]; then
@@ -133,11 +150,12 @@ else
 fi
 
 if [ -d "${WIZARDRY_DIR}/modules" ]; then
-    for module_file in "${WIZARDRY_DIR}"/modules/*.sh; do
-        if [ -r "$module_file" ]; then
-            if _bw_should_load "$module_file"; then
-                source "$module_file"
-            fi
+    for bw_module_file in "${WIZARDRY_DIR}"/modules/*.sh; do
+        [ -r "$bw_module_file" ] || continue
+        # A user module with the same file name replaces the core one.
+        [ -f "${BW_USER_MODULES_DIR}/${bw_module_file##*/}" ] && continue
+        if _bw_should_load "$bw_module_file"; then
+            source "$bw_module_file"
         fi
     done
 fi
@@ -186,7 +204,7 @@ else
 $(compgen -a; compgen -A function)
 EOF
 fi
-unset bw_nl bw_names_before bw_name bw_reserved
+unset bw_nl bw_names_before bw_name bw_reserved bw_module_file
 
 # --- Load Completions ---
 # Completions use the 'complete' builtin: always present in Bash, and in Zsh
@@ -196,6 +214,8 @@ if [ -d "${WIZARDRY_DIR}/completions" ] && type complete >/dev/null 2>&1; then
         [ -r "$completion_file" ] || continue
         # Only load completions for enabled modules (git_completions.sh -> git.sh).
         completion_module=$(basename "$completion_file" _completions.sh)
+        # Skip it when a user module replaces the core module.
+        [ -f "${BW_USER_MODULES_DIR}/${completion_module}.sh" ] && continue
         if _bw_should_load "${completion_module}.sh"; then
             source "$completion_file"
         fi
@@ -218,16 +238,53 @@ bw-update() {
 }
 
 bw-help() {
-    echo "🧙‍♂️ bash-wizardry Help"
-    echo "----------------------"
-    echo "Available Modules:"
-    ls "$WIZARDRY_DIR/modules" | sed 's/\.sh//g' | xargs -n1 echo "  -"
+    # The spell list comes from catalog/commands.tsv via bwiz (also on PATH).
+    "$WIZARDRY_DIR/scripts/bwiz" help "$@" || return
     if [ -n "$BW_SKIPPED_COMMANDS" ]; then
         echo ""
         echo "Skipped (would shadow an existing command): $BW_SKIPPED_COMMANDS"
         echo "Allow with BW_ALLOW_OVERRIDE=\"name ...\" in config.env"
     fi
+    if [ -n "$BW_USER_MODULES_LOADED" ]; then
+        echo ""
+        echo "User modules loaded from $BW_USER_MODULES_DIR: $BW_USER_MODULES_LOADED"
+    fi
     echo ""
-    echo "Run specific commands with --help or check the README for details."
+    echo "Run 'bwiz help --json' for machine-readable output."
     echo "Repo: https://github.com/CarlosLeonCode/bash-wizardry"
 }
+
+# --- User Modules ---
+# <name>.sh files in BW_USER_MODULES_DIR load last, gated by BW_ENABLE_<NAME>
+# like core modules. They are the user's own code: the collision guard above
+# does not apply to them. Agent mode returned long before this point.
+BW_USER_MODULES_LOADED=""
+if [ -d "$BW_USER_MODULES_DIR" ]; then
+    # Collect the files first: a glob with no match is an error in Zsh, and
+    # nullglob must not leak into the modules, so it stays local to a function.
+    _bw_list_user_modules() {
+        # shellcheck disable=SC2034 # read by the caller
+        bw_user_files=""
+        [ -n "$ZSH_VERSION" ] && setopt localoptions nullglob
+        local f
+        for f in "$BW_USER_MODULES_DIR"/*.sh; do
+            [ -r "$f" ] && bw_user_files="${bw_user_files}${f}
+"
+        done
+        return 0
+    }
+    _bw_list_user_modules
+    unset -f _bw_list_user_modules
+    while [ -n "$bw_user_files" ]; do
+        bw_module_file=${bw_user_files%%
+*}
+        bw_user_files=${bw_user_files#*
+}
+        if _bw_should_load "$bw_module_file"; then
+            source "$bw_module_file"
+            bw_module_file=${bw_module_file##*/}
+            BW_USER_MODULES_LOADED="${BW_USER_MODULES_LOADED:+$BW_USER_MODULES_LOADED }${bw_module_file%.sh}"
+        fi
+    done
+    unset bw_user_files bw_module_file
+fi

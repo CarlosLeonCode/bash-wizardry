@@ -4,10 +4,14 @@ on:
   push:
     paths:
       - "web/**"
+      - "catalog/**"
+      - "tools/**"
       - ".github/workflows/web.yml"
   pull_request:
     paths:
       - "web/**"
+      - "catalog/**"
+      - "tools/**"
       - ".github/workflows/web.yml"
 
 jobs:

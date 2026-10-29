@@ -1,0 +1,213 @@
+#!/usr/bin/env bash
+#
+# bwiz: command-line companion for bash-wizardry.
+#
+# Lives in scripts/, which init.sh puts on PATH even in agent mode, so it is
+# the entry point for AI agents and tools: 'bwiz help --json' describes every
+# spell from catalog/commands.tsv, the single source of truth.
+#
+# Portable to macOS's bash 3.2: no associative arrays, no mapfile, no readlink -f.
+
+set -euo pipefail
+
+usage() {
+    cat <<'EOF'
+Usage: bwiz <command> [options]
+
+Commands:
+  help [--json] [module]   List spells by module (all modules, or one).
+                           --json prints a JSON array for tools and agents.
+  modules                  List core and user modules and whether they load.
+  version                  Print the installed version.
+
+Run 'bwiz help' to see every spell.
+EOF
+}
+
+die_usage() {
+    [ -n "${1:-}" ] && echo "bwiz: $1" >&2
+    usage >&2
+    exit 2
+}
+
+# --- Locate the repository (follow symlinks portably) ---
+bwiz_root() {
+    local src="${BASH_SOURCE[0]}" dir
+    while [ -L "$src" ]; do
+        dir=$(cd -P "$(dirname "$src")" && pwd)
+        src=$(readlink "$src")
+        case "$src" in
+            /*) ;;
+            *) src="$dir/$src" ;;
+        esac
+    done
+    dir=$(cd -P "$(dirname "$src")" && pwd)
+    printf '%s\n' "${dir%/*}"
+}
+
+ROOT=$(bwiz_root)
+CATALOG="$ROOT/catalog/commands.tsv"
+
+# --- Configuration (same order as init.sh: repo config, then user config) ---
+# Config files are plain shell assignments written for interactive shells, so
+# they are sourced without -e/-u. Their output is discarded.
+set +eu
+if [ -f "$ROOT/config.env" ]; then
+    # shellcheck disable=SC1091 # user file
+    . "$ROOT/config.env" >/dev/null 2>&1
+fi
+BW_CONFIG_HOME="${BW_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/bash-wizardry}"
+if [ -f "$BW_CONFIG_HOME/config.env" ]; then
+    # shellcheck disable=SC1091 # user file
+    . "$BW_CONFIG_HOME/config.env" >/dev/null 2>&1
+fi
+BW_USER_MODULES_DIR="${BW_USER_MODULES_DIR:-$BW_CONFIG_HOME/modules}"
+set -eu
+
+# Succeeds when BW_ENABLE_<NAME> is unset, empty or "true" (init.sh rules).
+module_enabled() {
+    local var
+    var=$(printf '%s' "$1" | tr '[:lower:]' '[:upper:]')
+    var="BW_ENABLE_${var//[^A-Z0-9_]/_}"
+    case "${!var-}" in
+        ""|true) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+user_module_exists() {
+    [ -f "$BW_USER_MODULES_DIR/$1.sh" ]
+}
+
+# Space-separated catalog modules whose spells are not loaded: disabled in
+# config, or replaced by a user module with the same file name.
+inactive_modules() {
+    local m out=" "
+    for m in $(awk -F '\t' 'NR > 1 && $1 != "core" { print $1 }' "$CATALOG" | uniq); do
+        if ! module_enabled "$m"; then
+            out="$out$m:disabled "
+        elif user_module_exists "$m"; then
+            out="$out$m:replaced "
+        fi
+    done
+    printf '%s\n' "$out"
+}
+
+cmd_help() {
+    local json=0 module="" arg
+    for arg in "$@"; do
+        case "$arg" in
+            --json) json=1 ;;
+            -h|--help) usage; return 0 ;;
+            -*) die_usage "unknown option '$arg'" ;;
+            *)
+                [ -z "$module" ] || die_usage "help takes at most one module"
+                module=$arg
+                ;;
+        esac
+    done
+
+    [ -r "$CATALOG" ] || { echo "bwiz: catalog not found at $CATALOG" >&2; exit 1; }
+
+    if [ -n "$module" ] && ! awk -F '\t' -v m="$module" 'NR > 1 && $1 == m { found = 1 } END { exit !found }' "$CATALOG"; then
+        echo "bwiz: unknown module '$module'. Modules: $(awk -F '\t' 'NR > 1 { print $1 }' "$CATALOG" | uniq | tr '\n' ' ')" >&2
+        exit 2
+    fi
+
+    local bold="" reset=""
+    if [ "$json" = 0 ] && [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+        bold=$(printf '\033[1m')
+        reset=$(printf '\033[0m')
+    fi
+    if [ "$json" = 0 ]; then
+        printf '%s🧙‍♂️ bash-wizardry spells%s\n\n' "$bold" "$reset"
+    fi
+
+    LC_ALL=C awk -F '\t' \
+        -v json="$json" -v want="$module" -v inactive="$(inactive_modules)" \
+        -v bold="$bold" -v reset="$reset" '
+        function jesc(s,   out, i, c) {
+            out = ""
+            for (i = 1; i <= length(s); i++) {
+                c = substr(s, i, 1)
+                if (c == "\\" || c == "\"") out = out "\\" c
+                else out = out c
+            }
+            return out
+        }
+        function state(m) {
+            if (index(inactive, " " m ":disabled ")) return "disabled"
+            if (index(inactive, " " m ":replaced ")) return "replaced"
+            return ""
+        }
+        NR == 1 { next }
+        want != "" && $1 != want { next }
+        {
+            n++
+            mod[n] = $1; name[n] = $2; kind[n] = $3
+            use[n] = ($4 == "" ? $2 : $4); desc[n] = $5
+            # Scripts in scripts/ are on PATH whatever the module settings.
+            on[n] = (kind[n] == "script" || state($1) == "") ? "true" : "false"
+            if (length(use[n]) > width) width = length(use[n])
+        }
+        END {
+            if (json) {
+                printf "["
+                for (i = 1; i <= n; i++) {
+                    printf "%s\n  {\"module\":\"%s\",\"name\":\"%s\",\"kind\":\"%s\",\"usage\":\"%s\",\"description\":\"%s\",\"enabled\":%s}", \
+                        (i > 1 ? "," : ""), jesc(mod[i]), jesc(name[i]), jesc(kind[i]), jesc(use[i]), jesc(desc[i]), on[i]
+                }
+                printf "%s]\n", (n ? "\n" : "")
+                exit
+            }
+            fmt = "  %-" width "s  %s\n"
+            for (i = 1; i <= n; i++) {
+                if (mod[i] != last) {
+                    st = state(mod[i])
+                    note = (st == "disabled") ? " (disabled in config)" : (st == "replaced") ? " (replaced by your user module)" : ""
+                    printf "%s%s%s%s%s\n", (i > 1 ? "\n" : ""), bold, mod[i], reset, note
+                    last = mod[i]
+                }
+                printf fmt, use[i], desc[i]
+            }
+        }' "$CATALOG"
+}
+
+cmd_modules() {
+    local f name status
+    printf '%-14s %-6s %s\n' MODULE SOURCE STATUS
+    for f in "$ROOT"/modules/*.sh; do
+        [ -f "$f" ] || continue
+        name=${f##*/}
+        name=${name%.sh}
+        if user_module_exists "$name"; then
+            status="replaced by user module"
+        elif module_enabled "$name"; then
+            status="enabled"
+        else
+            status="disabled"
+        fi
+        printf '%-14s %-6s %s\n' "$name" core "$status"
+    done
+    for f in "$BW_USER_MODULES_DIR"/*.sh; do
+        [ -f "$f" ] || continue
+        name=${f##*/}
+        name=${name%.sh}
+        if module_enabled "$name"; then status="enabled"; else status="disabled"; fi
+        printf '%-14s %-6s %s\n' "$name" user "$status"
+    done
+    echo ""
+    echo "User modules directory: $BW_USER_MODULES_DIR"
+}
+
+cmd_version() {
+    git -C "$ROOT" describe --tags --always 2>/dev/null || echo "unknown"
+}
+
+case "${1:-}" in
+    help) shift; cmd_help "$@" ;;
+    modules) cmd_modules ;;
+    version|--version) cmd_version ;;
+    ""|-h|--help) usage ;;
+    *) die_usage "unknown command '$1'" ;;
+esac

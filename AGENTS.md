@@ -65,12 +65,25 @@ graph TD
     
     subgraph Engine [scripts/: The Engine]
         DkrClean[docker-cleanup.sh]
+        Bwiz[bwiz]
+    end
+
+    subgraph Catalog [catalog/: The Index]
+        Tsv[commands.tsv]
+    end
+
+    subgraph UserHome [BW_CONFIG_HOME: The User's Grimoire]
+        UserEnv[config.env]
+        UserMods[modules/*.sh]
     end
     
     Init -->|1. Reads| Env
+    Init -->|1b. Then reads| UserEnv
     Init -->|2. Exports to PATH| Engine
     Init -->|3. Sources if enabled| Modules
     Init -->|4. Sources| Completions
+    Init -->|5. Sources last, unguarded| UserMods
+    Bwiz -->|reads lazily| Tsv
 ```
 
 ### Folder Structure
@@ -79,14 +92,22 @@ graph TD
 - `completions/`: The **Intelligence**. Enhances shell autocompletion (e.g., git branch names).
 - `scripts/`: The **Engine**. Standalone helper scripts added directly to the user's `$PATH`.
 - `config.env.example`: The **Blueprint**. Template for user-specific module toggling and settings.
+- `catalog/commands.tsv`: The **Index**. Single source of truth for every public spell (`module`, `name`, `kind`, `usage`, `description`). Feeds `bwiz`/`bw-help`, AI agents (`bwiz help --json`) and the website. `tests/catalog.bats` fails when it drifts from the modules.
+- `tools/`: Development tooling, never on the user's `PATH`. `gen-catalog.sh` generates `web/src/lib/catalog.generated.ts` from the catalog (CI checks it is in sync).
+- `tests/`: Bats suite (`bats tests/`), run in Bash and Zsh against a private copy of the runtime files.
+- `web/`: The landing site (Next.js). Its Spellbook reads the generated catalog.
+- `$BW_CONFIG_HOME` (default `~/.config/bash-wizardry`): the user's own `config.env` and `modules/`, outside the repo.
 
 ### Loading Flow
 1. User sources `init.sh` in their shell profile.
 2. `init.sh` detects its own absolute path to ensure portability.
 3. It exports `scripts/` to the global `PATH` (idempotent on re-source).
-4. It reads `config.env` (module toggles such as `BW_ENABLE_DOCKER=true`, plus `BW_AGENT_MODE`, `BW_AGENT_ENV_VARS` and `BW_ALLOW_OVERRIDE`).
+4. It reads the repo's `config.env`, then `$BW_CONFIG_HOME/config.env` (the user's file wins): module toggles such as `BW_ENABLE_DOCKER=true`, plus `BW_AGENT_MODE`, `BW_AGENT_ENV_VARS`, `BW_ALLOW_OVERRIDE` and `BW_USER_MODULES_DIR`.
 5. **Agent mode:** if the shell is non-interactive or an agent variable (e.g. `CLAUDECODE`) is set (or `BW_AGENT_MODE=1`), it exports `BW_AGENT_ACTIVE=1` and returns early. Nothing else is defined: no aliases, functions, hooks or completions.
-6. It records the alias and function names that already exist, then loops through `modules/*.sh` and sources each one if enabled.
+6. It records the alias and function names that already exist, then loops through `modules/*.sh` and sources each one if enabled, skipping any core module that a user module with the same file name replaces.
 7. **Collision sweep:** every alias or function added by this load that would shadow an executable on `PATH`, a builtin or a reserved word is removed (unless listed in `BW_ALLOW_OVERRIDE`) and recorded in `BW_SKIPPED_COMMANDS`. Names that existed before the load are never touched.
 8. Custom shell completions from `completions/` are loaded to assist the user.
-9. Core commands `bw-update` and `bw-help` are defined.
+9. Core commands `bw-update` and `bw-help` (a thin wrapper around `bwiz help`) are defined.
+10. **User modules:** `$BW_USER_MODULES_DIR/*.sh` are sourced last, each gated by `BW_ENABLE_<NAME>`. The collision guard does not apply to them (it is the user's own code). Their names are listed in `BW_USER_MODULES_LOADED`.
+
+`bwiz` reads `catalog/commands.tsv` only when it runs, so the catalog adds nothing to shell startup.

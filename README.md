@@ -52,7 +52,8 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
    ```
 3. **Configure your spells (Optional):**
    ```bash
-   cp ~/.bash-wizardry/config.env.example ~/.bash-wizardry/config.env
+   mkdir -p ~/.config/bash-wizardry
+   cp ~/.bash-wizardry/config.env.example ~/.config/bash-wizardry/config.env
    ```
 </details>
 
@@ -75,6 +76,12 @@ Our specialized modules cover every aspect of the modern developer's life.
 
 ---
 
+## 🎛️ Make it yours
+
+Customize without forking: your `config.env` and your own modules live in `~/.config/bash-wizardry/`, so updates never touch them. A user module named like a core one (for example `git.sh`) replaces it. See the [Customization guide](docs/en/customization.md) ([ES](docs/es/personalizacion.md)).
+
+---
+
 ## 🤖 Works alongside AI agents
 
 AI coding agents (Claude Code, Codex, Cursor, Gemini CLI...) often run their commands through your shell setup. bash-wizardry stays out of their way:
@@ -82,6 +89,7 @@ AI coding agents (Claude Code, Codex, Cursor, Gemini CLI...) often run their com
 - **Agent mode:** in non-interactive shells, or when a known agent variable such as `CLAUDECODE` is set, `init.sh` only adds `scripts/` to your `PATH`. No aliases, functions, hooks or completions are defined. Control it with `BW_AGENT_MODE=auto|1|0`.
 - **Collision guard:** a spell is skipped if it would shadow a real command, builtin or keyword (for example `rs` vs `/usr/bin/rs`, or `r` in Zsh). That is also why `rails generate` is `rgen`, so ripgrep's `rg` keeps working. Run `bw-help` to see what was skipped.
 - **Your call:** keep a skipped spell with `BW_ALLOW_OVERRIDE="rs r"` in `config.env`.
+- **Machine-readable spellbook:** `bwiz` stays on your `PATH` even in agent mode. Agents can run `bwiz help --json` (or `bwiz help --json git`) to get every spell as JSON (`module`, `name`, `kind`, `usage`, `description`, `enabled`), generated from `catalog/commands.tsv`.
 
 ---
 
