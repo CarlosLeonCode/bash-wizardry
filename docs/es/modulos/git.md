@@ -14,6 +14,11 @@ Borra una rama local con una red de seguridad.
 - **Qué hace:** Pide confirmación antes de ejecutar `git branch -D`.
 - **Por qué usarlo:** Evita el borrado accidental de ramas con trabajo no fusionado.
 
+### `gclean` (Limpiar Ramas Fusionadas)
+Ordena tus ramas locales ya fusionadas.
+- **Qué hace:** Actualiza `origin` (con `--prune`), lista las ramas locales fusionadas en la rama por defecto de origin y pide confirmación antes de ejecutar `git branch -d` sobre ellas.
+- **Seguridad:** Nunca borra la rama por defecto, la rama actual ni las ramas protegidas (`main master develop dev stage staging` por defecto). Puedes cambiar la lista con `BW_GIT_PROTECTED_BRANCHES` en `config.env`.
+
 ### `gundo` (Deshacer Suave)
 Deshaz tu último error.
 - **Qué hace:** Ejecuta `git reset --soft HEAD~1`.

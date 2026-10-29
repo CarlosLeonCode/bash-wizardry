@@ -1,0 +1,49 @@
+.glow,
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glow {
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 30%, rgba(57, 255, 106, 0.08), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* 1px dark line every 3px. Light enough to keep text contrast within AA. */
+.scanlines {
+  z-index: 150;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* A barely-there brightness drift; skipped entirely for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .scanlines {
+    animation: flicker 6s steps(1, end) infinite;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  47% {
+    opacity: 0.94;
+  }
+  48% {
+    opacity: 1;
+  }
+  81% {
+    opacity: 0.96;
+  }
+  82% {
+    opacity: 1;
+  }
+}

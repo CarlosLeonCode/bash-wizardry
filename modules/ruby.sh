@@ -34,10 +34,10 @@ unalias btest &>/dev/null
 unset -f btest &> /dev/null
 btest() {
   if bundle list | grep -q 'rspec-core'; then
-    echo "-> RSpec detected. Running 'bundle exec rspec $@'..."
+    echo "-> RSpec detected. Running 'bundle exec rspec $*'..."
     bundle exec rspec "$@"
   else
-    echo "-> RSpec not found. Running 'bundle exec rails test $@'..."
+    echo "-> RSpec not found. Running 'bundle exec rails test $*'..."
     bundle exec rails test "$@"
   fi
 }

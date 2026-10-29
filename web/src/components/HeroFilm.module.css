@@ -1,0 +1,193 @@
+/* ---- pane chrome (matches the hero's split panes) ------------------------- */
+
+.pane {
+  width: 100%;
+  margin: 0 0 clamp(2rem, 4.5vw, 2.5rem);
+  padding: 0.9rem 1rem 0.75rem;
+  border: 1px solid var(--line);
+  background: rgba(5, 11, 6, 0.75);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (min-width: 480px) {
+  .pane {
+    padding-inline: 1.15rem;
+  }
+}
+
+.pane:hover,
+.pane:focus-within {
+  border-color: var(--green-3);
+  box-shadow:
+    0 0 0 1px rgba(57, 255, 106, 0.08),
+    0 0 28px rgba(57, 255, 106, 0.1);
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  color: var(--dim);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+/* Narrow screens drop the box-drawing rules: "pane 2: demo". */
+.rule {
+  display: none;
+}
+
+@media (min-width: 420px) {
+  .rule {
+    display: inline;
+  }
+}
+
+.file {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- screen --------------------------------------------------------------- */
+
+/* The poster is also the box background, so nothing changes when the video
+   element paints its first frame. */
+.screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #050605 var(--poster) center / cover no-repeat;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Fainter than the page's own CRT layer (which still sits above everything),
+   plus a soft inner vignette, so the film reads as a screen but stays crisp. */
+.crt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 85% 80% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.4) 100%);
+  box-shadow: inset 0 0 0 1px rgba(57, 255, 106, 0.05);
+}
+
+/* ---- controls ------------------------------------------------------------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.25rem;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 480px) {
+  .controls {
+    column-gap: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+.key {
+  min-height: 44px;
+  padding: 0 0.3rem;
+  border: 0;
+  background: none;
+  color: var(--green);
+  font: inherit;
+  white-space: pre;
+  cursor: pointer;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.key:hover {
+  color: var(--bright);
+  text-shadow: var(--glow-soft);
+}
+
+/* Both labels share one grid cell, so swapping play/pause never shifts the row. */
+.swap {
+  display: inline-grid;
+}
+
+.swap > span {
+  grid-area: 1 / 1;
+  text-align: left;
+}
+
+.ghost {
+  visibility: hidden;
+}
+
+.seek {
+  position: relative;
+  flex: 1 1 16ch;
+  min-width: 12ch;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding-inline: 0.3rem;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.seek:has(.range:focus-visible) {
+  outline: 2px solid var(--green);
+  outline-offset: -2px;
+}
+
+.bar {
+  color: var(--dim);
+}
+
+.done {
+  color: var(--green);
+  text-shadow: var(--glow-soft);
+}
+
+/* The real slider: full-size and invisible over the text bar, so pointer,
+   touch and keyboard seeking all come from the native control. */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Measures one character width for the bar (10 chars, see HeroFilm). */
+.probe {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.time {
+  padding-inline: 0.3rem;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pane,
+  .key {
+    transition: none;
+  }
+}

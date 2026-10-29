@@ -1,0 +1,90 @@
+.list {
+  display: grid;
+  gap: clamp(3rem, 7vw, 4.5rem);
+}
+
+.row {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .row {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+
+.text {
+  min-width: 0;
+}
+
+.visual {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin-bottom: 0.6rem;
+  color: var(--green-2);
+  font-size: 0.8125rem;
+}
+
+.title {
+  color: var(--bright);
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.description {
+  margin-top: 0.85rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  text-wrap: pretty;
+}
+
+.points {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  color: var(--green-2);
+  font-size: 0.875rem;
+}
+
+.points li {
+  display: grid;
+  grid-template-columns: 2ch minmax(0, 1fr);
+}
+
+.points li::before {
+  content: "-";
+  color: var(--green);
+}
+
+.commands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.commands code {
+  display: inline-block;
+  color: var(--green);
+  font-size: 0.8125rem;
+}
+
+.commands code::before {
+  content: "[";
+  color: var(--dim);
+  margin-right: 0.3ch;
+}
+
+.commands code::after {
+  content: "]";
+  color: var(--dim);
+  margin-left: 0.3ch;
+}

@@ -1,0 +1,261 @@
+.hero {
+  position: relative;
+  padding-block: clamp(2rem, 6vw, 3.5rem) clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ---- ASCII logo ----------------------------------------------------------- */
+/* The logo container is a size container: the art scales with clamp-like
+   min() so a 98-column (or 62-column stacked) block always fits its width. */
+
+.logo {
+  container: logo / inline-size;
+  width: 100%;
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+  color: var(--green);
+}
+
+.art {
+  display: none;
+  font-family: var(--font-box);
+  width: max-content;
+  line-height: 1.05;
+  white-space: pre;
+  will-change: transform;
+}
+
+.wordmark {
+  display: block;
+  font-size: clamp(2.4rem, 16cqi, 3.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+@container logo (min-width: 300px) {
+  .wordmark {
+    display: none;
+  }
+
+  .stacked {
+    display: block;
+    font-size: min(15px, calc(100cqi / 37.6));
+  }
+}
+
+@container logo (min-width: 760px) {
+  .stacked {
+    display: none;
+  }
+
+  .wide {
+    display: block;
+    font-size: min(15px, calc(100cqi / 59.2));
+  }
+}
+
+/* ---- headline ------------------------------------------------------------- */
+
+.title {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.6ch;
+  color: var(--bright);
+  font-size: clamp(1.5rem, 5.4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.chevron {
+  color: var(--green);
+  text-shadow: var(--glow);
+}
+
+.titleText {
+  text-wrap: balance;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.95em;
+  margin-left: 0.08em;
+  vertical-align: -0.12em;
+  background: var(--green);
+  box-shadow: 0 0 14px var(--green);
+}
+
+/* Moving cursor used only while the headline types itself (GSAP shows it). */
+.typingCursor {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .titleText .cursor {
+    animation: blink 1.1s steps(1, end) infinite;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.lead {
+  max-width: 72ch;
+  margin-block: clamp(1.1rem, 2.5vw, 1.5rem) clamp(1.5rem, 3vw, 1.85rem);
+  color: var(--green-2);
+  font-size: clamp(0.875rem, 1.5vw, 1.05rem);
+}
+
+.lead span {
+  display: block;
+}
+
+/* ---- install row ---------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+  width: 100%;
+  margin-bottom: clamp(2rem, 4.5vw, 2.5rem);
+}
+
+.install {
+  display: flex;
+  flex: 1 1 520px;
+  min-width: 0;
+  border: 1px solid var(--green-3);
+  background: var(--box);
+}
+
+.installCmd {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  color: var(--bright);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green-3) transparent;
+}
+
+.dollar {
+  color: var(--green);
+}
+
+/* ---- split panes ---------------------------------------------------------- */
+
+.panes {
+  display: grid;
+  width: 100%;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: rgba(5, 11, 6, 0.75);
+}
+
+@media (min-width: 900px) {
+  .panes {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+}
+
+.pane {
+  min-width: 0;
+  padding: 0.9rem 1rem 1.1rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 480px) {
+  .pane {
+    font-size: 0.8125rem;
+    padding-inline: 1.15rem;
+  }
+}
+
+.pane + .pane {
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 900px) {
+  .pane + .pane {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+
+.paneTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--dim);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
+.paneBody {
+  overflow-x: auto;
+  white-space: pre;
+  scrollbar-width: none;
+}
+
+.cmdLine {
+  color: var(--bright);
+}
+
+.arrow {
+  color: var(--green);
+}
+
+/* Inline-block so GSAP can "type" it by stepping its width in ch. */
+.cmd {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: pre;
+}
+
+.bootLine {
+  color: var(--text);
+}
+
+.init {
+  color: var(--dim);
+}
+
+.ok,
+.ready {
+  color: var(--green);
+}
+
+.skip {
+  color: var(--amber);
+}
+
+.bright {
+  color: var(--bright);
+}
+
+.agentOut {
+  color: var(--cyan);
+}

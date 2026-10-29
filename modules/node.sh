@@ -98,8 +98,12 @@ nr() {
         echo "No scripts found in package.json." >&2
         return 1
     fi
+    # Build an array of lines so each script is one option in bash and zsh.
+    local -a options=()
+    local line
+    while IFS= read -r line; do options+=("$line"); done <<< "$scripts"
     echo "Please select a script to run:"
-    select script in $scripts; do
+    select script in "${options[@]}"; do
       if [ -n "$script" ]; then
         nr "$script"
         return 0
@@ -145,9 +149,7 @@ nup() {
 unalias n-clean &>/dev/null
 unset -f n-clean &> /dev/null
 n-clean() {
-  read -p "This will remove node_modules/ and lockfiles. Are you sure? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "This will remove node_modules/ and lockfiles. Are you sure?"; then
     rm -rf node_modules
     rm -f package-lock.json yarn.lock pnpm-lock.yaml
     echo "Project workspace cleaned."

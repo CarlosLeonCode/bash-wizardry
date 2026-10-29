@@ -14,7 +14,8 @@ Explore the spells available in each module:
 - **[🐳 Docker](modules/docker.md)**: (Coming Soon) Interactive container management.
 
 ## 🛠️ Advanced
-- **[Configuration](../../README.md#-configuration)**: How to use `config.env`.
+- **[Configuration](getting-started.md)**: How to use `config.env`.
+- **[Customization](customization.md)**: Your own config and modules in `~/.config/bash-wizardry`, without forking.
 
 ---
 [Return to Main README](../../README.md)

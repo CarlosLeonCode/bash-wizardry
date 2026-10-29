@@ -14,7 +14,8 @@ Explora los hechizos disponibles en cada módulo:
 - **[🐳 Docker](modulos/docker.md)**: (Próximamente) Gestión interactiva de contenedores.
 
 ## 🛠️ Avanzado
-- **[Configuración](../../README.md#-configuración)**: Cómo usar el archivo `config.env`.
+- **[Configuración](empezando.md)**: Cómo usar el archivo `config.env`.
+- **[Personalización](personalizacion.md)**: Tu propia configuración y tus módulos en `~/.config/bash-wizardry`, sin hacer un fork.
 
 ---
 [Volver al README Principal](../../README.md)

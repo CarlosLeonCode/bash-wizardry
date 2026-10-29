@@ -29,14 +29,26 @@ The project uses a `config.env` file in the root directory. You can enable or di
    - `BW_ENABLE_GIT=true` (Enable/Disable modules)
    - `BW_WORKSPACE_ROOTS="$HOME/Dev"` (Set your project paths)
 
+> [!TIP]
+> Keep your settings out of the repo in `~/.config/bash-wizardry/config.env`: it loads after the repo's `config.env`, wins over it, and survives updates. Your own modules go in `~/.config/bash-wizardry/modules/`. See [Customization](customization.md).
+
 ## 🧙‍♂️ Basic Usage
 
-- **`bw-help`**: Shows available modules and general help.
-- **`bw-update`**: Pulls the latest changes and reloads the system.
+- **`bw-help`**: Lists every spell by module (`bw-help git` for one module), plus skipped commands and your loaded user modules.
+- **`bwiz`**: The command-line companion on your `PATH`: `bwiz help [--json] [module]`, `bwiz modules`, `bwiz version`.
+- **`bw-update`**: Pulls the latest changes (fast-forward only) and reloads the system in your current shell. If you have local changes that block the update, it reports an error instead.
 - **`ws`**: Jump between your workspaces.
 
 ## 🛡️ Safety First
 Commands like `gbd` (delete branch) or `rdbreset` (reset database) will always ask for confirmation. Use them without fear!
+
+### 🤖 AI agents and command collisions
+- **Agent mode:** when the shell is non-interactive or a known agent variable (like `CLAUDECODE`) is set, `init.sh` only adds `scripts/` to your `PATH` and stops. AI coding agents never see bash-wizardry aliases, functions or hooks.
+- **Collision guard:** any spell that would shadow a real command, builtin or keyword (for example `rs` vs `/usr/bin/rs`, or `r` in Zsh) is skipped at load time. `bw-help` lists the skipped names.
+
+Settings in `config.env`:
+- `BW_AGENT_MODE=auto` (`auto` detects agents, `1` always agent mode, `0` always full load)
+- `BW_ALLOW_OVERRIDE="rs"` (space-separated spells allowed to shadow existing commands)
 
 ---
 [Return to README](../../README.md)

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  shell:
+    name: shell (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies (Ubuntu)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y zsh bats shellcheck jq
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install bats-core shellcheck jq
+
+      - name: ShellCheck
+        run: shellcheck -s bash -S error init.sh install.sh modules/*.sh completions/*.sh scripts/*.sh scripts/bwiz tools/*.sh
+
+      - name: Website catalog is in sync with catalog/commands.tsv
+        run: bash tools/gen-catalog.sh && git diff --exit-code web/src/lib/catalog.generated.ts
+
+      - name: Bats
+        run: bats tests/

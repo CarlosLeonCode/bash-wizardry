@@ -1,0 +1,219 @@
+.root {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+/* ---- tmux window list ---------------------------------------------------- */
+
+.bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--green);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.session {
+  display: none;
+  align-items: center;
+  padding-inline: 1rem 0.5rem;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .session {
+    display: flex;
+  }
+}
+
+.tablist {
+  display: flex;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tablist::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  min-height: 40px;
+  padding-inline: 0.75rem 0.4rem;
+  color: var(--ink);
+  font-weight: 700;
+  white-space: pre;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: rgba(2, 26, 8, 0.15);
+}
+
+.tab[aria-selected="true"] {
+  background: var(--ink);
+  color: var(--green);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+}
+
+.tab[aria-selected="true"]:focus-visible {
+  outline-color: var(--green);
+}
+
+/* ---- panel --------------------------------------------------------------- */
+
+.panel {
+  padding: 1.1rem 1rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .panel {
+    padding: 1.4rem 1.5rem 1.75rem;
+  }
+}
+
+.panel:focus-visible {
+  outline-offset: -4px;
+}
+
+.summary {
+  color: var(--dim);
+  font-size: 0.84rem;
+}
+
+.group {
+  margin-top: 1.25rem;
+}
+
+.group h3 {
+  font-size: 0.9rem;
+}
+
+.table {
+  width: 100%;
+  margin-top: 0.6rem;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.head th {
+  padding: 0.4rem 1rem 0.4rem 0;
+  border-bottom: 1px dashed var(--green-3);
+  color: var(--dim);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.safetyHead {
+  text-align: right;
+}
+
+.row td {
+  padding: 0.45rem 1rem 0.45rem 0;
+  vertical-align: top;
+}
+
+.row:hover td {
+  background: rgba(57, 255, 106, 0.04);
+}
+
+.name {
+  color: var(--green);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.usage {
+  color: var(--green-2);
+}
+
+.usage code {
+  white-space: pre-wrap;
+}
+
+.desc {
+  color: var(--text);
+}
+
+.safety {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.row td:last-child,
+.head th:last-child {
+  padding-right: 0;
+}
+
+.confirm {
+  color: var(--amber);
+}
+
+.none {
+  color: var(--dim);
+}
+
+@media (min-width: 768px) {
+  .name {
+    width: 16%;
+  }
+
+  .usage {
+    width: 26%;
+  }
+
+  .safety {
+    width: 6.5rem;
+  }
+}
+
+/* Narrow screens: each row becomes a small card; ARIA roles keep the table
+   semantics that display changes would otherwise drop. */
+@media (max-width: 767px) {
+  .head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .row td {
+    padding: 0;
+  }
+
+  .usage,
+  .desc {
+    grid-column: 1 / -1;
+  }
+
+  .usage {
+    grid-row: 2;
+  }
+
+  .desc {
+    grid-row: 3;
+    margin-top: 0.2rem;
+  }
+}

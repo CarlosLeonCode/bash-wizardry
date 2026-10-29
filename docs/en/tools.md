@@ -24,9 +24,9 @@ bash-wizardry is divided into specialized modules. Each can be enabled/disabled 
 ## 🐳 Docker
 *Interactive container management.*
 
-- **`dkrinto`**: Shell into a container (interactive menu).
-- **`dkrclean`**: Safe cleanup wizard.
-- **`dkrlogs`**: Interactive log streaming.
+- **`dckrexec`**: Shell into a container (interactive menu).
+- **`dckrclean`**: Safe cleanup wizard.
+- **`dckrlogs`**: Interactive log streaming.
 
 ## 🌍 Env Switcher
 *Environment management.*

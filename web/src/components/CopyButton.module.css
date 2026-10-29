@@ -1,0 +1,52 @@
+.root {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.button {
+  cursor: pointer;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Full-height keycap on the right edge of a command box. */
+.key .button {
+  min-width: 7.5rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  background: var(--green);
+  color: var(--ink);
+  font-size: 0.875rem;
+}
+
+.key .button:hover {
+  background: var(--bright);
+}
+
+.key .button[data-status="error"] {
+  background: var(--red);
+}
+
+/* Small bracketed key for secondary commands. */
+.compact .button {
+  min-width: 6.5rem;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  color: var(--green);
+  font-size: 0.8125rem;
+}
+
+.compact .button:hover {
+  text-shadow: var(--glow-soft);
+}
+
+.compact .button[data-status="error"] {
+  color: var(--red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

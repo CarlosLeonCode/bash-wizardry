@@ -83,19 +83,8 @@ gbd() {
     return 1
   fi
 
-  # Shell-agnostic prompt logic to ask for confirmation.
-  local confirmation_response
-  if [ -n "$ZSH_VERSION" ]; then
-    # Zsh native syntax for prompts is '?prompt_string'
-    read -k 1 -r "confirmation_response?Are you sure you want to force-delete branch '$1'? [y/N] "
-  else
-    # Bash standard syntax using -p
-    read -p "Are you sure you want to force-delete branch '$1'? [y/N] " -n 1 -r confirmation_response
-  fi
-  echo # Move to a new line after the user's input
-
-  # The logic to check the response remains the same.
-  if [[ "$confirmation_response" =~ ^[Yy]$ ]]; then
+  # Shell-agnostic confirmation (see _bw_confirm in init.sh).
+  if _bw_confirm "Are you sure you want to force-delete branch '$1'?"; then
     git branch -D "$1"
   else
     echo "Deletion cancelled."
@@ -161,9 +150,7 @@ alias ginit='git init'
 unalias greset &>/dev/null
 unset -f greset &> /dev/null
 greset() {
-  read -p "Are you sure you want to discard all local changes? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "Are you sure you want to discard all local changes?"; then
     git reset --hard HEAD
   fi
 }
@@ -176,16 +163,51 @@ gundo() {
   git reset --soft HEAD~1
 }
 
-# A function to clean up local branches that have been merged into main/master.
+# Deletes local branches already merged into origin's default branch.
+# Never touches the default branch, the current branch, or any branch listed
+# in BW_GIT_PROTECTED_BRANCHES. Asks for confirmation before deleting.
 # Usage: gclean
 unalias gclean &>/dev/null
 unset -f gclean &> /dev/null
 gclean() {
     echo "Fetching latest state from origin..."
-    git fetch origin
-    local default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
-    echo "Cleaning branches merged into origin/$default_branch..."
-    git branch --merged "origin/$default_branch" | grep -v "\* $default_branch" | xargs -r git branch -d
+    git fetch origin --prune || return 1
+
+    # Resolve origin's default branch (fast path, then network fallback).
+    local default_branch
+    default_branch=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null)
+    default_branch=${default_branch#origin/}
+    if [ -z "$default_branch" ]; then
+        default_branch=$(git remote show origin 2>/dev/null | sed -n 's/.*HEAD branch: //p')
+    fi
+    if [ -z "$default_branch" ]; then
+        echo "Error: Could not determine the default branch of 'origin'." >&2
+        return 1
+    fi
+
+    local protected=" $default_branch $(git branch --show-current) ${BW_GIT_PROTECTED_BRANCHES:-main master develop dev stage staging} "
+    local branch
+    local -a to_delete=()
+    while IFS= read -r branch; do
+        [ -z "$branch" ] && continue
+        case "$protected" in
+            *" $branch "*) continue ;;
+        esac
+        to_delete+=("$branch")
+    done < <(git branch --merged "origin/$default_branch" --format='%(refname:short)')
+
+    if [ ${#to_delete[@]} -eq 0 ]; then
+        echo "Nothing to clean."
+        return 0
+    fi
+
+    echo "Branches merged into origin/$default_branch:"
+    printf '  - %s\n' "${to_delete[@]}"
+    if _bw_confirm "Delete these ${#to_delete[@]} merged branches?"; then
+        git branch -d "${to_delete[@]}"
+    else
+        echo "Cleanup cancelled."
+    fi
 }
 
 # -----------------------------------------------------------------------------

@@ -1,0 +1,129 @@
+name	description
+gl	Log gráfico compacto y decorado de los últimos n commits (15 por defecto).
+gs	Estado corto con información de la rama.
+gdff	Muestra los cambios sin preparar (git diff).
+gfetch	Trae todos los remotos y poda las ramas eliminadas.
+ga	Prepara las rutas indicadas, o todo cuando no se indica ninguna.
+gaa	Igual que ga.
+gc	Hace commit con un mensaje, o abre tu editor cuando no se indica ninguno.
+gca	Modifica el último commit (git commit --amend).
+grstr	Restaura archivos (git restore).
+grm	Elimina archivos del índice y del árbol de trabajo (git rm).
+gco	Hace checkout de una rama o una ruta.
+gcob	Crea una rama y cambia a ella.
+gbc	Lista las ramas locales, o crea una (git branch).
+gb	Lista las ramas locales y remotas.
+gbd	Fuerza el borrado de una rama local.
+gp	Sube la rama actual a su upstream, o pasa argumentos a git push.
+gpo	Sube a origin.
+gplo	Hace pull desde origin.
+gup	Sincroniza la rama actual: pull --rebase y luego push.
+gm	Fusiona una rama en la actual.
+gmc	Continúa una fusión tras resolver los conflictos.
+gma	Aborta la fusión en curso.
+grbi	Rebase interactivo.
+grbc	Continúa un rebase tras resolver los conflictos.
+grba	Aborta el rebase en curso.
+gchrr	Aplica un commit con cherry-pick.
+gstash	Guarda los cambios locales en el stash.
+gstashp	Aplica y descarta el último stash (git stash pop).
+ginit	Crea un repositorio nuevo (git init).
+greset	Descarta todos los cambios locales (git reset --hard HEAD).
+gundo	Deshace el último commit y mantiene sus cambios preparados (soft reset).
+gclean	Borra las ramas locales fusionadas en la rama por defecto de origin; nunca la rama por defecto, la actual ni las de BW_GIT_PROTECTED_BRANCHES.
+gtagls	Lista las etiquetas.
+gtagd	Borra una etiqueta local.
+gtagp	Sube todas las etiquetas.
+ni	Instala las dependencias con el gestor de paquetes del proyecto (pnpm, yarn o npm, según el lockfile).
+na	Añade dependencias.
+nad	Añade dependencias de desarrollo.
+nrm	Elimina dependencias.
+nr	Ejecuta un script de package.json, o elige uno desde un menú (el menú necesita jq).
+nrs	Ejecuta el script start.
+nrb	Ejecuta el script build.
+nrtst	Ejecuta el script test.
+nrd	Ejecuta el script dev.
+nup	Actualiza las dependencias de forma interactiva (yarn, pnpm) o lista las desactualizadas (npm).
+n-clean	Elimina node_modules y todos los lockfiles.
+n-reinstall	n-clean seguido de una instalación limpia.
+n-why	Explica por qué está instalado un paquete.
+nrlsg	Lista los paquetes de npm instalados globalmente.
+nig	Instala paquetes de npm globalmente.
+nrug	Desinstala paquetes globales de npm.
+n	Atajo para npm.
+y	Atajo para yarn.
+p	Atajo para pnpm.
+dckr	Atajo para docker.
+dckrc	Atajo para docker-compose.
+dckrup	Inicia los servicios de Compose en segundo plano (docker-compose up -d).
+dckrdown	Detiene y elimina los servicios de Compose (docker-compose down).
+dckrps	Lista los contenedores en ejecución en una tabla compacta.
+dckrpsa	Lista todos los contenedores, incluidos los detenidos.
+dckrimgs	Lista las imágenes.
+dckrvols	Lista los volúmenes.
+dckrbuild	Construye el directorio actual (la etiqueta por defecto es <dir>:latest).
+dckrexec	Ejecuta un comando en un contenedor (/bin/bash por defecto); elige el contenedor desde un menú si se omite.
+dckrlogs	Sigue los logs de un contenedor; elige el contenedor desde un menú si se omite.
+dckrstop	Detiene un contenedor; elígelo desde un menú si se omite.
+dckrstart	Inicia un contenedor; elígelo desde un menú si se omite.
+dckrrestart	Reinicia un contenedor; elígelo desde un menú si se omite.
+dckrrm	Elimina un contenedor; elígelo desde un menú si se omite.
+dckrprune	Elimina los contenedores detenidos, las redes sin uso y todas las imágenes sin uso (docker system prune -a).
+dckrclean	Limpieza paso a paso de contenedores detenidos, imágenes sin uso y volúmenes sin uso.
+dckrip	Lista la dirección IP de cada contenedor en ejecución.
+docker-cleanup.sh	Script de limpieza independiente en tu PATH; las opciones eligen qué podar y --force omite la pregunta.
+r	Atajo para rails (se omite en Zsh, donde r es un builtin).
+rc	Consola de Rails.
+rcs	Consola de Rails en modo sandbox (los cambios se revierten al salir).
+rs	Servidor de Rails (se omite donde ya existe un comando rs, como en macOS).
+rgen	Rails generate (se llama rgen para que rg de ripgrep siga funcionando).
+rst	Estadísticas del código (rails stats).
+rdbc	Crea la base de datos.
+rdbm	Ejecuta las migraciones pendientes.
+rdbs	Prepara la base de datos: la crea, carga el esquema y los datos iniciales.
+rdbseed	Carga los datos iniciales en la base de datos (seed).
+rdr	Revierte la última migración.
+rdbd	Elimina la base de datos.
+rdbreset	Elimina, crea y migra la base de datos, y carga los datos iniciales.
+rr	Lista todas las rutas.
+rrts	Lista las rutas filtradas por un patrón, sin distinguir mayúsculas.
+rtst	Ejecuta la suite de tests de Rails.
+rspec	Ejecuta RSpec a través de Bundler.
+rlog	Sigue log/<env>.log (development por defecto).
+rb	Atajo para ruby.
+irb	Shell interactiva de Ruby.
+gemi	Instala una gema.
+gemr	Desinstala una gema.
+gemu	Actualiza las gemas instaladas.
+geml	Lista las gemas instaladas localmente.
+bi	Instala el bundle (bundle install). También lo define el módulo rails.
+bu	Actualiza las gemas del bundle (bundle update). También lo define el módulo rails.
+bo	Abre el código de una gema del bundle en tu editor (bundle open).
+be	Ejecuta un comando en el contexto del bundle (bundle exec). También lo define el módulo rails.
+btest	Ejecuta RSpec si el bundle lo incluye, o rails test en caso contrario.
+rb-v	Lista las versiones de Ruby instaladas (asdf, rbenv o rvm).
+rb-glo	Define la versión global de Ruby.
+rb-lcl	Define la versión de Ruby del proyecto actual.
+rb-info	Muestra las versiones de Ruby, Bundler y RubyGems.
+djm	Ejecuta python manage.py (falla si no hay un manage.py en el directorio actual).
+djrs	Inicia el servidor de desarrollo en 0.0.0.0 (puerto 8000 por defecto).
+djmm	Crea migraciones, opcionalmente para una app y con un nombre.
+djdbm	Aplica las migraciones (migrate).
+djdbs	Abre la shell de la base de datos (dbshell).
+djlsm	Lista las migraciones y si están aplicadas (showmigrations).
+djcsu	Crea un superusuario.
+djt	Ejecuta la suite de tests o una sola etiqueta de test.
+djshell	Abre shell_plus si django-extensions está instalado, o la shell estándar en caso contrario.
+djchk	Ejecuta las comprobaciones del sistema (check).
+djcll	Recopila los archivos estáticos (collectstatic).
+djldt	Carga datos desde un fixture (loaddata).
+djddt	Vuelca datos (dumpdata).
+djstartapp	Crea una app y la añade a INSTALLED_APPS.
+djflushmigrations	Borra los archivos de migración de una app y conserva __init__.py.
+ws	Salta a un proyecto de BW_WORKSPACE_ROOTS: coincidencia exacta, coincidencia aproximada o un selector fzf.
+ws-trust	Revisa y aprueba el hook .bw-on-enter del directorio actual.
+env-ls	Lista los archivos .env.<name> y marca el activo.
+env-set	Copia .env.<name> a .env y respalda antes un .env personalizado (selector fzf si no se indica un nombre).
+bw-update	Hace un pull fast-forward y recarga en la shell actual.
+bw-help	Muestra los hechizos, los comandos omitidos y los módulos de usuario cargados.
+bwiz	Compañero de línea de comandos en tu PATH, incluso en modo agente; bwiz help --json lista todos los hechizos para herramientas y agentes.

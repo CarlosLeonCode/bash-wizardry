@@ -1,0 +1,82 @@
+.steps {
+  display: grid;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.step {
+  min-width: 0;
+  padding: 1.25rem 1rem 1.4rem;
+}
+
+@media (min-width: 768px) {
+  .step {
+    padding: 1.5rem 1.5rem 1.65rem;
+  }
+}
+
+.step + .step {
+  border-top: 1px dashed var(--line);
+}
+
+.stepTitle {
+  margin-bottom: 0.75rem;
+  color: var(--bright);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.number {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.code {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--green-3);
+  background: var(--box);
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+  overflow-x: auto;
+  color: var(--bright);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--green-3) transparent;
+}
+
+.prompt {
+  color: var(--green);
+}
+
+.code > :last-child {
+  border-left: 1px solid var(--green-3);
+}
+
+.note {
+  max-width: 72ch;
+  color: var(--green-2);
+  font-size: 0.875rem;
+}
+
+.config {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--green);
+  background: var(--box);
+  color: var(--text);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.value {
+  color: var(--amber);
+}

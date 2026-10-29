@@ -1,0 +1,89 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 1rem;
+  padding: 0.15rem var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.title {
+  color: var(--dim);
+  margin-right: 0.25rem;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* 28px tall targets: above the WCAG 2.2 24px minimum. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding-inline: 0.4rem;
+  color: var(--green-2);
+  transition: color 0.2s ease;
+}
+
+.link::before {
+  content: "[";
+  color: var(--dim);
+  margin-right: 0.2ch;
+}
+
+.link::after {
+  content: "]";
+  color: var(--dim);
+  margin-left: 0.2ch;
+}
+
+.link:hover {
+  color: var(--green);
+  text-shadow: var(--glow-soft);
+}
+
+.link:focus-visible {
+  outline-offset: -2px;
+}
+
+.sep {
+  color: var(--green-3);
+}
+
+/* Narrow screens: one group per line, no separator. */
+@media (max-width: 639px) {
+  .sep {
+    display: none;
+  }
+
+  .bar {
+    font-size: 0.6875rem;
+  }
+
+  .group {
+    width: 100%;
+  }
+
+  .link {
+    padding-inline: 0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

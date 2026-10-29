@@ -30,8 +30,13 @@ _dckr_select_container() {
     echo "No running containers found." >&2
     return 1
   fi
-  echo "Please select a container:"
-  select container_info in $containers; do
+  # Build an array of lines so "ID Name" stays one option in bash and zsh.
+  local -a options=()
+  local line
+  while IFS= read -r line; do options+=("$line"); done <<< "$containers"
+  # Prompt goes to stderr: callers capture stdout via $(...).
+  echo "Please select a container:" >&2
+  select container_info in "${options[@]}"; do
     if [ -n "$container_info" ]; then
       echo "$container_info" # Return ID and break
       return 0
@@ -111,9 +116,7 @@ dckrrm() { _dckr_manage_container "rm" "$1"; }
 # The original alias used '-af' which can be too aggressive without confirmation.
 # Usage: dckrprune
 dckrprune() {
-  read -p "This will remove all stopped containers, unused networks, and dangling images. Are you sure? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if _bw_confirm "This will remove all stopped containers, unused networks, and dangling images. Are you sure?"; then
     docker system prune -a
   fi
 }
@@ -123,14 +126,11 @@ dckrprune() {
 dckrclean() {
   echo "This script will help you clean up Docker resources."
 
-  read -p "-> Remove all stopped containers? [y/N] " -n 1 -r; echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then docker container prune -f; fi
+  if _bw_confirm "-> Remove all stopped containers?"; then docker container prune -f; fi
 
-  read -p "-> Remove all unused images? [y/N] " -n 1 -r; echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then docker image prune -a -f; fi
+  if _bw_confirm "-> Remove all unused images?"; then docker image prune -a -f; fi
 
-  read -p "-> Remove all unused volumes? [y/N] " -n 1 -r; echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then docker volume prune -f; fi
+  if _bw_confirm "-> Remove all unused volumes?"; then docker volume prune -f; fi
 
   echo "✨ Docker cleanup complete."
 }

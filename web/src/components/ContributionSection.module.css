@@ -1,0 +1,72 @@
+.grid {
+  display: grid;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid > li + li {
+    border-left: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 899px) {
+  .grid > li + li {
+    border-top: 1px solid var(--line);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.25rem 1.4rem;
+  transition: background-color 0.2s ease;
+}
+
+.card:hover {
+  background: rgba(57, 255, 106, 0.05);
+}
+
+.card:focus-visible {
+  outline-offset: -3px;
+}
+
+.command {
+  color: var(--dim);
+  font-size: 0.78rem;
+}
+
+.title {
+  margin-top: 0.5rem;
+  color: var(--bright);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.description {
+  flex: 1;
+  margin-top: 0.4rem;
+  color: var(--green-2);
+  font-size: 0.875rem;
+}
+
+.cta {
+  margin-top: 1rem;
+  color: var(--green);
+  font-size: 0.875rem;
+}
+
+.card:hover .cta {
+  text-shadow: var(--glow-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

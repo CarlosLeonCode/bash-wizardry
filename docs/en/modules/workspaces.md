@@ -17,8 +17,10 @@ BW_WORKSPACE_ROOTS="$HOME/Dev:$HOME/Personal"
 ```
 
 ### Automation Hooks (`.bw-on-enter`)
-You can automate tasks upon entering a project. Simply create a file named `.bw-on-enter` in your project root. `bash-wizardry` will `source` it automatically.
+You can automate tasks upon entering a project. Simply create a file named `.bw-on-enter` in your project root. `bash-wizardry` will `source` it on every `ws` visit, but only after you trust it.
 *Use it for: Setting Node versions, starting databases, or exporting env vars.*
+
+For safety, hooks never run until trusted (a cloned repo could ship a malicious one). From the project root, run **`ws-trust`**: it shows the hook's contents and asks for confirmation. Trust is tied to the file's content, so any change to `.bw-on-enter` requires running `ws-trust` again. Trusted hooks are stored in `~/.config/bash-wizardry/trusted_hooks` (override with `BW_TRUST_FILE`).
 
 ---
 
@@ -28,7 +30,7 @@ The Discovery module provides context-aware tips every time you enter a director
 
 ### What it detects:
 - **Node.js**: Suggests `nr` for scripts.
-- **Docker**: Suggests `dkrlogs` or `dkrinto`.
+- **Docker**: Suggests `dckrexec`.
 - **Django/Rails**: Suggests shell or database commands.
 
 ### How it works:

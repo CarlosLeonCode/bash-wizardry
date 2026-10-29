@@ -1,0 +1,15 @@
+{
+  "spells": 128,
+  "modules": 9,
+  "perModule": {
+    "git": 35,
+    "node": 19,
+    "docker": 19,
+    "rails": 18,
+    "ruby": 15,
+    "django": 15,
+    "workspaces": 2,
+    "env": 2,
+    "core": 3
+  }
+}

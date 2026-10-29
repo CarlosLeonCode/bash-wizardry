@@ -1,0 +1,280 @@
+/* -------------------------------------------------------------------------- */
+/*  Design tokens: phosphor-green terminal                                    */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #020502;
+  --panel: #050b06;
+  --box: #031007;
+  --line: #12361a;
+
+  --green: #39ff6a; /* 15.3:1 on --bg */
+  --green-2: #1fae4a; /* 7.0:1 on --bg, 6.8:1 on --panel */
+  --green-3: #0f5a26; /* 2.4:1: borders and decoration only, never text */
+  --dim: #4c8f5e; /* 5.3:1 on --bg: readable comments and labels */
+  --amber: #ffb000;
+  --red: #ff4d5e;
+  --cyan: #4dd7ff;
+  --text: #b9ffcb;
+  --bright: #e9fff0;
+  --ink: #021a08; /* dark text on green fills (13.6:1) */
+
+  --glow: 0 0 6px rgba(57, 255, 106, 0.55), 0 0 18px rgba(57, 255, 106, 0.25);
+  --glow-soft: 0 0 8px rgba(57, 255, 106, 0.35);
+
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo,
+    Consolas, monospace;
+  /* Box-drawing and block glyphs are not in the Google Fonts subsets of
+     JetBrains Mono, so ASCII art uses a system monospace face that has them. */
+  --font-box: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono",
+    Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
+
+  --topbar-height: 26px;
+  --nav-height: 56px;
+  --header-height: calc(var(--topbar-height) + var(--nav-height));
+  --sidebar-width: 280px;
+  --gutter: 16px;
+  --section-space: clamp(4rem, 9vw, 7rem);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+    --nav-height: 60px;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Base                                                                      */
+/* -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  scroll-padding-top: calc(var(--header-height) + 16px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* The page color lives on <html> (the canvas) so the fixed CRT glow at
+   z-index -1 can paint between it and the content. */
+body {
+  min-height: 100vh;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+}
+
+code,
+kbd,
+pre {
+  font-family: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Utilities                                                                 */
+/* -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 700;
+  transform: translateY(-300%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+  outline-color: var(--bright);
+}
+
+.glow {
+  text-shadow: var(--glow);
+}
+
+/* Page frame: optional file-tree sidebar beside the main column. */
+.frame > main {
+  min-width: 0;
+}
+
+@media (min-width: 1200px) {
+  .frame {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  }
+}
+
+/* Shell prompt line: "❯ command". */
+.prompt {
+  display: block;
+  color: var(--bright);
+  font-weight: 500;
+}
+
+.prompt::before {
+  content: "❯ ";
+  color: var(--green);
+}
+
+.comment {
+  color: var(--dim);
+}
+
+/* Section scaffolding shared by every section. */
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+  border-top: 1px solid var(--line);
+}
+
+.section-head {
+  max-width: 760px;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.section-title {
+  margin-top: 0.75rem;
+  color: var(--bright);
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.section-lead {
+  margin-top: 0.9rem;
+  color: var(--green-2);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  text-wrap: pretty;
+}
+
+.section-lead::before {
+  content: "# ";
+}
+
+.inline-code {
+  padding: 0 0.3em;
+  border: 1px solid var(--line);
+  background: var(--box);
+  color: var(--green);
+  font-size: 0.92em;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Buttons: keycaps and bracketed links                                      */
+/* -------------------------------------------------------------------------- */
+
+.btn-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.65rem 1.1rem;
+  background: var(--green);
+  color: var(--ink);
+  font-weight: 800;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-key:hover {
+  box-shadow: 0 0 18px rgba(57, 255, 106, 0.45);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--green-3);
+  color: var(--green);
+  white-space: nowrap;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--green);
+  background: rgba(57, 255, 106, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-key,
+  .btn-ghost {
+    transition: none;
+  }
+}

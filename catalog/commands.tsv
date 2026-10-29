@@ -1,0 +1,129 @@
+module	name	kind	usage	description
+git	gl	function	gl [n]	Compact, decorated graph log of the last n commits (15 by default).
+git	gs	alias		Short status with branch info.
+git	gdff	alias	gdff [path...]	Show unstaged changes (git diff).
+git	gfetch	alias		Fetch every remote and prune deleted branches.
+git	ga	function	ga [path...]	Stage the given paths, or everything when none are given.
+git	gaa	alias		Same as ga.
+git	gc	function	gc [message]	Commit with a message, or open your editor when none is given.
+git	gca	alias		Amend the last commit (git commit --amend).
+git	grstr	alias	grstr <path...>	Restore files (git restore).
+git	grm	alias	grm <path...>	Remove files from the index and the working tree (git rm).
+git	gco	alias	gco <branch>	Check out a branch or path.
+git	gcob	alias	gcob <branch>	Create a branch and switch to it.
+git	gbc	alias	gbc [name]	List local branches, or create one (git branch).
+git	gb	alias		List local and remote branches.
+git	gbd	function	gbd <branch>	Force-delete a local branch. Asks first.
+git	gp	function	gp [remote] [branch]	Push the current branch to its upstream, or pass arguments to git push.
+git	gpo	alias	gpo <branch>	Push to origin.
+git	gplo	alias	gplo <branch>	Pull from origin.
+git	gup	function		Sync the current branch: pull --rebase, then push.
+git	gm	alias	gm <branch>	Merge a branch into the current one.
+git	gmc	alias		Continue a merge after resolving conflicts.
+git	gma	alias		Abort the merge in progress.
+git	grbi	alias	grbi <base>	Interactive rebase.
+git	grbc	alias		Continue a rebase after resolving conflicts.
+git	grba	alias		Abort the rebase in progress.
+git	gchrr	alias	gchrr <commit>	Cherry-pick a commit.
+git	gstash	alias		Stash local changes.
+git	gstashp	alias		Apply and drop the latest stash (git stash pop).
+git	ginit	alias		Create a new repository (git init).
+git	greset	function		Discard all local changes (git reset --hard HEAD). Asks first.
+git	gundo	function		Undo the last commit and keep its changes staged (soft reset).
+git	gclean	function		Delete local branches merged into origin's default branch; never the default, current or BW_GIT_PROTECTED_BRANCHES ones. Asks first.
+git	gtagls	alias		List tags.
+git	gtagd	alias	gtagd <tag>	Delete a local tag.
+git	gtagp	alias		Push all tags.
+node	ni	function		Install dependencies with the project's package manager (pnpm, yarn or npm, from the lockfile).
+node	na	function	na <pkg...>	Add dependencies.
+node	nad	function	nad <pkg...>	Add dev dependencies.
+node	nrm	function	nrm <pkg...>	Remove dependencies.
+node	nr	function	nr [script] [args]	Run a package.json script, or pick one from a menu (the menu needs jq).
+node	nrs	alias		Run the start script.
+node	nrb	alias		Run the build script.
+node	nrtst	alias		Run the test script.
+node	nrd	alias		Run the dev script.
+node	nup	function		Upgrade dependencies interactively (yarn, pnpm) or list outdated ones (npm).
+node	n-clean	function		Remove node_modules and every lockfile. Asks first.
+node	n-reinstall	function		n-clean followed by a fresh install. Asks first.
+node	n-why	function	n-why <pkg>	Explain why a package is installed.
+node	nrlsg	alias		List globally installed npm packages.
+node	nig	alias	nig <pkg...>	Install npm packages globally.
+node	nrug	alias	nrug <pkg...>	Uninstall global npm packages.
+node	n	alias		Shortcut for npm.
+node	y	alias		Shortcut for yarn.
+node	p	alias		Shortcut for pnpm.
+docker	dckr	alias		Shortcut for docker.
+docker	dckrc	alias		Shortcut for docker-compose.
+docker	dckrup	alias		Start Compose services in the background (docker-compose up -d).
+docker	dckrdown	alias		Stop and remove Compose services (docker-compose down).
+docker	dckrps	alias		List running containers in a compact table.
+docker	dckrpsa	alias		List all containers, including stopped ones.
+docker	dckrimgs	alias		List images.
+docker	dckrvols	alias		List volumes.
+docker	dckrbuild	function	dckrbuild [tag]	Build the current directory (tag defaults to <dir>:latest).
+docker	dckrexec	function	dckrexec [container] [command]	Run a command in a container (/bin/bash by default); pick the container from a menu when omitted.
+docker	dckrlogs	function	dckrlogs [container]	Follow a container's logs; pick the container from a menu when omitted.
+docker	dckrstop	function	dckrstop [container]	Stop a container; pick it from a menu when omitted.
+docker	dckrstart	function	dckrstart [container]	Start a container; pick it from a menu when omitted.
+docker	dckrrestart	function	dckrrestart [container]	Restart a container; pick it from a menu when omitted.
+docker	dckrrm	function	dckrrm [container]	Remove a container; pick it from a menu when omitted.
+docker	dckrprune	function		Remove stopped containers, unused networks and all unused images (docker system prune -a). Asks first.
+docker	dckrclean	function		Step-by-step cleanup of stopped containers, unused images and unused volumes. Asks first.
+docker	dckrip	function		List the IP address of every running container.
+docker	docker-cleanup.sh	script	docker-cleanup.sh [options]	Standalone cleanup script on your PATH; flags choose what to prune and --force skips the prompt. Asks first.
+rails	r	alias	r <command>	Shortcut for rails (skipped in Zsh, where r is a builtin).
+rails	rc	alias		Rails console.
+rails	rcs	alias		Rails console in sandbox mode (changes roll back on exit).
+rails	rs	alias		Rails server (skipped where an rs command exists, such as on macOS).
+rails	rgen	alias	rgen <generator> [args]	Rails generate (named rgen so ripgrep's rg keeps working).
+rails	rst	alias		Code statistics (rails stats).
+rails	rdbc	alias		Create the database.
+rails	rdbm	alias		Run pending migrations.
+rails	rdbs	alias		Set up the database: create it, load the schema and seed it.
+rails	rdbseed	alias		Seed the database.
+rails	rdr	alias		Roll back the last migration.
+rails	rdbd	function		Drop the database. Asks first.
+rails	rdbreset	function		Drop, create, migrate and seed the database. Asks first.
+rails	rr	alias		List all routes.
+rails	rrts	function	rrts [pattern]	List routes, filtered case-insensitively by pattern.
+rails	rtst	alias		Run the Rails test suite.
+rails	rspec	alias	rspec [path]	Run RSpec through Bundler.
+rails	rlog	function	rlog [env]	Follow log/<env>.log (development by default).
+ruby	rb	alias		Shortcut for ruby.
+ruby	irb	alias		Interactive Ruby shell.
+ruby	gemi	alias	gemi <gem>	Install a gem.
+ruby	gemr	alias	gemr <gem>	Uninstall a gem.
+ruby	gemu	alias	gemu [gem]	Update installed gems.
+ruby	geml	alias		List locally installed gems.
+ruby	bi	alias		Install the bundle (bundle install). Also defined by the rails module.
+ruby	bu	alias	bu [gem]	Update gems in the bundle (bundle update). Also defined by the rails module.
+ruby	bo	alias	bo <gem>	Open a bundled gem's source in your editor (bundle open).
+ruby	be	alias	be <command>	Run a command in the bundle's context (bundle exec). Also defined by the rails module.
+ruby	btest	function	btest [path]	Run RSpec when the bundle has it, rails test otherwise.
+ruby	rb-v	function		List installed Ruby versions (asdf, rbenv or rvm).
+ruby	rb-glo	function	rb-glo <version>	Set the global Ruby version.
+ruby	rb-lcl	function	rb-lcl <version>	Set the Ruby version for the current project.
+ruby	rb-info	function		Show Ruby, Bundler and RubyGems versions.
+django	djm	function	djm <command> [args]	Run python manage.py (fails when there is no manage.py in the current directory).
+django	djrs	function	djrs [port]	Run the development server on 0.0.0.0 (port 8000 by default).
+django	djmm	function	djmm [app] [name]	Make migrations, optionally for one app and with a name.
+django	djdbm	alias		Apply migrations (migrate).
+django	djdbs	alias		Open the database shell (dbshell).
+django	djlsm	alias		List migrations and whether they are applied (showmigrations).
+django	djcsu	alias		Create a superuser.
+django	djt	function	djt [label]	Run the test suite or a single test label.
+django	djshell	function		Open shell_plus when django-extensions is installed, the standard shell otherwise.
+django	djchk	alias		Run the system checks (check).
+django	djcll	alias		Collect static files (collectstatic).
+django	djldt	alias	djldt <fixture>	Load fixture data (loaddata).
+django	djddt	alias	djddt [app]	Dump data (dumpdata).
+django	djstartapp	function	djstartapp <name>	Create an app and add it to INSTALLED_APPS.
+django	djflushmigrations	function	djflushmigrations <app>	Delete an app's migration files, keeping __init__.py. Asks first.
+workspaces	ws	function	ws [name]	Jump to a project in BW_WORKSPACE_ROOTS: exact match, fuzzy match or an fzf picker.
+workspaces	ws-trust	function		Review and trust the .bw-on-enter hook in the current directory. Asks first.
+env	env-ls	function		List .env.<name> files and mark the active one.
+env	env-set	function	env-set [name]	Copy .env.<name> to .env, backing up a custom .env first (fzf picker without a name).
+core	bw-update	function		Fast-forward pull and reload in the current shell.
+core	bw-help	function	bw-help [module]	Show the spells, the skipped commands and the loaded user modules.
+core	bwiz	script	bwiz <help|modules|version>	Command-line companion on your PATH, even in agent mode; bwiz help --json lists every spell for tools and agents.

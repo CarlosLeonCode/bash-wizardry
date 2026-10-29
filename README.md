@@ -10,6 +10,11 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml/badge.svg"></a>
+</p>
+
+<p align="center">
+  <a href="https://bashwizardry.com">Website</a> •
   <a href="#-installation">Installation</a> •
   <a href="docs/en/README.md">English Docs</a> •
   <a href="docs/es/README.md">Documentación (ES)</a> •
@@ -20,11 +25,14 @@
 
 `bash-wizardry` transforms complex commands and repetitive workflows into short, intelligent **spells**. It's not just a collection of aliases; it's a context-aware suite designed for modern developers.
 
+▶️ **Watch the 72-second film on [bashwizardry.com](https://bashwizardry.com)** ([en español](https://bashwizardry.com/es)).
+
 ## ✨ Why bash-wizardry?
 
 - 🧠 **Context-Aware:** Commands like `ni` automatically detect if you are using `npm`, `yarn`, or `pnpm`.
-- 🛡️ **Safe by Design:** Destructive operations (like `git reset` or `gbd`) include confirmation prompts.
-- 📂 **Workspace Magic:** Move between projects instantly with `ws` and trigger automation hooks.
+- 🛡️ **Safe by Design:** Destructive operations (like `greset`, `gbd` or `gclean`) ask first, in Bash and Zsh. `gclean` never deletes your default, current or protected branches.
+- 📂 **Workspace Magic:** Move between projects instantly with `ws`. A project's `.bw-on-enter` hook runs only after you review and approve it with `ws-trust`.
+- 🤖 **Agent-Safe:** Invisible to AI coding agents and never shadows a real command ([details](#-works-alongside-ai-agents)).
 - 🚫 **Zero Black Magic:** 100% shell script based. No hidden binaries, no invasive installers.
 - 🚀 **Performance First:** Lightweight and modular to keep your shell startup instantaneous.
 
@@ -52,7 +60,8 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
    ```
 3. **Configure your spells (Optional):**
    ```bash
-   cp ~/.bash-wizardry/config.env.example ~/.bash-wizardry/config.env
+   mkdir -p ~/.config/bash-wizardry
+   cp ~/.bash-wizardry/config.env.example ~/.config/bash-wizardry/config.env
    ```
 </details>
 
@@ -70,8 +79,25 @@ Our specialized modules cover every aspect of the modern developer's life.
 | **Workspaces** | `ws`       | Fast navigation & automation hooks.           |   [EN](docs/en/tools.md#📂-workspaces-ws) / [ES](docs/es/herramientas.md#📂-espacios-de-trabajo-ws)    |
 | **Git**        | `gup`      | Linear history sync & safe branch management. |                  [EN](docs/en/tools.md#🐙-git) / [ES](docs/es/herramientas.md#🐙-git)                  |
 | **Node.js**    | `nr`       | Manager-agnostic script execution.            |              [EN](docs/en/tools.md#📦-node-js) / [ES](docs/es/herramientas.md#📦-node-js)              |
-| **Docker**     | `dkrinto`  | Interactive container shell & cleanup.        |               [EN](docs/en/tools.md#🐳-docker) / [ES](docs/es/herramientas.md#🐳-docker)               |
+| **Docker**     | `dckrexec`  | Interactive container shell & cleanup.        |               [EN](docs/en/tools.md#🐳-docker) / [ES](docs/es/herramientas.md#🐳-docker)               |
 | **Env**        | `env-set`  | Secure environment file switcher.             | [EN](docs/en/tools.md#🌍-env-switcher) / [ES](docs/es/herramientas.md#🌍-selector-de-entornos-env-set) |
+
+---
+
+## 🎛️ Make it yours
+
+Customize without forking: your `config.env` and your own modules live in `~/.config/bash-wizardry/`, so updates never touch them. A user module named like a core one (for example `git.sh`) replaces it. See the [Customization guide](docs/en/customization.md) ([ES](docs/es/personalizacion.md)).
+
+---
+
+## 🤖 Works alongside AI agents
+
+AI coding agents (Claude Code, Codex, Cursor, Gemini CLI...) often run their commands through your shell setup. bash-wizardry stays out of their way:
+
+- **Agent mode:** in non-interactive shells, or when a known agent variable such as `CLAUDECODE` is set, `init.sh` only adds `scripts/` to your `PATH`. No aliases, functions, hooks or completions are defined. Control it with `BW_AGENT_MODE=auto|1|0`.
+- **Collision guard:** a spell is skipped if it would shadow a real command, builtin or keyword (for example `rs` vs `/usr/bin/rs`, or `r` in Zsh). That is also why `rails generate` is `rgen`, so ripgrep's `rg` keeps working. Run `bw-help` to see what was skipped.
+- **Your call:** keep a skipped spell with `BW_ALLOW_OVERRIDE="rs r"` in `config.env`.
+- **Machine-readable spellbook:** `bwiz` stays on your `PATH` even in agent mode. Agents can run `bwiz help --json` (or `bwiz help --json git`) to get every spell as JSON (`module`, `name`, `kind`, `usage`, `description`, `enabled`), generated from `catalog/commands.tsv`.
 
 ---
 
@@ -82,6 +108,28 @@ The wizard is always learning. Keep your tools sharp with:
 ```bash
 bw-update
 ```
+
+> [!IMPORTANT]
+> **Upgrading from an earlier version?**
+> - `rails generate` moved from `rg` to `rgen`, so ripgrep's `rg` works again.
+> - Existing `.bw-on-enter` hooks no longer run until you approve them once with `ws-trust` (and again after any edit).
+> - Spells that would shadow a tool you have installed (e.g. `gs` with Ghostscript, `gm` with GraphicsMagick, `n` with the `n` version manager) are skipped. `bw-help` lists them; bring them back with `BW_ALLOW_OVERRIDE`.
+> - The previous `bw-update` didn't reload your shell: after this first update, open a new terminal.
+>
+> Full list in [What's New?](docs/en/changelog.md).
+
+---
+
+## 🧪 Development
+
+```bash
+bats tests/                    # shell test suite (Bash and Zsh)
+bash tools/gen-catalog.sh      # regenerate the site's catalog after editing catalog/*.tsv
+npm --prefix web run dev       # landing site (Next.js) on localhost:3000
+npm --prefix video run studio  # product film (Remotion)
+```
+
+CI runs ShellCheck and the bats suite on Ubuntu and macOS. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ---
 
@@ -98,6 +146,9 @@ If this project brings you value, you can support me here:
 ---
 
 <p align="center">
+  <a href="https://bashwizardry.com">Website</a> •
   <a href="https://github.com/CarlosLeonCode/bash-wizardry">GitHub</a> •
-  <a href="docs/en/getting-started.md">Full Documentation</a>
+  <a href="docs/en/getting-started.md">Full Documentation</a> •
+  <a href="https://www.youtube.com/@carlosleoncode">YouTube</a>
 </p>
+<p align="center"><sub>Designed &amp; built by <a href="https://carlosleoncode.com">carlosleoncode</a></sub></p>

@@ -14,6 +14,11 @@ Deletes a local branch with a safety net.
 - **What it does:** Asks for confirmation before running `git branch -D`.
 - **Why use it:** Prevents accidental deletion of branches with unmerged work.
 
+### `gclean` (Clean Merged Branches)
+Tidy up local branches that are already merged.
+- **What it does:** Fetches `origin` (with `--prune`), lists local branches merged into origin's default branch, and asks for confirmation before running `git branch -d` on them.
+- **Safety:** Never deletes the default branch, the current branch, or protected branches (`main master develop dev stage staging` by default). Override the list with `BW_GIT_PROTECTED_BRANCHES` in `config.env`.
+
 ### `gundo` (Soft Undo)
 Undo your last mistake.
 - **What it does:** Runs `git reset --soft HEAD~1`.

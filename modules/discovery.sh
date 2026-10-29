@@ -20,7 +20,7 @@ _bw_discover_context() {
 
     # Docker Discovery
     if [[ -f "docker-compose.yml" ]] || [[ -f "docker-compose.yaml" ]] || [[ -f "Dockerfile" ]]; then
-        hints+=("Detected Docker environment. Type 'dkrinto' to jump into a container.")
+        hints+=("Detected Docker environment. Type 'dckrexec' to jump into a container.")
     fi
 
     # Django Discovery
