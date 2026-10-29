@@ -1,5 +1,5 @@
-# The landing site is a Next.js app in web/. Netlify applies its Next.js
-# adapter automatically; publish is resolved relative to base.
+# The landing site is a Next.js app in web/. Publish is resolved relative
+# to base.
 [build]
   base = "web"
   command = "npm run build"
@@ -8,3 +8,9 @@
 [build.environment]
   # Next.js 16 requires Node.js >= 20.9.
   NODE_VERSION = "22"
+
+# Declared explicitly (and pinned in web/package.json) so the Next.js adapter
+# always runs. Without it Netlify publishes the raw .next folder, which has no
+# index.html, and every page is a 404.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
