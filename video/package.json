@@ -1,0 +1,25 @@
+{
+  "name": "bash-wizardry-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Product explainer film for bash-wizardry, built with Remotion.",
+  "scripts": {
+    "gen": "node tools/gen-stats.mjs",
+    "studio": "npm run gen && remotion studio src/index.ts",
+    "render:en": "npm run gen && remotion render src/index.ts BashWizardry-en out/bash-wizardry-en.mp4 --codec=h264 --crf=18",
+    "render:es": "npm run gen && remotion render src/index.ts BashWizardry-es out/bash-wizardry-es.mp4 --codec=h264 --crf=18",
+    "still": "npm run gen && remotion still src/index.ts BashWizardry-en out/still.png",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.535",
+    "@remotion/google-fonts": "4.0.535",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}
