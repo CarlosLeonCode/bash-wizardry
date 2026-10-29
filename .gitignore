@@ -78,3 +78,6 @@ $RECYCLE.BIN/
 # Local Configuration
 config.env
 .env.backup.*
+
+# Netlify local build output
+.netlify/
