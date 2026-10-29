@@ -10,6 +10,7 @@ import {
   type CatalogEntry,
   type CatalogLocale,
 } from "@/lib/catalog.generated";
+import type { Locale } from "@/lib/i18n/config";
 
 export { AUTHOR, ISSUES_URL, REPO_URL, SITE_URL } from "@/lib/urls";
 
@@ -51,6 +52,32 @@ export const SCRIPTS = CATALOG.filter((entry) => entry.kind === "script").map(
 
 export const countFor = (module: string) =>
   MODULE_STATS.find((s) => s.module === module)?.count ?? 0;
+
+/* -------------------------------------------------------------------------- */
+/*  Hero film                                                                 */
+/* -------------------------------------------------------------------------- */
+
+/** Length of the product film in seconds (video/src/timeline.ts, 2160 frames at 30 fps). */
+export const HERO_FILM_DURATION = 72;
+
+export interface HeroFilmSource {
+  /** File name, shown in the pane title like a player command. */
+  file: string;
+  src: string;
+  poster: string;
+}
+
+/** One cut per locale, exported by video/tools/export-web.sh into public/video/. */
+const heroFilm = (locale: Locale): HeroFilmSource => ({
+  file: `bash-wizardry-${locale}.mp4`,
+  src: `/video/bash-wizardry-${locale}.mp4`,
+  poster: `/video/bash-wizardry-${locale}-poster.webp`,
+});
+
+export const HERO_FILM: Record<Locale, HeroFilmSource> = {
+  en: heroFilm("en"),
+  es: heroFilm("es"),
+};
 
 /* -------------------------------------------------------------------------- */
 /*  Hero panes                                                                */

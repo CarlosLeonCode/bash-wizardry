@@ -45,6 +45,31 @@ export interface CopyButtonCopy {
   title: string;
 }
 
+export interface FilmButtonCopy {
+  /** Visible keycap text, e.g. "play". */
+  text: string;
+  /** Accessible name. */
+  label: string;
+}
+
+export interface HeroFilmCopy {
+  /** tmux pane title, e.g. "pane 2: demo". */
+  pane: string;
+  /** Accessible name of the <video>. */
+  label: string;
+  /** Visually hidden description of what the (silent) film shows. */
+  summary: string;
+  /** Accessible name of the controls group. */
+  controls: string;
+  play: FilmButtonCopy;
+  pause: FilmButtonCopy;
+  replay: FilmButtonCopy;
+  /** Accessible name of the seek slider. */
+  seek: string;
+  /** Slider value text; {current} and {total} are replaced. */
+  timeOf: string;
+}
+
 export interface Dictionary {
   meta: {
     title: string;
@@ -96,6 +121,7 @@ export interface Dictionary {
     panesLabel: string;
     paneYou: string;
     paneAgent: string;
+    film: HeroFilmCopy;
     bootLog: BootLine[];
     agentComments: Partial<Record<AgentCommandId, string>>;
   };

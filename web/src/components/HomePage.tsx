@@ -38,7 +38,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       <div className="frame">
         <Sidebar t={t.sidebar} />
         <main id="main">
-          <HeroSection t={t} />
+          <HeroSection locale={locale} t={t} />
           <AgentsSection t={t.agents} />
           <ShowcaseSection t={t.showcase} />
           <PrinciplesSection t={t.principles} />

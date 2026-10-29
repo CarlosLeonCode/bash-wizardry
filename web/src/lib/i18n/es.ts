@@ -99,6 +99,23 @@ export const es: Dictionary = {
       `y 'bwiz help --json git' lista los ${countFor("git")} hechizos de git bajo demanda.`,
     paneYou: "panel 0: tú",
     paneAgent: "panel 1: agente",
+    film: {
+      pane: "panel 2: demo",
+      label: "Video de presentación de bash-wizardry (sin audio)",
+      summary:
+        "Un video sin sonido de 72 segundos. Un cursor escribe 'bash-wizardry' y aparece la frase 'Tu terminal. " +
+        "Superpoderes incluidos.' Los comandos largos de git, docker y gestores de paquetes de todos los días " +
+        "dan paso a un solo hechizo: gup sincroniza una rama, nr elige el gestor de paquetes correcto, ws entra " +
+        "a un proyecto y pregunta antes de ejecutar su hook, y gclean pregunta antes de borrar las ramas fusionadas. " +
+        "Cierra mostrando que los hechizos son invisibles para los agentes de IA, que cualquier hechizo se puede " +
+        "sobrescribir sin hacer fork, y el comando de instalación.",
+      controls: "Controles del video",
+      play: { text: "reproducir", label: "Reproducir el video" },
+      pause: { text: "pausa", label: "Pausar el video" },
+      replay: { text: "repetir", label: "Repetir el video desde el inicio" },
+      seek: "Posición del video",
+      timeOf: "{current} de {total}",
+    },
     bootLog: [
       { status: "init", text: "bash-wizardry init" },
       ...SHELL_MODULES.map(({ module, count }) => ({

@@ -1,9 +1,11 @@
 import CopyButton from "@/components/CopyButton";
+import HeroFilm from "@/components/HeroFilm";
 import HeroMotion from "@/components/HeroMotion";
 import { LOGO_STACKED, LOGO_WIDE } from "@/lib/ascii";
-import type { Dictionary } from "@/lib/i18n";
+import type { Dictionary, Locale } from "@/lib/i18n";
 import {
   AGENT_COMMANDS,
+  HERO_FILM,
   INSTALL_COMMAND,
   REPO_URL,
   type BootStatus,
@@ -28,7 +30,13 @@ function Cmd({ cmd }: { cmd: string }) {
   );
 }
 
-export default function HeroSection({ t }: { t: Dictionary }) {
+export default function HeroSection({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   const { hero } = t;
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
@@ -94,6 +102,8 @@ export default function HeroSection({ t }: { t: Dictionary }) {
             <span className="sr-only"> {t.common.newTab}</span>
           </a>
         </div>
+
+        <HeroFilm film={HERO_FILM[locale]} t={hero.film} />
 
         <figure className={styles.panes} data-hero-fade>
           <figcaption className="sr-only">{hero.panesLabel}</figcaption>

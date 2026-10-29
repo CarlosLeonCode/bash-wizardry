@@ -99,6 +99,22 @@ export const en: Dictionary = {
       `and 'bwiz help --json git' lists the ${countFor("git")} git spells on demand.`,
     paneYou: "pane 0: you",
     paneAgent: "pane 1: agent",
+    film: {
+      pane: "pane 2: demo",
+      label: "bash-wizardry product film (no audio)",
+      summary:
+        "A 72-second silent film. A cursor types 'bash-wizardry', then the line 'Your terminal. " +
+        "Superpowers included.' The long git, docker and package-manager commands typed every day give way " +
+        "to single spells: gup syncs a branch, nr picks the right package manager, ws jumps into a project " +
+        "and asks before running its hook, and gclean asks before deleting merged branches. It closes on " +
+        "spells staying invisible to AI agents, overriding any spell without a fork, and the install command.",
+      controls: "Film controls",
+      play: { text: "play", label: "Play the film" },
+      pause: { text: "pause", label: "Pause the film" },
+      replay: { text: "replay", label: "Replay the film from the start" },
+      seek: "Film position",
+      timeOf: "{current} of {total}",
+    },
     // What `exec zsh` prints in spirit: one line per loaded module.
     bootLog: [
       { status: "init", text: "bash-wizardry init" },
