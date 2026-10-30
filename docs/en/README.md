@@ -17,5 +17,9 @@ Explore the spells available in each module:
 - **[Configuration](getting-started.md)**: How to use `config.env`.
 - **[Customization](customization.md)**: Your own config and modules in `~/.config/bash-wizardry`, without forking.
 
+## 🗺️ Project
+- **[Roadmap](../roadmap.md)**: What shipped and the ideas for what comes next.
+- **[Changelog](../../CHANGELOG.md)**: Every release, in Keep a Changelog format.
+
 ---
 [Return to Main README](../../README.md)

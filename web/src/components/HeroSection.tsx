@@ -1,10 +1,12 @@
-import CopyButton from "@/components/CopyButton";
+import Image from "next/image";
 import HeroFilm from "@/components/HeroFilm";
 import HeroMotion from "@/components/HeroMotion";
+import InstallCopyButton from "@/components/InstallCopyButton";
 import { LOGO_STACKED, LOGO_WIDE } from "@/lib/ascii";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import {
   AGENT_COMMANDS,
+  AUTHOR,
   HERO_FILM,
   INSTALL_COMMAND,
   REPO_URL,
@@ -55,6 +57,31 @@ export default function HeroSection({
           </span>
         </div>
 
+        <a
+          className={styles.signature}
+          href={AUTHOR.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-hero-fade
+        >
+          <Image
+            className={styles.avatar}
+            src="/avatar-carlosleoncode.webp"
+            alt=""
+            width={40}
+            height={40}
+            priority
+          />
+          <span className={styles.sigText}>
+            <span className={styles.sigLabel}>{hero.createdBy}</span>
+            <span className={styles.sigHandle}>@{AUTHOR.handle}</span>
+          </span>
+          <span className={styles.sigUrl} aria-hidden="true">
+            carlosleoncode.com ↗
+          </span>
+          <span className="sr-only"> {t.common.newTab}</span>
+        </a>
+
         <h1 id="hero-title" className={styles.title} data-hero-title>
           <span className={styles.chevron} aria-hidden="true">
             &gt;
@@ -86,7 +113,7 @@ export default function HeroSection({
               </span>
               {INSTALL_COMMAND}
             </code>
-            <CopyButton
+            <InstallCopyButton
               text={INSTALL_COMMAND}
               label={hero.copyInstall}
               t={t.common.copy}

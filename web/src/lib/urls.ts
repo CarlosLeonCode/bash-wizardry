@@ -3,7 +3,7 @@
 
 export const REPO_URL = "https://github.com/CarlosLeonCode/bash-wizardry";
 export const ISSUES_URL = `${REPO_URL}/issues`;
-export const SITE_URL = "https://bashwizardry.com";
+export const SITE_URL = "https://bashwizardry.carlosleoncode.com";
 
 /** The author, as credited on the site. */
 export const AUTHOR = {

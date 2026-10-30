@@ -11,10 +11,11 @@
 
 <p align="center">
   <a href="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/CarlosLeonCode/bash-wizardry/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/CarlosLeonCode/bash-wizardry"></a>
 </p>
 
 <p align="center">
-  <a href="https://bashwizardry.com">Website</a> •
+  <a href="https://bashwizardry.carlosleoncode.com">Website</a> •
   <a href="#-installation">Installation</a> •
   <a href="docs/en/README.md">English Docs</a> •
   <a href="docs/es/README.md">Documentación (ES)</a> •
@@ -25,7 +26,7 @@
 
 `bash-wizardry` transforms complex commands and repetitive workflows into short, intelligent **spells**. It's not just a collection of aliases; it's a context-aware suite designed for modern developers.
 
-▶️ **Watch the 72-second film on [bashwizardry.com](https://bashwizardry.com)** ([en español](https://bashwizardry.com/es)).
+▶️ **Watch the 72-second film on [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com)** ([en español](https://bashwizardry.carlosleoncode.com/es)).
 
 ## ✨ Why bash-wizardry?
 
@@ -45,6 +46,7 @@ Invoke the wizard with a single command:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
+The installer downloads only the tool (under 1 MB on disk instead of about 16 MB), not the website or the film. Set `BW_INSTALL_FULL=1` to get the whole repository, or `BW_REPO_URL` to install from your fork (e.g. `curl ... | BW_INSTALL_FULL=1 bash`).
 
 <details>
 <summary><b>Manual Installation (For Power Users)</b></summary>
@@ -67,6 +69,15 @@ curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/i
 
 > [!TIP]
 > After installation, restart your terminal or run `source ~/.zshrc` to activate the magic. For more details, see our [Full Setup Guide](docs/en/getting-started.md).
+
+### Uninstall
+The uninstaller removes the lines it added to your shell startup files (keeping a backup) and deletes `~/.bash-wizardry`. It asks before changing anything:
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash
+# or, from your install:
+~/.bash-wizardry/uninstall.sh
+```
+Your config in `~/.config/bash-wizardry/` is kept; add `--purge` to delete it too (with curl: `| bash -s -- --purge`). Details in the [Setup Guide](docs/en/getting-started.md#uninstall).
 
 ---
 
@@ -133,6 +144,13 @@ CI runs ShellCheck and the bats suite on Ubuntu and macOS. See [CONTRIBUTING.md]
 
 ---
 
+## 🤝 Community
+
+- [Contributing](CONTRIBUTING.md): how to add spells and open a pull request.
+- [Code of Conduct](CODE_OF_CONDUCT.md): be kind; we follow the Contributor Covenant.
+- [Security policy](SECURITY.md): please report vulnerabilities privately, not in public issues.
+- [Changelog](CHANGELOG.md) and [Roadmap](docs/roadmap.md).
+
 ## 🛡️ License
 
 Distributed under the [MIT License](LICENSE). Built with ❤️ by developers, for developers.
@@ -146,7 +164,7 @@ If this project brings you value, you can support me here:
 ---
 
 <p align="center">
-  <a href="https://bashwizardry.com">Website</a> •
+  <a href="https://bashwizardry.carlosleoncode.com">Website</a> •
   <a href="https://github.com/CarlosLeonCode/bash-wizardry">GitHub</a> •
   <a href="docs/en/getting-started.md">Full Documentation</a> •
   <a href="https://www.youtube.com/@carlosleoncode">YouTube</a>

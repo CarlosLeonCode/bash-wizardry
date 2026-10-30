@@ -1,0 +1,22 @@
+# Normalize line endings: shell scripts break with CRLF.
+* text=auto eol=lf
+
+*.sh      text eol=lf
+*.bash    text eol=lf
+*.bats    text eol=lf
+*.env     text eol=lf
+*.tsv     text eol=lf
+init.sh   text eol=lf
+scripts/bwiz text eol=lf
+
+# Binary assets
+*.mp4  binary
+*.png  binary
+*.webp binary
+*.ico  binary
+
+# Generated files: collapsed in diffs, excluded from language stats
+web/src/lib/catalog.generated.ts linguist-generated=true
+video/src/stats.generated.json   linguist-generated=true
+web/package-lock.json            linguist-generated=true
+video/package-lock.json          linguist-generated=true

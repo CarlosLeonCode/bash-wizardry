@@ -1,0 +1,118 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-height: var(--nav-height);
+}
+
+.home {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green-2);
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.lang:hover {
+  color: var(--green);
+}
+
+/* Long-form text: ~70 characters per line, real heading rhythm. */
+.article {
+  max-width: 70ch;
+  padding-block: clamp(2.5rem, 7vw, 4.5rem) var(--section-space);
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.title {
+  margin-block: 0.75rem 1.5rem;
+  color: var(--bright);
+  font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.article h2 {
+  margin-block: 2.5rem 0.75rem;
+  color: var(--bright);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.article h2 span {
+  color: var(--dim);
+}
+
+.article p,
+.article ul {
+  margin-block: 0 1rem;
+  text-wrap: pretty;
+}
+
+.article li {
+  position: relative;
+  padding-left: 1.5ch;
+}
+
+.article li + li {
+  margin-top: 0.4rem;
+}
+
+.article li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+}
+
+.article strong {
+  color: var(--bright);
+  font-weight: 700;
+}
+
+.article em {
+  color: var(--dim);
+  font-style: normal;
+}
+
+.article p a,
+.article li a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article .back {
+  margin-top: 3rem;
+}
+
+.article .back a {
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang {
+    transition: none;
+  }
+}

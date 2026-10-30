@@ -24,7 +24,7 @@ jobs:
         run: brew install bats-core shellcheck jq
 
       - name: ShellCheck
-        run: shellcheck -s bash -S error init.sh install.sh modules/*.sh completions/*.sh scripts/*.sh scripts/bwiz tools/*.sh
+        run: shellcheck -s bash -S error init.sh install.sh uninstall.sh modules/*.sh completions/*.sh scripts/*.sh scripts/bwiz tools/*.sh
 
       - name: Website catalog is in sync with catalog/commands.tsv
         run: bash tools/gen-catalog.sh && git diff --exit-code web/src/lib/catalog.generated.ts

@@ -14,8 +14,11 @@ import type { Locale } from "@/lib/i18n/config";
 
 export { AUTHOR, ISSUES_URL, REPO_URL, SITE_URL } from "@/lib/urls";
 
-export const INSTALL_COMMAND =
-  "curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash";
+/** The installer script, as fetched by INSTALL_COMMAND. */
+export const INSTALL_SCRIPT_URL =
+  "https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh";
+
+export const INSTALL_COMMAND = `curl -fsSL ${INSTALL_SCRIPT_URL} | bash`;
 
 export const RELOAD_COMMAND = "source ~/.zshrc";
 
@@ -59,6 +62,12 @@ export const countFor = (module: string) =>
 
 /** Length of the product film in seconds (video/src/timeline.ts, 2160 frames at 30 fps). */
 export const HERO_FILM_DURATION = 72;
+
+/** Day the film was published on the site (VideoObject uploadDate). */
+export const HERO_FILM_UPLOAD_DATE = "2026-10-28";
+
+/** HERO_FILM_DURATION as an ISO 8601 duration, e.g. "PT1M12S". */
+export const HERO_FILM_ISO_DURATION = `PT${Math.floor(HERO_FILM_DURATION / 60)}M${HERO_FILM_DURATION % 60}S`;
 
 export interface HeroFilmSource {
   /** File name, shown in the pane title like a player command. */
@@ -417,7 +426,8 @@ export type SpellbookTabId = (typeof SPELLBOOK_TABS)[number]["id"];
 
 const CONFIRMS_SUFFIX = " Asks first.";
 
-const toSpell = (entry: CatalogEntry, locale: CatalogLocale): Spell => {
+/** One catalog row in a locale, with "Asks first." turned into `confirms`. */
+export const toSpell = (entry: CatalogEntry, locale: CatalogLocale): Spell => {
   const confirms = entry.description.en.endsWith(CONFIRMS_SUFFIX);
   const description =
     locale === "en" && confirms
@@ -441,3 +451,88 @@ export const buildSpellbook = (
       ),
     })),
   }));
+
+/* -------------------------------------------------------------------------- */
+/*  Privacy policy data (the optional "get updates" subscription)             */
+/* -------------------------------------------------------------------------- */
+
+/** A value the author still has to fill in. */
+type Todo = `TODO${string}`;
+
+export interface PrivacyConfig {
+  /** Data controller: your full legal name or company name. */
+  controller: string;
+  /** City and country of the controller, e.g. "Bogotá, Colombia". */
+  location: string;
+  /** Mailbox for privacy requests and unsubscribes. */
+  contactEmail: string;
+  /** Supabase project region, as shown in its settings, e.g. "us-east-1 (N. Virginia, USA)". */
+  supabaseRegion: string;
+  /** true when Brevo sends the emails and handles unsubscribes (BREVO_ENABLED). */
+  usesBrevo: boolean | Todo;
+  /**
+   * Brand whose other tools may also be announced to subscribers, e.g.
+   * "Carlos Leon Code". null: only bash-wizardry news.
+   */
+  otherToolsBrand: string | null;
+  /** Days to delete a person's data after they unsubscribe (template: 30). */
+  retentionDaysAfterUnsubscribe: number | Todo;
+  /** Months without sending any news before the list is deleted (template: 24). */
+  inactiveListMonths: number | Todo;
+  /** Business days to answer, set by Ley 1581 de 2012 (arts. 14 and 15). */
+  responseDays: { queries: number; claims: number };
+  /** Minimum age to subscribe: 14 or 18. */
+  minimumAge: 14 | 18 | Todo;
+  /** Date of the last important change, YYYY-MM-DD. */
+  lastUpdated: string;
+}
+
+/**
+ * Real data shown on /privacy and /es/privacidad. Every "TODO" must be
+ * replaced by the author: a production build with the subscription on
+ * (LEADS_ENABLED) fails while any value still starts with "TODO" (see assertPrivacyReady),
+ * so the subscription can never ship with a half-filled policy.
+ */
+export const PRIVACY: PrivacyConfig = {
+  controller: "Carlos Esteban León",
+  location: "Colombia",
+  contactEmail: "carlosleoncode@gmail.com",
+  supabaseRegion: "TODO: Supabase project region",
+  usesBrevo: false,
+  otherToolsBrand: null,
+  retentionDaysAfterUnsubscribe: 30,
+  inactiveListMonths: 24,
+  responseDays: { queries: 10, claims: 15 },
+  minimumAge: 18,
+  lastUpdated: "TODO: YYYY-MM-DD",
+};
+
+/** Dotted paths of the PRIVACY values that still start with "TODO". */
+export function privacyPlaceholders(
+  value: unknown = PRIVACY,
+  path = "PRIVACY",
+): string[] {
+  if (typeof value === "string") return value.startsWith("TODO") ? [path] : [];
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, child]) =>
+      privacyPlaceholders(child, `${path}.${key}`),
+    );
+  }
+  return [];
+}
+
+/**
+ * Throws in production builds while PRIVACY has placeholders. Called at the
+ * top of each privacy page module, and only when the subscription is on
+ * (LEADS_ENABLED: endpoint set and package installed). Otherwise nothing is
+ * collected, the privacy pages are 404 and the build passes.
+ */
+export function assertPrivacyReady(leadsEnabled: boolean) {
+  if (!leadsEnabled || process.env.NODE_ENV !== "production") return;
+  const missing = privacyPlaceholders();
+  if (missing.length === 0) return;
+  throw new Error(
+    `NEXT_PUBLIC_LEADS_ENDPOINT is set but the privacy policy still has placeholders: ${missing.join(", ")}. ` +
+      "Fill them in PRIVACY (web/src/lib/site.ts), or unset NEXT_PUBLIC_LEADS_ENDPOINT to build without the subscription.",
+  );
+}

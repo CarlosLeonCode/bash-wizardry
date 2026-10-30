@@ -1,6 +1,11 @@
-# .github/ISSUE_TEMPLATE/config.yml
 blank_issues_enabled: false
 contact_links:
-  - name: Contact support
+  - name: Documentation
+    url: https://github.com/CarlosLeonCode/bash-wizardry/blob/main/docs/en/README.md
+    about: Guides for installation, configuration and every module.
+  - name: Security vulnerability
+    url: https://github.com/CarlosLeonCode/bash-wizardry/security/advisories/new
+    about: Please report vulnerabilities privately, not as public issues. See SECURITY.md.
+  - name: Questions
     url: https://carlosleoncode.com
-    about: If you have questions, please reach out to us.
+    about: Questions or anything else, reach out to the maintainer.

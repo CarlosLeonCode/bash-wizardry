@@ -1,17 +1,33 @@
-import type { Dictionary } from "@/lib/i18n";
+import LeadUpdatesButton from "@/components/LeadUpdatesButton";
+import {
+  llmsTxtPath,
+  LOCALE_PATH,
+  PRIVACY_PATH,
+  type Dictionary,
+  type Locale,
+} from "@/lib/i18n";
+import { LEADS_ENABLED } from "@/lib/leads";
 import { AUTHOR, ISSUES_URL, REPO_URL, SPELL_COUNT } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-export default function Footer({ t }: { t: Dictionary }) {
+export default function Footer({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   const { footer } = t;
   const l = footer.links;
+  // Section anchors point at the home page: the footer is also on /privacy.
+  const home = LOCALE_PATH[locale];
   const columns = [
     {
       title: footer.columns.product,
       links: [
-        { label: l.tour, href: "#tour" },
-        { label: l.spellbook, href: "#spellbook" },
-        { label: l.install, href: "#install" },
+        { label: l.tour, href: `${home}#tour` },
+        { label: l.spellbook, href: `${home}#spellbook` },
+        { label: l.install, href: `${home}#install` },
       ],
     },
     {
@@ -20,6 +36,12 @@ export default function Footer({ t }: { t: Dictionary }) {
         { label: l.source, href: REPO_URL },
         { label: l.releases, href: `${REPO_URL}/releases` },
         { label: l.license, href: `${REPO_URL}/blob/main/LICENSE` },
+        // Plain-text summary for LLMs and AI answer engines (llmstxt.org).
+        { label: "llms.txt", href: llmsTxtPath(locale) },
+        // Only exists when the optional subscription is on (src/lib/leads.ts).
+        ...(LEADS_ENABLED
+          ? [{ label: t.leads.privacy, href: PRIVACY_PATH[locale] }]
+          : []),
       ],
     },
     {
@@ -43,6 +65,12 @@ export default function Footer({ t }: { t: Dictionary }) {
           <p className={styles.tagline}>
             # {footer.tagline}
           </p>
+          {LEADS_ENABLED && (
+            <LeadUpdatesButton
+              label={t.leads.getUpdates}
+              className={`btn-ghost ${styles.updates}`}
+            />
+          )}
         </div>
 
         <nav className={styles.columns} aria-label={footer.label}>

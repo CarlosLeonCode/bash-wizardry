@@ -24,5 +24,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@carlosleoncode/lead-capture": "^0.2.0"
   }
 }

@@ -10,12 +10,42 @@ The safest way to install is using the installation script:
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
 
+It downloads only the tool (under 1 MB on disk instead of about 16 MB): a partial, sparse clone that skips the website (`web/`) and the film (`video/`). `bw-update` keeps it that way. Options, set before `bash`:
+
+- `BW_INSTALL_FULL=1`: download the whole repository. On an existing lightweight install it restores the full tree.
+- `BW_REPO_URL=<url>`: install from your fork.
+- `BW_INSTALL_DIR=<dir>`: install somewhere other than `~/.bash-wizardry`.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | BW_INSTALL_FULL=1 bash
+```
+
+If your Git is older than 2.35, the installer falls back to a full clone. Installed before this change? Your full clone keeps working; to drop the website files from it:
+```bash
+git -C ~/.bash-wizardry sparse-checkout set --no-cone '/*' '!/web/' '!/video/'
+```
+
 ### Manual
 1. Clone the repository to a folder of your choice (e.g., `~/.bash-wizardry`).
 2. Source the `init.sh` file in your `.zshrc` or `.bashrc`:
    ```bash
    echo "source ~/.bash-wizardry/init.sh" >> ~/.zshrc
    ```
+
+### Uninstall
+Remove bash-wizardry from your shell startup files and delete `~/.bash-wizardry`:
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash
+```
+Or run the copy you already have: `~/.bash-wizardry/uninstall.sh`.
+
+- It shows what it will change and asks before doing it (`--yes` skips the question).
+- Every edited file (`~/.zshrc`, `~/.bashrc`, `~/.bash_profile`) is backed up as `<file>.bw-backup.<timestamp>`.
+- Your config in `~/.config/bash-wizardry/` is kept. Add `--purge` to delete it too (your `config.env`, user modules and trusted hooks):
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/uninstall.sh | bash -s -- --purge
+  ```
+- Open a new terminal afterwards: spells already loaded in the current one stay until it closes.
 
 ## ⚙️ Configuration
 

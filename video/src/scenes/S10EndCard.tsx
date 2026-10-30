@@ -57,7 +57,7 @@ export const EndCard: React.FC<{ copy: Copy; duration: number }> = ({ copy, dura
         }}
       >
         <div style={{ fontSize: 40, fontWeight: 600, letterSpacing: "-0.02em", color: COLOR.text }}>
-          bashwizardry.com
+          bashwizardry.carlosleoncode.com
         </div>
         <div style={{ fontSize: 28, fontWeight: 500, color: COLOR.muted }}>
           github.com/CarlosLeonCode/bash-wizardry
