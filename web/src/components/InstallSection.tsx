@@ -1,4 +1,5 @@
 import CopyButton from "@/components/CopyButton";
+import InstallCopyButton from "@/components/InstallCopyButton";
 import Reveal from "@/components/Reveal";
 import SectionHead from "@/components/SectionHead";
 import RichText from "@/components/RichText";
@@ -11,12 +12,16 @@ function CommandBox({
   label,
   comment,
   copy,
+  isInstall = false,
 }: {
   command: string;
   label: string;
   comment?: string;
   copy: CopyButtonCopy;
+  /** Copying it is a value moment for the "get updates" card. */
+  isInstall?: boolean;
 }) {
+  const Button = isInstall ? InstallCopyButton : CopyButton;
   return (
     <div className={styles.code}>
       <code className={styles.command}>
@@ -26,7 +31,7 @@ function CommandBox({
         {command}
         {comment && <span className="comment"> {comment}</span>}
       </code>
-      <CopyButton text={command} label={label} variant="compact" t={copy} />
+      <Button text={command} label={label} variant="compact" t={copy} />
     </div>
   );
 }
@@ -60,6 +65,7 @@ export default function InstallSection({ t }: { t: Dictionary }) {
               command={INSTALL_COMMAND}
               label={install.copyInstall}
               copy={t.common.copy}
+              isInstall
             />
           </li>
 

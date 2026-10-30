@@ -22,12 +22,15 @@ export default function CopyButton({
   label,
   variant = "key",
   t,
+  onCopied,
 }: {
   text: string;
   label: string;
   variant?: "key" | "compact";
   /** Localized keycap, tooltip and live-region text. */
   t: CopyButtonCopy;
+  /** Called after the text reached the clipboard (not on failure). */
+  onCopied?: () => void;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const root = useRef<HTMLSpanElement>(null);
@@ -58,6 +61,7 @@ export default function CopyButton({
       await copyText(text);
       setStatus("copied");
       flash();
+      onCopied?.();
     } catch {
       setStatus("error");
     }

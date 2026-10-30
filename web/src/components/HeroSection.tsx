@@ -1,7 +1,7 @@
 import Image from "next/image";
-import CopyButton from "@/components/CopyButton";
 import HeroFilm from "@/components/HeroFilm";
 import HeroMotion from "@/components/HeroMotion";
+import InstallCopyButton from "@/components/InstallCopyButton";
 import { LOGO_STACKED, LOGO_WIDE } from "@/lib/ascii";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import {
@@ -113,7 +113,7 @@ export default function HeroSection({
               </span>
               {INSTALL_COMMAND}
             </code>
-            <CopyButton
+            <InstallCopyButton
               text={INSTALL_COMMAND}
               label={hero.copyInstall}
               t={t.common.copy}

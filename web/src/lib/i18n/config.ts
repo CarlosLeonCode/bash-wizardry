@@ -25,6 +25,18 @@ export const PAGE_URL: Record<Locale, string> = {
   es: `${SITE_URL}${LOCALE_PATH.es}`,
 };
 
+/** Public path of each locale's privacy policy (only built with leads on). */
+export const PRIVACY_PATH: Record<Locale, string> = {
+  en: "/privacy",
+  es: "/es/privacidad",
+};
+
+/** Absolute URL of each locale's privacy policy. */
+export const PRIVACY_URL: Record<Locale, string> = {
+  en: `${SITE_URL}${PRIVACY_PATH.en}`,
+  es: `${SITE_URL}${PRIVACY_PATH.es}`,
+};
+
 /** Absolute URL of each locale's social card (app/(en)/og.png, app/(es)/es/og.png). */
 export const OG_IMAGE_URL: Record<Locale, string> = {
   en: `${SITE_URL}/og.png`,

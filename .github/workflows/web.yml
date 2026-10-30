@@ -17,6 +17,12 @@ on:
 jobs:
   web:
     runs-on: ubuntu-latest
+    # packages: read lets npm ci install the private, optional
+    # @carlosleoncode/lead-capture from GitHub Packages. Without access (forks,
+    # PRs from forks) npm skips it and the build uses the no-op fallback.
+    permissions:
+      contents: read
+      packages: read
     defaults:
       run:
         working-directory: web
@@ -30,6 +36,8 @@ jobs:
           cache-dependency-path: web/package-lock.json
 
       - run: npm ci
+        env:
+          GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run lint
       - run: npx tsc --noEmit
       - run: npm run build

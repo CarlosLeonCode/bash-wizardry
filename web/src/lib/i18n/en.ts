@@ -1,3 +1,7 @@
+import type {
+  LeadCaptureCopy,
+  RoleSlug,
+} from "@carlosleoncode/lead-capture";
 import type { Dictionary } from "@/lib/i18n/types";
 import {
   countFor,
@@ -409,5 +413,72 @@ export const en: Dictionary = {
     license: "MIT License",
     builtBy: "Designed & built by",
     spells: "spells",
+  },
+
+  leads: {
+    getUpdates: "get updates",
+    privacy: "privacy",
+    // Full English version of the package's DEFAULT_COPY_ES.
+    card: {
+      title: "Want to hear what's new?",
+      description:
+        "Leave your email and we'll only write when {product} has something new. No spam.",
+      emailLabel: "Email",
+      emailPlaceholder: "you@example.com",
+      consentLabel:
+        "I agree to receive occasional emails with {product} news. I can unsubscribe at any time.",
+      privacyLink: "Privacy policy",
+      newTabHint: NEW_TAB,
+      submit: "Subscribe",
+      submitting: "Sending…",
+      notNow: "Not now",
+      close: "Close",
+      detailsTitle: "Tell us a bit more?",
+      detailsDescription: "It's optional and helps us decide what to improve.",
+      nameLabel: "Name",
+      roleLabel: "What do you do?",
+      countryLabel: "Country",
+      selectPlaceholder: "Prefer not to say",
+      save: "Save",
+      skip: "Skip",
+      successTitle: "Done! We'll only write when there's news.",
+      announcement: "Optional notice: you can get {product} news by email.",
+      errors: {
+        required: "This field is required.",
+        invalid: "Check this field.",
+        too_long: "This text is too long.",
+        not_allowed: "This can't be sent from here.",
+        rate_limited: "Too many attempts. Try again in a minute.",
+        network: "We couldn't send it. Check your connection and try again.",
+        server: "Something went wrong on our side. Try again later.",
+        email: {
+          required: "Enter your email.",
+          invalid: "Check the email format.",
+          too_long: "That email is too long.",
+        },
+        consent: {
+          required: "Tick the box to continue.",
+        },
+      },
+    } satisfies LeadCaptureCopy,
+    roles: [
+      { value: "diseno", label: "Design" },
+      { value: "desarrollo", label: "Development" },
+      { value: "producto", label: "Product" },
+      { value: "marketing", label: "Marketing" },
+      { value: "soporte", label: "Support" },
+      { value: "educacion", label: "Education" },
+      { value: "estudiante", label: "Student" },
+      { value: "otro", label: "Other" },
+    ] satisfies { value: RoleSlug; label: string }[],
+  },
+
+  privacy: {
+    title: "Privacy policy",
+    description:
+      "How the optional bash-wizardry news subscription handles your data: what is stored, why, for how long, your rights and how to unsubscribe.",
+    back: "back to bash-wizardry",
+    otherLanguage: "español",
+    navLabel: "Privacy policy",
   },
 };

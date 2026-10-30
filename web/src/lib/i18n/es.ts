@@ -417,4 +417,20 @@ export const es: Dictionary = {
     builtBy: "Diseñado y construido por",
     spells: "hechizos",
   },
+
+  leads: {
+    getUpdates: "recibir novedades",
+    privacy: "privacidad",
+    // The package's defaults (DEFAULT_COPY_ES) are already neutral Spanish.
+    card: {},
+  },
+
+  privacy: {
+    title: "Política de privacidad",
+    description:
+      "Cómo trata tus datos la suscripción opcional a novedades de bash-wizardry: qué se guarda, para qué, por cuánto tiempo, tus derechos y cómo darte de baja.",
+    back: "volver a bash-wizardry",
+    otherLanguage: "english",
+    navLabel: "Política de privacidad",
+  },
 };

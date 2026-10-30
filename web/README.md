@@ -36,6 +36,31 @@ npm run build
 
 All motion lives in `gsap.matchMedia()` under `(prefers-reduced-motion: no-preference)`. Content is fully server-rendered, so the page reads correctly without JavaScript. Terminal output shown on the page mirrors what the scripts in `../modules/` really print; keep them in sync.
 
+## Lead capture (optional, private package)
+
+The site can ask visitors, once and only after they copy the install command, whether they want news by email. The card comes from `@carlosleoncode/lead-capture`, a **private, proprietary** package on GitHub Packages that talks to the author's `leads` Supabase Edge Function. Nobody else needs it: without it the site builds and works exactly the same, minus the card.
+
+**How it stays optional**
+
+- It belongs in `optionalDependencies`. `npm install` without a token gets a 401 for it, skips it and succeeds.
+- `next.config.ts` checks whether `node_modules/@carlosleoncode/lead-capture` exists. If not, `turbopack.resolveAlias` points the package and its `styles.css` at `src/lib/lead-capture-fallback.tsx` / `.css` (no-op `LeadCapture`, `recordLeadEvent`, `openLeadCapture`). TypeScript does the same through the ambient module in `src/types/lead-capture.d.ts`, which only applies when the real package is missing. Restart `next dev` after installing or removing it.
+- Everything visible is gated by `LEADS_ENABLED` (`src/lib/leads.ts`): `NEXT_PUBLIC_LEADS_ENDPOINT` set **and** the package installed. Otherwise there is no card, no `[ get updates ]` button, and `/privacy` and `/es/privacidad` are 404 and left out of the sitemap and the footer. An endpoint without the package (e.g. a missing token on Netlify) prints a build warning and builds without the subscription.
+
+**Pieces**: `components/LeadCard.tsx` (mounted once in each locale layout; English copy and role labels in `lib/i18n/en.ts`, Spanish uses the package defaults), `InstallCopyButton.tsx` (records the `copy-install` value moment from the hero and install section), `LeadUpdatesButton.tsx` (footer `[ get updates ]` / `[ recibir novedades ]`), `PrivacyPage.tsx` + `PrivacyPolicy.tsx` (adapted from clc-leads' `PRIVACY_TEMPLATE.md`, with Ley 1581 de 2012, Decreto 1377 de 2013 and GDPR references).
+
+**Environment variables**
+
+| Name | Where | Purpose |
+|------|-------|---------|
+| `NEXT_PUBLIC_LEADS_ENDPOINT` | `.env.local`, Netlify (build) | `https://<ref>.supabase.co/functions/v1/leads`. Inlined at build time; leave unset to build without the subscription. |
+| `GITHUB_PACKAGES_TOKEN` | your shell, Netlify (build) | GitHub token with `read:packages`, read by `.npmrc` to install the package. CI uses the workflow's `GITHUB_TOKEN` (the package must grant this repository read access under *Package settings → Manage Actions access*). |
+
+On Netlify set both (Site configuration → Environment variables, scope *Builds*). The package itself is added once with `npm install --save-optional @carlosleoncode/lead-capture`.
+
+**Privacy-data gate.** The policy pages read the author's details from `PRIVACY` in `src/lib/site.ts`. Every value that still starts with `TODO` makes a production build **fail** whenever the subscription is on (endpoint set and package installed), with a message listing the missing fields, so it can never ship with a half-filled policy. Without it the check is skipped (nothing is collected).
+
+**Backend.** The Supabase function must allow project `bash-wizardry` in `ALLOWED_PROJECTS` and the origins `https://bashwizardry.carlosleoncode.com` and `http://localhost:3000` in `ALLOWED_ORIGINS` (drop localhost once testing is done).
+
 ## Deploy (Netlify)
 
 Configured in `../netlify.toml`: base `web`, `npm run build`, publish `.next`, Node 22, and the pinned `@netlify/plugin-nextjs` adapter. Without the adapter Netlify publishes the raw `.next` folder and every path is a 404.

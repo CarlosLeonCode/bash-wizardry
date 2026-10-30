@@ -7,6 +7,10 @@
 //     translated; they live in src/lib/site.ts.
 
 import type {
+  LeadCaptureCopyOverrides,
+  RoleOption,
+} from "@carlosleoncode/lead-capture";
+import type {
   AgentCommandId,
   AgentFaqId,
   AgentShellItemId,
@@ -239,5 +243,29 @@ export interface Dictionary {
     license: string;
     builtBy: string;
     spells: string;
+  };
+  /** Optional "get updates" subscription (src/lib/leads.ts). */
+  leads: {
+    /** Footer button that opens the card, rendered as "[ get updates ]". */
+    getUpdates: string;
+    /** Footer link to the privacy policy. */
+    privacy: string;
+    /** Card copy; "{product}" becomes "bash-wizardry". Missing keys keep the package's Spanish defaults. */
+    card: LeadCaptureCopyOverrides;
+    /** Role select options (value = backend slug). Omitted: the package's Spanish labels. */
+    roles?: readonly RoleOption[];
+  };
+  /** The privacy policy page (its body lives in components/PrivacyPolicy.tsx). */
+  privacy: {
+    /** Page title and <h1>. */
+    title: string;
+    /** Meta description: 155 characters at most. */
+    description: string;
+    /** Link back to the home page. */
+    back: string;
+    /** Link to the same page in the other language. */
+    otherLanguage: string;
+    /** Accessible name of the page's top navigation. */
+    navLabel: string;
   };
 }

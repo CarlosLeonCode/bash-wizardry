@@ -1,0 +1,39 @@
+/* Terminal touches on top of the package's .clc-lc styles. Colors, font and
+   radius come from the `theme` prop in LeadCard.tsx; selectors here repeat
+   the root class so they win over the package regardless of CSS order. */
+
+.card.card {
+  --clc-lc-error: var(--red); /* 6.3:1 on the panel */
+  border-color: var(--green-3);
+  border-top: 2px solid var(--green);
+}
+
+.card :global(.clc-lc-title) {
+  color: var(--bright);
+}
+
+.card :global(.clc-lc-title)::before {
+  content: "> ";
+  color: var(--green);
+}
+
+.card :global(.clc-lc-success)::before {
+  content: none;
+}
+
+.card :global(.clc-lc-button) {
+  font-weight: 700;
+}
+
+.card :global(.clc-lc-close) {
+  border-radius: 0;
+}
+
+.card :global(.clc-lc-select) option {
+  background: var(--panel);
+  color: var(--text);
+}
+
+.card :global(.clc-lc-link):hover {
+  color: var(--green);
+}

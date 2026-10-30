@@ -1,0 +1,3 @@
+/* Empty on purpose: stand-in for @carlosleoncode/lead-capture/styles.css when
+   the private package is not installed (see turbopack.resolveAlias in
+   next.config.ts). */

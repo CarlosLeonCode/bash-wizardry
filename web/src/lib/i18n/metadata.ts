@@ -7,6 +7,7 @@ import {
   OG_LOCALE,
   OG_SIZE,
   PAGE_URL,
+  PRIVACY_URL,
   type Locale,
 } from "@/lib/i18n";
 import {
@@ -22,11 +23,14 @@ import {
 
 const LICENSE_URL = "https://opensource.org/licenses/MIT";
 
-/** hreflang map shared by page metadata and the sitemap (absolute URLs). */
-export const languageAlternates = () => ({
-  en: PAGE_URL.en,
-  es: PAGE_URL.es,
-  "x-default": PAGE_URL.en,
+/**
+ * hreflang map shared by page metadata and the sitemap (absolute URLs).
+ * Defaults to the home pages; pass another page's URLs (e.g. PRIVACY_URL).
+ */
+export const languageAlternates = (urls: Record<Locale, string> = PAGE_URL) => ({
+  en: urls.en,
+  es: urls.es,
+  "x-default": urls.en,
 });
 
 /** Full metadata of one locale's home page. */
@@ -90,6 +94,49 @@ export function buildMetadata(locale: Locale): Metadata {
     },
     // The manifest link is emitted automatically from app/manifest.ts
     // (served at /manifest.webmanifest), so it is not declared here.
+  };
+}
+
+/**
+ * Metadata of one locale's privacy policy. Replaces the layout's alternates,
+ * Open Graph and Twitter blocks (Next.js merges metadata per top-level key),
+ * so canonical and hreflang point at the privacy pages, not the home pages.
+ */
+export function buildPrivacyMetadata(locale: Locale): Metadata {
+  const { privacy, meta } = getDictionary(locale);
+  const image = {
+    url: OG_IMAGE_URL[locale],
+    ...OG_SIZE,
+    alt: meta.og.alt,
+    type: "image/png",
+  };
+
+  return {
+    title: privacy.title,
+    description: privacy.description,
+    alternates: {
+      canonical: PRIVACY_URL[locale],
+      languages: languageAlternates(PRIVACY_URL),
+    },
+    openGraph: {
+      title: `${privacy.title} | Bash Wizardry`,
+      description: privacy.description,
+      url: PRIVACY_URL[locale],
+      siteName: "Bash Wizardry",
+      locale: OG_LOCALE[locale],
+      alternateLocale: LOCALES.filter((l) => l !== locale).map(
+        (l) => OG_LOCALE[l],
+      ),
+      type: "article",
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${privacy.title} | Bash Wizardry`,
+      description: privacy.description,
+      creator: "@CarlosLeonCode",
+      images: [image],
+    },
   };
 }
 
