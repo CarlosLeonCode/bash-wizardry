@@ -23,7 +23,8 @@ npm run build
 
 - `src/app/(en)/` and `src/app/(es)/es/`: one root layout per locale, so `<html lang>` is correct without a `[lang]` segment. Both render `components/HomePage.tsx` through `components/RootDocument.tsx`.
 - `src/app/global-not-found.tsx`: bilingual 404 (`experimental.globalNotFound`).
-- `src/app/manifest.ts`, `robots.ts`, `sitemap.ts`: metadata routes (the sitemap lists both locales with `hreflang` alternates).
+- `src/app/manifest.ts`, `robots.ts`, `sitemap.ts`: metadata routes (the sitemap lists both locales with `hreflang` alternates; robots.txt allows the major AI crawlers by name). `favicon.ico`, `icon.png` (48px) and `apple-icon.png` (180px) are the tab and home-screen icons; the manifest uses `public/icons/`.
+- `og.png/`, `llms.txt/`, `llms-full.txt/` in each locale folder: static route handlers for the social card (`src/lib/og.tsx`, font in `src/assets/fonts/`, SIL OFL) and the [llms.txt](https://llmstxt.org) files (`src/lib/llms.ts`, spell lists generated from the catalog). JSON-LD (one `@graph` per page) is built in `src/lib/i18n/metadata.ts`.
 - `src/components/`: one component per section; only animated or interactive pieces are client components.
 - `src/lib/i18n/`: typed dictionaries (`en.ts`, `es.ts`; TypeScript fails if a key is missing) and per-locale metadata.
 - `src/lib/site.ts`: locale-independent data (spellbook tabs, terminal transcripts, agent signals, film assets). `src/lib/urls.ts`: project and author links.

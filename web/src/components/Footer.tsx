@@ -1,8 +1,14 @@
-import type { Dictionary } from "@/lib/i18n";
+import { llmsTxtPath, type Dictionary, type Locale } from "@/lib/i18n";
 import { AUTHOR, ISSUES_URL, REPO_URL, SPELL_COUNT } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-export default function Footer({ t }: { t: Dictionary }) {
+export default function Footer({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   const { footer } = t;
   const l = footer.links;
   const columns = [
@@ -20,6 +26,8 @@ export default function Footer({ t }: { t: Dictionary }) {
         { label: l.source, href: REPO_URL },
         { label: l.releases, href: `${REPO_URL}/releases` },
         { label: l.license, href: `${REPO_URL}/blob/main/LICENSE` },
+        // Plain-text summary for LLMs and AI answer engines (llmstxt.org).
+        { label: "llms.txt", href: llmsTxtPath(locale) },
       ],
     },
     {

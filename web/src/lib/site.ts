@@ -14,8 +14,11 @@ import type { Locale } from "@/lib/i18n/config";
 
 export { AUTHOR, ISSUES_URL, REPO_URL, SITE_URL } from "@/lib/urls";
 
-export const INSTALL_COMMAND =
-  "curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash";
+/** The installer script, as fetched by INSTALL_COMMAND. */
+export const INSTALL_SCRIPT_URL =
+  "https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh";
+
+export const INSTALL_COMMAND = `curl -fsSL ${INSTALL_SCRIPT_URL} | bash`;
 
 export const RELOAD_COMMAND = "source ~/.zshrc";
 
@@ -59,6 +62,12 @@ export const countFor = (module: string) =>
 
 /** Length of the product film in seconds (video/src/timeline.ts, 2160 frames at 30 fps). */
 export const HERO_FILM_DURATION = 72;
+
+/** Day the film was published on the site (VideoObject uploadDate). */
+export const HERO_FILM_UPLOAD_DATE = "2026-10-28";
+
+/** HERO_FILM_DURATION as an ISO 8601 duration, e.g. "PT1M12S". */
+export const HERO_FILM_ISO_DURATION = `PT${Math.floor(HERO_FILM_DURATION / 60)}M${HERO_FILM_DURATION % 60}S`;
 
 export interface HeroFilmSource {
   /** File name, shown in the pane title like a player command. */
@@ -417,7 +426,8 @@ export type SpellbookTabId = (typeof SPELLBOOK_TABS)[number]["id"];
 
 const CONFIRMS_SUFFIX = " Asks first.";
 
-const toSpell = (entry: CatalogEntry, locale: CatalogLocale): Spell => {
+/** One catalog row in a locale, with "Asks first." turned into `confirms`. */
+export const toSpell = (entry: CatalogEntry, locale: CatalogLocale): Spell => {
   const confirms = entry.description.en.endsWith(CONFIRMS_SUFFIX);
   const description =
     locale === "en" && confirms

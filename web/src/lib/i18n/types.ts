@@ -72,11 +72,23 @@ export interface HeroFilmCopy {
 
 export interface Dictionary {
   meta: {
+    /** Page title: 60 characters at most. */
     title: string;
+    /** Meta, Open Graph and Twitter description: 155 characters at most. */
     description: string;
     keywords: string[];
     /** SoftwareApplication description for JSON-LD. */
     appDescription: string;
+    /** SoftwareApplication featureList for JSON-LD. */
+    features: string[];
+    /** VideoObject name of the hero film. */
+    filmName: string;
+    /** Social card (src/lib/og.tsx). */
+    og: {
+      alt: string;
+      headline: [string, string];
+      subline: string;
+    };
   };
   common: {
     skipToContent: string;

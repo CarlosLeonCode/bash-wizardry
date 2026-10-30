@@ -10,7 +10,7 @@ import ContributionSection from "@/components/ContributionSection";
 import Footer from "@/components/Footer";
 import TopLinks from "@/components/TopLinks";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { buildJsonLd } from "@/lib/i18n/metadata";
+import { jsonLdScript } from "@/lib/i18n/metadata";
 import { SPELL_COUNT } from "@/lib/site";
 
 /** The landing page, rendered once per locale (app/(en) and app/(es)). */
@@ -21,7 +21,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
     <div id="top">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(locale) }}
       />
       <a href="#main" className="skip-link">
         {t.common.skipToContent}
@@ -48,7 +48,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </main>
       </div>
 
-      <Footer t={t} />
+      <Footer locale={locale} t={t} />
     </div>
   );
 }

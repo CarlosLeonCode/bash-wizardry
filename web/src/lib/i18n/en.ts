@@ -11,9 +11,8 @@ const NEW_TAB = "(opens in a new tab)";
 
 export const en: Dictionary = {
   meta: {
-    title: "Bash Wizardry | Intelligent CLI Spells",
-    description:
-      "A curated suite of context-aware shell spells for Bash and Zsh: Magic Workspaces, Git, Node.js, Docker, Rails and Django. Pure shell, no binaries, 100% under your control.",
+    title: "Bash Wizardry — Bash & Zsh spells, safe with AI agents",
+    description: `${SPELL_COUNT} context-aware spells for Bash & Zsh: Git, Node.js, Docker, Rails, Django and workspaces. Pure shell, no binaries, invisible to AI agents.`,
     keywords: [
       "bash",
       "zsh",
@@ -28,6 +27,21 @@ export const en: Dictionary = {
     ],
     appDescription:
       "A curated suite of context-aware shell spells for Bash and Zsh. Pure shell, no binaries, 100% under your control.",
+    features: [
+      `${SPELL_COUNT} spells for Git, Node.js, Docker, Rails, Ruby and Django`,
+      "Lockfile-aware npm, yarn and pnpm commands",
+      "Workspaces with trusted .bw-on-enter hooks",
+      "Confirmation before destructive Git operations",
+      "Agent mode: invisible to AI coding agents",
+      "Machine-readable catalog with bwiz help --json",
+      "User config and modules without forking",
+    ],
+    filmName: "bash-wizardry: Your terminal. Superpowers included.",
+    og: {
+      alt: `bash-wizardry: Your terminal. Superpowers included. ${SPELL_COUNT} spells for Bash and Zsh, invisible to AI agents.`,
+      headline: ["Your terminal.", "Superpowers included."],
+      subline: `${SPELL_COUNT} spells for Bash & Zsh · invisible to AI agents`,
+    },
   },
 
   common: {

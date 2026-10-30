@@ -11,9 +11,8 @@ const NEW_TAB = "(se abre en una pestaña nueva)";
 
 export const es: Dictionary = {
   meta: {
-    title: "Bash Wizardry | Hechizos inteligentes para la terminal",
-    description:
-      "Una colección curada de hechizos de shell para Bash y Zsh que entienden el contexto: Workspaces mágicos, Git, Node.js, Docker, Rails y Django. Shell puro, sin binarios, 100% bajo tu control.",
+    title: "Bash Wizardry — hechizos para Bash y Zsh, seguros con IA",
+    description: `${SPELL_COUNT} hechizos inteligentes para Bash y Zsh: Git, Node.js, Docker, Rails, Django y workspaces. Shell puro, sin binarios e invisible para los agentes de IA.`,
     keywords: [
       "bash",
       "zsh",
@@ -28,6 +27,21 @@ export const es: Dictionary = {
     ],
     appDescription:
       "Una colección curada de hechizos de shell para Bash y Zsh que entienden el contexto. Shell puro, sin binarios, 100% bajo tu control.",
+    features: [
+      `${SPELL_COUNT} hechizos para Git, Node.js, Docker, Rails, Ruby y Django`,
+      "Comandos de npm, yarn y pnpm que leen el lockfile",
+      "Workspaces con hooks .bw-on-enter de confianza",
+      "Confirmación antes de las operaciones destructivas de Git",
+      "Modo agente: invisible para los agentes de IA",
+      "Catálogo legible por máquinas con bwiz help --json",
+      "Configuración y módulos propios sin hacer fork",
+    ],
+    filmName: "bash-wizardry: Tu terminal. Superpoderes incluidos.",
+    og: {
+      alt: `bash-wizardry: Tu terminal. Superpoderes incluidos. ${SPELL_COUNT} hechizos para Bash y Zsh, invisibles para los agentes de IA.`,
+      headline: ["Tu terminal.", "Superpoderes incluidos."],
+      subline: `${SPELL_COUNT} hechizos para Bash y Zsh · invisibles para agentes de IA`,
+    },
   },
 
   common: {
