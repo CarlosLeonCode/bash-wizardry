@@ -42,7 +42,7 @@ In scope, for example:
 - Bypassing the collision guard so a spell silently shadows a system command, builtin or keyword.
 - Destructive spells that act without the confirmation they promise.
 - Issues in `install.sh`, `uninstall.sh`, `bw-update` or `bwiz` (for example, writing or deleting files outside what they document, or unsafe handling of paths or input).
-- The website ([bashwizardry.com](https://bashwizardry.com)), source in `web/`.
+- The website ([bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com)), source in `web/`.
 
 Out of scope:
 

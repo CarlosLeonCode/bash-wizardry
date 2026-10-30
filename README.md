@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://bashwizardry.com">Website</a> •
+  <a href="https://bashwizardry.carlosleoncode.com">Website</a> •
   <a href="#-installation">Installation</a> •
   <a href="docs/en/README.md">English Docs</a> •
   <a href="docs/es/README.md">Documentación (ES)</a> •
@@ -26,7 +26,7 @@
 
 `bash-wizardry` transforms complex commands and repetitive workflows into short, intelligent **spells**. It's not just a collection of aliases; it's a context-aware suite designed for modern developers.
 
-▶️ **Watch the 72-second film on [bashwizardry.com](https://bashwizardry.com)** ([en español](https://bashwizardry.com/es)).
+▶️ **Watch the 72-second film on [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com)** ([en español](https://bashwizardry.carlosleoncode.com/es)).
 
 ## ✨ Why bash-wizardry?
 
@@ -163,7 +163,7 @@ If this project brings you value, you can support me here:
 ---
 
 <p align="center">
-  <a href="https://bashwizardry.com">Website</a> •
+  <a href="https://bashwizardry.carlosleoncode.com">Website</a> •
   <a href="https://github.com/CarlosLeonCode/bash-wizardry">GitHub</a> •
   <a href="docs/en/getting-started.md">Full Documentation</a> •
   <a href="https://www.youtube.com/@carlosleoncode">YouTube</a>

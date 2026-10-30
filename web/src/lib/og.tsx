@@ -167,7 +167,7 @@ export async function renderOgImage(locale: Locale) {
                 />
               </div>
               <div style={{ display: "flex", fontSize: 26, color: COLOR.muted }}>
-                bashwizardry.com
+                bashwizardry.carlosleoncode.com
               </div>
             </div>
           </div>

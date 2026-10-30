@@ -14,7 +14,7 @@ Un núcleo más sólido que trabaja para ti en la terminal y no interfiere con l
 - **CLI `bwiz`:** `bwiz help [módulo]`, `bwiz help --json` para agentes, `bwiz modules`, `bwiz version`.
 - **Personaliza sin hacer fork:** tu `config.env` y tus módulos viven en `~/.config/bash-wizardry/`; un módulo de usuario con el mismo nombre que uno del núcleo lo reemplaza. Consulta [Personalización](personalizacion.md).
 - **Catálogo de comandos:** `catalog/commands.tsv` es la única fuente de verdad para `bw-help`, `bwiz` y el sitio web.
-- **Nuevo sitio web** en [bashwizardry.com](https://bashwizardry.com/es), en inglés y español, con un video de 72 segundos.
+- **Nuevo sitio web** en [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com/es), en inglés y español, con un video de 72 segundos.
 
 ### 🐛 Correcciones
 - Las confirmaciones (`greset`, `n-clean`, `dckrprune`, `rdbreset`...) funcionan en Zsh.

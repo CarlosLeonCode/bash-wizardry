@@ -14,7 +14,7 @@ A sturdier core that works for you at the terminal and stays out of the way of A
 - **`bwiz` CLI:** `bwiz help [module]`, `bwiz help --json` for agents, `bwiz modules`, `bwiz version`.
 - **Customize without forking:** your `config.env` and modules live in `~/.config/bash-wizardry/`; a user module named like a core one replaces it. See [Customization](customization.md).
 - **Command catalog:** `catalog/commands.tsv` is the single source of truth for `bw-help`, `bwiz` and the website.
-- **New website** at [bashwizardry.com](https://bashwizardry.com), in English and Spanish, with a 72-second product film.
+- **New website** at [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com), in English and Spanish, with a 72-second product film.
 
 ### 🐛 Fixes
 - Confirmation prompts (`greset`, `n-clean`, `dckrprune`, `rdbreset`...) work in Zsh.

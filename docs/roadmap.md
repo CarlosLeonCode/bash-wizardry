@@ -31,7 +31,7 @@ A developer should focus on **logic**, not **syntax**. bash-wizardry minimizes t
 4.  **`bwiz` & the command catalog:** ✅ `catalog/commands.tsv` feeds `bw-help`, `bwiz help --json` and the website.
 5.  **User modules:** ✅ Your own `config.env` and modules in `~/.config/bash-wizardry/`, no fork needed.
 6.  **Tests & CI:** ✅ Bats suite for Bash and Zsh, ShellCheck, CI on Ubuntu and macOS.
-7.  **Website:** ✅ [bashwizardry.com](https://bashwizardry.com) in English and Spanish, with a product film.
+7.  **Website:** ✅ [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com) in English and Spanish, with a product film.
 
 ## 🤖 Next: The Wizard's Familiar (AI Integration)
 *Leveraging LLMs to debug and explain.*

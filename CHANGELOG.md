@@ -30,7 +30,7 @@ Agent-safe core: a sturdier shell setup that stays out of the way of AI coding a
 - User config and user modules in `~/.config/bash-wizardry/` (`BW_CONFIG_HOME`); a user module named like a core one replaces it.
 - `uninstall.sh` (`--yes`, `--purge`), with a backup of every edited shell startup file.
 - Bats test suite for Bash and Zsh, and CI with ShellCheck on Ubuntu and macOS.
-- New website at [bashwizardry.com](https://bashwizardry.com) in English and Spanish, with a product film.
+- New website at [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com) in English and Spanish, with a product film.
 - Community files: security policy, code of conduct, issue forms, pull request template, `.editorconfig`, `.gitattributes`, Dependabot.
 
 ### Fixed

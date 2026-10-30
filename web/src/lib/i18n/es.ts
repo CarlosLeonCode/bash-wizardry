@@ -63,7 +63,7 @@ export const es: Dictionary = {
     projectLinks: {
       github: "github: repositorio de bash-wizardry en GitHub",
       issues: "issues: incidencias de bash-wizardry en GitHub",
-      web: "web: sitio de bash-wizardry, bashwizardry.com",
+      web: "web: sitio de bash-wizardry, bashwizardry.carlosleoncode.com",
     },
     authorLinks: {
       github: "github: perfil de carlosleoncode en GitHub",

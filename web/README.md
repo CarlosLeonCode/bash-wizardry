@@ -1,6 +1,6 @@
 # bash-wizardry web
 
-Landing site for [bash-wizardry](https://github.com/CarlosLeonCode/bash-wizardry), deployed on Netlify at https://bashwizardry.com (English at `/`, Spanish at `/es`).
+Landing site for [bash-wizardry](https://github.com/CarlosLeonCode/bash-wizardry), deployed on Netlify at https://bashwizardry.carlosleoncode.com (English at `/`, Spanish at `/es`).
 
 ## Stack
 
