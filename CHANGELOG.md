@@ -29,6 +29,7 @@ Agent-safe core: a sturdier shell setup that stays out of the way of AI coding a
 - Command catalog (`catalog/commands.tsv`, `catalog/commands.es.tsv`) as the single source of truth for `bw-help`, `bwiz` and the website.
 - User config and user modules in `~/.config/bash-wizardry/` (`BW_CONFIG_HOME`); a user module named like a core one replaces it.
 - `uninstall.sh` (`--yes`, `--purge`), with a backup of every edited shell startup file.
+- Installer options: `BW_REPO_URL` (install from a fork), `BW_INSTALL_DIR` (install location) and `BW_INSTALL_FULL=1` (whole repository).
 - Bats test suite for Bash and Zsh, and CI with ShellCheck on Ubuntu and macOS.
 - New website at [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com) in English and Spanish, with a product film.
 - Community files: security policy, code of conduct, issue forms, pull request template, `.editorconfig`, `.gitattributes`, Dependabot.
@@ -44,6 +45,7 @@ Agent-safe core: a sturdier shell setup that stays out of the way of AI coding a
 ### Changed
 
 - Re-sourcing `init.sh` no longer duplicates the `scripts/` entry in `PATH`.
+- Lighter install: `install.sh` makes a partial, sparse clone that downloads only the tool, without the website and the film (under 1 MB on disk instead of about 16 MB). It falls back to a full clone when Git or the server does not support it. Existing installs are updated as before.
 - The roadmap moved from `planning.md` to [docs/roadmap.md](docs/roadmap.md).
 
 ## [1.0.0]

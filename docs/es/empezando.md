@@ -10,6 +10,21 @@ La forma más segura de instalar es usando el script de instalación:
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
 
+Solo descarga la herramienta (menos de 1 MB en disco en vez de unos 16 MB): un clon parcial y disperso (*sparse*) que omite el sitio web (`web/`) y el video (`video/`). `bw-update` lo mantiene así. Opciones, antes de `bash`:
+
+- `BW_INSTALL_FULL=1`: descarga el repositorio completo. En una instalación ligera existente, restaura el árbol completo.
+- `BW_REPO_URL=<url>`: instala desde tu fork.
+- `BW_INSTALL_DIR=<directorio>`: instala en otro lugar en vez de `~/.bash-wizardry`.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | BW_INSTALL_FULL=1 bash
+```
+
+Si tu Git es anterior a la 2.35, el instalador hace un clon completo. ¿Lo instalaste antes de este cambio? Tu clon completo sigue funcionando; para quitarle los archivos del sitio web:
+```bash
+git -C ~/.bash-wizardry sparse-checkout set --no-cone '/*' '!/web/' '!/video/'
+```
+
 ### Manual
 1. Clona el repositorio en una carpeta de tu elección (ej. `~/.bash-wizardry`).
 2. Agrega la línea de `source` a tu `init.sh` en tu `.zshrc` o `.bashrc`:

@@ -15,6 +15,7 @@ Un núcleo más sólido que trabaja para ti en la terminal y no interfiere con l
 - **Personaliza sin hacer fork:** tu `config.env` y tus módulos viven en `~/.config/bash-wizardry/`; un módulo de usuario con el mismo nombre que uno del núcleo lo reemplaza. Consulta [Personalización](personalizacion.md).
 - **Catálogo de comandos:** `catalog/commands.tsv` es la única fuente de verdad para `bw-help`, `bwiz` y el sitio web.
 - **Nuevo sitio web** en [bashwizardry.carlosleoncode.com](https://bashwizardry.carlosleoncode.com/es), en inglés y español, con un video de 72 segundos.
+- **Instalación más liviana:** el instalador descarga solo la herramienta (menos de 1 MB en lugar de unos 16 MB), sin el sitio web ni el video. `BW_INSTALL_FULL=1` descarga todo; `BW_REPO_URL` instala desde un fork.
 
 ### 🐛 Correcciones
 - Las confirmaciones (`greset`, `n-clean`, `dckrprune`, `rdbreset`...) funcionan en Zsh.

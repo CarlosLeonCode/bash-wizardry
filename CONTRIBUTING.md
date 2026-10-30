@@ -28,6 +28,18 @@ Development happens on the `stage` branch; `stage` is merged into `main` for rel
 7.  **Push to your branch** (`git push origin my-new-spell`).
 8.  **Open a Pull Request against `stage`** and fill in the checklist in the template. If you opened it against `main` by mistake, don't worry: the maintainer can retarget it.
 
+### Working without the website
+
+Most of the repository is the website (`web/`, including two videos) and the film (`video/`). If you only work on the shell code, a partial sparse clone of your fork skips them:
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/<you>/bash-wizardry.git
+cd bash-wizardry
+git sparse-checkout set --no-cone '/*' '!/web/' '!/video/'
+```
+
+This only affects your local clone: your fork on GitHub always has everything. To work on `web/`, use a full checkout (`git sparse-checkout disable`). Note that `tools/gen-catalog.sh` writes into `web/`, so catalog changes need the full checkout too.
+
 ## Guidelines
 
 *   **Keep it Simple:** One alias/function should do one thing well.

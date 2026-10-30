@@ -46,6 +46,7 @@ Invoke the wizard with a single command:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
+The installer downloads only the tool (under 1 MB on disk instead of about 16 MB), not the website or the film. Set `BW_INSTALL_FULL=1` to get the whole repository, or `BW_REPO_URL` to install from your fork (e.g. `curl ... | BW_INSTALL_FULL=1 bash`).
 
 <details>
 <summary><b>Manual Installation (For Power Users)</b></summary>

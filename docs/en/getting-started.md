@@ -10,6 +10,21 @@ The safest way to install is using the installation script:
 curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | bash
 ```
 
+It downloads only the tool (under 1 MB on disk instead of about 16 MB): a partial, sparse clone that skips the website (`web/`) and the film (`video/`). `bw-update` keeps it that way. Options, set before `bash`:
+
+- `BW_INSTALL_FULL=1`: download the whole repository. On an existing lightweight install it restores the full tree.
+- `BW_REPO_URL=<url>`: install from your fork.
+- `BW_INSTALL_DIR=<dir>`: install somewhere other than `~/.bash-wizardry`.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CarlosLeonCode/bash-wizardry/main/install.sh | BW_INSTALL_FULL=1 bash
+```
+
+If your Git is older than 2.35, the installer falls back to a full clone. Installed before this change? Your full clone keeps working; to drop the website files from it:
+```bash
+git -C ~/.bash-wizardry sparse-checkout set --no-cone '/*' '!/web/' '!/video/'
+```
+
 ### Manual
 1. Clone the repository to a folder of your choice (e.g., `~/.bash-wizardry`).
 2. Source the `init.sh` file in your `.zshrc` or `.bashrc`:
