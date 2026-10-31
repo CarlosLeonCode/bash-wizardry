@@ -12,18 +12,18 @@
   "dependencies": {
     "@gsap/react": "2.1.2",
     "gsap": "3.15.0",
-    "next": "16.1.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "5.16.2",
+    "@netlify/plugin-nextjs": "5.16.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.1",
+    "eslint-config-next": "16.4.3",
     "typescript": "^5"
   },
   "optionalDependencies": {
