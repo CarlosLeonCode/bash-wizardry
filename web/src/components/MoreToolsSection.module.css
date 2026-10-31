@@ -1,0 +1,100 @@
+/* One column, then a 2×2 grid: the descriptions stay at 3–5 lines. */
+.grid {
+  display: grid;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.grid > li + li {
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid > li:nth-child(2) {
+    border-top: 0;
+  }
+
+  .grid > li:nth-child(even) {
+    border-left: 1px solid var(--line);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.25rem 1.4rem;
+  transition: background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+.card:hover,
+.card:focus-visible {
+  background: rgba(57, 255, 106, 0.05);
+}
+
+.card:focus-visible {
+  outline-offset: -3px;
+}
+
+.entry {
+  color: var(--dim);
+  font-size: 0.78rem;
+}
+
+.name {
+  margin-top: 0.5rem;
+  color: var(--bright);
+  font-size: 1.15rem;
+  font-weight: 700;
+  transition: text-shadow 0.2s ease;
+}
+
+.tag {
+  margin-top: 0.15rem;
+  color: var(--green);
+  font-size: 0.8125rem;
+}
+
+.tag::before {
+  content: "# ";
+  color: var(--dim);
+}
+
+.description {
+  flex: 1;
+  margin-top: 0.6rem;
+  color: var(--green-2);
+  font-size: 0.875rem;
+  text-wrap: pretty;
+}
+
+.host {
+  margin-top: 1rem;
+  color: var(--green);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.card:hover .name,
+.card:focus-visible .name,
+.card:hover .host,
+.card:focus-visible .host {
+  text-shadow: var(--glow-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .name {
+    transition: none;
+  }
+}

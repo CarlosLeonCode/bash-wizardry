@@ -10,9 +10,11 @@
   padding-block: clamp(2.5rem, 6vw, 3.5rem) 2rem;
 }
 
-@media (min-width: 900px) {
+/* Brand beside four link columns only once each column fits its longest
+   Spanish label ("cómo contribuir ↗") on one line. */
+@media (min-width: 1180px) {
   .inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 3rem;
   }
 }
@@ -41,9 +43,10 @@
   gap: 2rem 1.5rem;
 }
 
-@media (min-width: 640px) {
+/* Four columns once "## más herramientas" fits on one line. */
+@media (min-width: 1024px) {
   .columns {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

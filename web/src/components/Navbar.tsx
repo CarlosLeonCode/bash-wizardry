@@ -11,7 +11,7 @@ import {
   type Locale,
 } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/types";
-import { REPO_URL } from "@/lib/urls";
+import { REPO_URL, TOOLS } from "@/lib/urls";
 import styles from "./Navbar.module.css";
 
 const SECTIONS = [
@@ -20,6 +20,7 @@ const SECTIONS = [
   "principles",
   "spellbook",
   "install",
+  "tools",
 ] as const;
 
 /** Vim/tmux-style scroll position: Top, Bot or a percentage. */
@@ -147,16 +148,34 @@ export default function Navbar({
 
           <nav aria-label={t.primary} className={styles.desktopNav}>
             <ul className={styles.links}>
-              {links.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className={styles.link} data-nav-link>
-                    <span className={styles.dot} aria-hidden="true">
-                      ./
-                    </span>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {links.map((link) =>
+                link.href === "#tools" ? (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className={`${styles.link} ${styles.toolsLink}`}
+                      data-nav-link
+                    >
+                      <span className={styles.spark} aria-hidden="true">
+                        ✦
+                      </span>
+                      {link.label}
+                      <span className={styles.badge} aria-hidden="true">
+                        {TOOLS.length}
+                      </span>
+                    </a>
+                  </li>
+                ) : (
+                  <li key={link.href}>
+                    <a href={link.href} className={styles.link} data-nav-link>
+                      <span className={styles.dot} aria-hidden="true">
+                        ./
+                      </span>
+                      {link.label}
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
 
@@ -213,16 +232,31 @@ export default function Navbar({
           hidden={!open}
         >
           <ul>
-            {links.map((link) => (
-              <li key={link.href} data-menu-item>
-                <a href={link.href} onClick={() => setOpen(false)}>
-                  <span className={styles.dot} aria-hidden="true">
-                    ./
-                  </span>
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {links.map((link) => {
+              const tools = link.href === "#tools";
+              return (
+                <li key={link.href} data-menu-item>
+                  <a
+                    href={link.href}
+                    className={tools ? styles.toolsMobile : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span
+                      className={tools ? styles.spark : styles.dot}
+                      aria-hidden="true"
+                    >
+                      {tools ? "✦ " : "./"}
+                    </span>
+                    {link.label}
+                    {tools && (
+                      <span className={styles.badge} aria-hidden="true">
+                        {TOOLS.length}
+                      </span>
+                    )}
+                  </a>
+                </li>
+              );
+            })}
             <li data-menu-item>
               <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
                 github <span aria-hidden="true">↗</span>

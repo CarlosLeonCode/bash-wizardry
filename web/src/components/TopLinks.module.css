@@ -63,6 +63,58 @@
   color: var(--green-3);
 }
 
+/* ---- the author's tools: amber chips, like the nav's "tools" link ------- */
+
+.toolsTitle {
+  color: var(--amber);
+}
+
+.tools .list {
+  gap: 0.15rem;
+}
+
+/* The link keeps the 28px target; the chip is drawn on the inner face. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding-inline: 0.1rem;
+}
+
+.chipFace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4ch;
+  height: 20px;
+  padding-inline: 0.45rem;
+  border: 1px solid var(--amber);
+  background: var(--amber-tint);
+  box-shadow: var(--amber-glow);
+  color: var(--amber);
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.chip:hover .chipFace,
+.chip:focus-visible .chipFace {
+  background: var(--amber);
+  box-shadow: var(--amber-glow-hot);
+  color: var(--ink);
+}
+
+.chip:focus-visible {
+  outline-color: var(--amber);
+  outline-offset: 0;
+}
+
+/* Phones only (below). */
+.toolsJump {
+  display: none;
+}
+
 /* Narrow screens: one group per line, no separator. */
 @media (max-width: 639px) {
   .sep {
@@ -77,13 +129,42 @@
     width: 100%;
   }
 
+  /* The project links share their line with the "N tools" chip, which
+     wraps below them when the language's label does not fit. */
+  .group:first-child {
+    width: auto;
+  }
+
+  /* Four chips would add two more lines above the header on phones: one
+     chip jumps to the "more tools" section instead. */
+  .tools {
+    display: none;
+  }
+
+  /* Tight enough to share the line at 360px in English; the longer Spanish
+     label takes a line of its own. */
+  .bar {
+    column-gap: 0.5rem;
+  }
+
+  .toolsJump {
+    display: inline-flex;
+    margin-left: auto;
+    padding-inline: 0;
+  }
+
+  .toolsJump .chipFace {
+    padding-inline: 0.35rem;
+  }
+
   .link {
     padding-inline: 0.25rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .link {
+  .link,
+  .chipFace {
     transition: none;
   }
 }

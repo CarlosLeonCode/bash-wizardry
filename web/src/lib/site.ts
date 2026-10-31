@@ -12,7 +12,15 @@ import {
 } from "@/lib/catalog.generated";
 import type { Locale } from "@/lib/i18n/config";
 
-export { AUTHOR, ISSUES_URL, REPO_URL, SITE_URL } from "@/lib/urls";
+export {
+  AUTHOR,
+  ISSUES_URL,
+  REPO_URL,
+  SITE_URL,
+  TOOLS,
+  toolHost,
+  type ToolId,
+} from "@/lib/urls";
 
 /** The installer script, as fetched by INSTALL_COMMAND. */
 export const INSTALL_SCRIPT_URL =

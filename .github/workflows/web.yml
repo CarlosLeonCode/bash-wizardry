@@ -40,4 +40,5 @@ jobs:
           GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run lint
       - run: npx tsc --noEmit
+      - run: npm test
       - run: npm run build

@@ -7,7 +7,7 @@ import {
   type Locale,
 } from "@/lib/i18n";
 import { LEADS_ENABLED } from "@/lib/leads";
-import { AUTHOR, ISSUES_URL, REPO_URL, SPELL_COUNT } from "@/lib/site";
+import { AUTHOR, ISSUES_URL, REPO_URL, SPELL_COUNT, TOOLS } from "@/lib/site";
 import styles from "./Footer.module.css";
 
 export default function Footer({
@@ -21,7 +21,10 @@ export default function Footer({
   const l = footer.links;
   // Section anchors point at the home page: the footer is also on /privacy.
   const home = LOCALE_PATH[locale];
-  const columns = [
+  const columns: {
+    title: string;
+    links: { label: string; href: string; keepReferrer?: boolean }[];
+  }[] = [
     {
       title: footer.columns.product,
       links: [
@@ -52,6 +55,15 @@ export default function Footer({
         { label: l.youtube, href: AUTHOR.youtube },
         { label: l.kofi, href: AUTHOR.kofi },
       ],
+    },
+    {
+      title: footer.columns.tools,
+      // The author's own sites: keep the referrer so they see the visit.
+      links: TOOLS.map((tool) => ({
+        label: tool.name,
+        href: tool.url,
+        keepReferrer: true,
+      })),
     },
   ];
 
@@ -89,7 +101,9 @@ export default function Footer({
                         href={link.href}
                         {...(external && {
                           target: "_blank",
-                          rel: "noopener noreferrer",
+                          rel: link.keepReferrer
+                            ? "noopener"
+                            : "noopener noreferrer",
                         })}
                       >
                         {link.label}

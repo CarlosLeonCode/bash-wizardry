@@ -127,12 +127,19 @@
 
 /* ---- author signature ----------------------------------------------------- */
 
+/* The signature and, in season, a decoration beside it (SeasonalCenterpiece).
+   The row is exactly as tall as the signature. */
+.sigRow {
+  display: flex;
+  width: 100%;
+  margin-block: clamp(0.75rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 2rem);
+}
+
 .signature {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
   max-width: 100%;
-  margin-block: clamp(0.75rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 2rem);
   padding: 0.5rem 1.1rem 0.5rem 0.5rem;
   border: 1px solid var(--green);
   background: rgba(57, 255, 106, 0.08);

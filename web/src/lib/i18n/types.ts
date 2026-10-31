@@ -19,6 +19,7 @@ import type {
   PrincipleFlag,
   ShowcaseId,
   SpellbookTabId,
+  ToolId,
 } from "@/lib/site";
 
 export interface ShowcaseCopy {
@@ -105,6 +106,12 @@ export interface Dictionary {
     project: string;
     projectLinks: { github: string; issues: string; web: string };
     authorLinks: { github: string; youtube: string; web: string; kofi: string };
+    /** Title of the author's other tools group, e.g. "more tools:". */
+    tools: string;
+    /** Phones: compact chip to the tools section, e.g. "4 tools". */
+    toolsShort: string;
+    /** Accessible name of that chip; starts with the visible text. */
+    toolsShortLabel: string;
   };
   nav: {
     primary: string;
@@ -116,6 +123,7 @@ export interface Dictionary {
       principles: string;
       spellbook: string;
       install: string;
+      tools: string;
     };
     menu: string;
     close: string;
@@ -220,6 +228,14 @@ export interface Dictionary {
     note: string;
     configLabel: string;
   };
+  /** The author's other tools (TOOLS in src/lib/urls.ts). */
+  tools: {
+    title: string;
+    /** One-line comment under the title, without the leading "# ". */
+    lead: string;
+    /** Short tag (2–3 words) and a one-sentence description per tool. */
+    items: Record<ToolId, { tag: string; description: string }>;
+  };
   community: {
     title: string;
     cards: { contribute: CardCopy; issue: CardCopy; star: CardCopy };
@@ -227,7 +243,12 @@ export interface Dictionary {
   footer: {
     label: string;
     tagline: string;
-    columns: { product: string; project: string; community: string };
+    columns: {
+      product: string;
+      project: string;
+      community: string;
+      tools: string;
+    };
     links: {
       tour: string;
       spellbook: string;

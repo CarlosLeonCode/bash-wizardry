@@ -5,6 +5,7 @@
 
 import { CATALOG } from "@/lib/catalog.generated";
 import {
+  getDictionary,
   LOCALES,
   llmsTxtPath,
   LOCALE_NAME,
@@ -20,6 +21,7 @@ import {
   REPO_URL,
   SITE_URL,
   SPELL_COUNT,
+  TOOLS,
   toSpell,
 } from "@/lib/site";
 
@@ -42,6 +44,7 @@ interface LlmsCopy {
   spells: { title: string; lead: string; count: string };
   reference: { title: string; lead: string; confirms: string };
   docs: { title: string; links: Link[] };
+  tools: { title: string };
   optional: { title: string; full: string; other: string; source: string };
 }
 
@@ -101,6 +104,7 @@ const COPY: Record<Locale, LlmsCopy> = {
         { title: "Contributing", path: "CONTRIBUTING.md", note: "how to add a spell" },
       ],
     },
+    tools: { title: "More tools by the author" },
     optional: {
       title: "Optional",
       full: "Full command reference: every spell with usage and description",
@@ -161,6 +165,7 @@ const COPY: Record<Locale, LlmsCopy> = {
         { title: "Cómo contribuir (en inglés)", path: "CONTRIBUTING.md", note: "cómo añadir un hechizo" },
       ],
     },
+    tools: { title: "Más herramientas del autor" },
     optional: {
       title: "Opcional",
       full: "Referencia completa: cada hechizo con su uso y descripción",
@@ -196,10 +201,14 @@ function links(locale: Locale, c: LlmsCopy, file: LlmsFile) {
     `[${LOCALE_NAME[other]}](${absolute(other, file)}): ${c.optional.other}`,
     `[GitHub](${REPO_URL}): ${c.optional.source}`,
   ].filter((line): line is string => Boolean(line));
+  // Same descriptions as the "more tools" section of the page.
+  const tools = getDictionary(locale).tools.items;
 
   return [
     `## ${c.docs.title}`,
     bullets(c.docs.links.map((l) => `[${l.title}](${blob(l.path)}): ${l.note}`)),
+    `## ${c.tools.title}`,
+    bullets(TOOLS.map((tool) => `[${tool.name}](${tool.url}): ${tools[tool.id].description}`)),
     `## ${c.optional.title}`,
     bullets(optional),
   ];
