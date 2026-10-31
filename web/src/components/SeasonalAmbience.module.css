@@ -1,0 +1,18 @@
+/* Same layer as the CRT glow (z-index -1, painted after it): above the page
+   background on <html>, below every piece of content. */
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: fade-in 1.6s ease-out both;
+}
+
+/* The component renders nothing for reduced motion; this only eases in. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

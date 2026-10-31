@@ -1,0 +1,254 @@
+/* Fills the space right of the author signature and is exactly as tall as
+   it (HeroSection .sigRow), so the art below is absolutely positioned and
+   moves nothing. It stands on the signature's baseline and may rise into
+   the gap under the logo, never into the logo itself. */
+.slot {
+  --orange: #ff7a1a;
+  --rose: #ff6b9a;
+  --blush: #ffb3c8;
+  --inset: clamp(1rem, 3vw, 2.5rem);
+
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;
+  pointer-events: none;
+}
+
+.art {
+  position: absolute;
+  bottom: 0;
+  left: var(--inset);
+  width: auto;
+  max-width: calc(100% - var(--inset));
+}
+
+/* Phones and tablets: the main figures only, at ~0.8x. */
+.wide {
+  display: none;
+  height: 88px;
+}
+
+.compact {
+  height: 70px;
+}
+
+.compact .wideOnly {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .wide {
+    display: block;
+  }
+
+  .compact {
+    display: none;
+  }
+}
+
+/* ---- palette: terminal greens, two seasonal accents each ------------------ */
+
+.ground {
+  stroke: var(--green-3);
+}
+
+/* Halloween */
+.castle {
+  stroke: var(--dim);
+  opacity: 0.85;
+}
+
+.windows {
+  fill: var(--amber);
+  opacity: 0.85;
+}
+
+.pumpkin {
+  fill: #0b0602;
+  stroke: var(--orange);
+}
+
+.pumpkin path {
+  fill: none;
+}
+
+.face {
+  fill: var(--amber);
+  stroke: var(--orange);
+  stroke-width: 0.75;
+}
+
+.shadow {
+  fill: rgba(57, 255, 106, 0.12);
+}
+
+.ghost {
+  stroke: var(--text);
+  fill: rgba(185, 255, 203, 0.06);
+}
+
+.eye {
+  fill: var(--bright);
+  stroke: none;
+}
+
+/* Christmas */
+.tree {
+  stroke: var(--green);
+}
+
+.garland {
+  stroke: var(--green-2);
+  stroke-dasharray: 1.5 2.5;
+}
+
+.ornaments {
+  stroke: none;
+}
+
+.red {
+  fill: var(--red);
+}
+
+.gold {
+  fill: var(--amber);
+}
+
+.star {
+  fill: rgba(255, 176, 0, 0.3);
+  stroke: var(--amber);
+}
+
+.box {
+  stroke: var(--text);
+}
+
+.ribbon {
+  stroke: var(--red);
+}
+
+/* Valentine's */
+.arrow {
+  stroke: var(--blush);
+}
+
+.head {
+  fill: var(--blush);
+}
+
+/* Opaque, so the arrow seems to pass through the heart. */
+.bigHeart {
+  fill: #1a0710;
+  stroke: var(--rose);
+}
+
+.shine {
+  stroke: var(--blush);
+  opacity: 0.6;
+}
+
+.rose {
+  stroke: var(--rose);
+}
+
+.blush {
+  stroke: var(--blush);
+}
+
+/* ---- motion: subtle, and none at all for reduced motion ------------------- */
+
+.float,
+.twinkle,
+.pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .slot {
+    animation: appear 0.8s 1.1s ease-out both;
+  }
+
+  .flicker {
+    animation: flicker 3.2s ease-in-out infinite;
+  }
+
+  .float {
+    animation: float 3.6s ease-in-out infinite alternate;
+  }
+
+  .delay1 {
+    animation-delay: -1.2s;
+  }
+
+  .delay2 {
+    animation-delay: -2.4s;
+  }
+
+  .twinkle {
+    animation: twinkle 2.6s ease-in-out infinite;
+  }
+
+  .pulse {
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  8% {
+    opacity: 0.72;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  41% {
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.78;
+  }
+  74% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-2.5px);
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.65;
+    transform: scale(0.88);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  60%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.045);
+  }
+  30% {
+    transform: scale(1.01);
+  }
+  42% {
+    transform: scale(1.03);
+  }
+}

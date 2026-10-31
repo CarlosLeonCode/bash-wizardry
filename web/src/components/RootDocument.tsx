@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { JetBrains_Mono } from "next/font/google";
 import "@/app/globals.css";
 import Crt from "@/components/Crt";
+import SeasonalAmbience from "@/components/SeasonalAmbience";
 import type { Locale } from "@/lib/i18n";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -28,6 +29,8 @@ export default function RootDocument({
       <body>
         {children}
         <Crt />
+        {/* After the CRT glow: same layer, painted above it. */}
+        <SeasonalAmbience />
       </body>
     </html>
   );
