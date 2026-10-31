@@ -19,6 +19,7 @@ import {
   INSTALL_SCRIPT_URL,
   REPO_URL,
   SITE_URL,
+  TOOLS,
 } from "@/lib/site";
 
 const LICENSE_URL = "https://opensource.org/licenses/MIT";
@@ -150,7 +151,8 @@ const plain = (text: string) => text.replaceAll("`", "");
 
 /**
  * schema.org graph of one locale's page: the site, the app and its source,
- * the author, the hero film and the agents FAQ (same text as on the page).
+ * the author, the hero film, the agents FAQ and the author's other tools
+ * (same text as on the page).
  */
 export function buildJsonLd(locale: Locale) {
   const t = getDictionary(locale);
@@ -250,6 +252,14 @@ export function buildJsonLd(locale: Locale) {
           };
         }),
       },
+      ...TOOLS.map((tool) => ({
+        "@type": "SoftwareApplication",
+        "@id": `${SITE_URL}/#tool-${tool.id}`,
+        name: tool.name,
+        url: tool.url,
+        description: t.tools.items[tool.id].description,
+        author: { "@id": id.author },
+      })),
     ],
   };
 }

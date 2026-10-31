@@ -6,6 +6,7 @@ import PrinciplesSection from "@/components/PrinciplesSection";
 import Sidebar from "@/components/Sidebar";
 import SpellbookSection from "@/components/SpellbookSection";
 import InstallSection from "@/components/InstallSection";
+import MoreToolsSection from "@/components/MoreToolsSection";
 import ContributionSection from "@/components/ContributionSection";
 import Footer from "@/components/Footer";
 import TopLinks from "@/components/TopLinks";
@@ -44,6 +45,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <PrinciplesSection t={t.principles} />
           <SpellbookSection locale={locale} t={t.spellbook} />
           <InstallSection t={t} />
+          <MoreToolsSection t={t} />
           <ContributionSection t={t} />
         </main>
       </div>

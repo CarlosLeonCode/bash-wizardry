@@ -5,6 +5,7 @@ import {
   SCRIPTS,
   SHELL_MODULES,
   SPELL_COUNT,
+  TOOLS,
 } from "@/lib/site";
 
 const NEW_TAB = "(se abre en una pestaña nueva)";
@@ -71,6 +72,9 @@ export const es: Dictionary = {
       web: "web: sitio de carlosleoncode, carlosleoncode.com",
       kofi: "ko-fi: página de carlosleoncode en Ko-fi",
     },
+    tools: "más herramientas:",
+    toolsShort: `${TOOLS.length} herramientas`,
+    toolsShortLabel: `${TOOLS.length} herramientas: ir a más herramientas de carlosleoncode`,
   },
 
   nav: {
@@ -83,6 +87,7 @@ export const es: Dictionary = {
       principles: "principios",
       spellbook: "grimorio",
       install: "instalar",
+      tools: "herramientas",
     },
     menu: "menú",
     close: "cerrar",
@@ -368,6 +373,33 @@ export const es: Dictionary = {
     configLabel: "Ejemplo de config.env",
   },
 
+  tools: {
+    title: "Más herramientas de carlosleoncode",
+    lead: "otras herramientas que construyo y uso a diario",
+    items: {
+      clcagenda: {
+        tag: "contactos de WhatsApp",
+        description:
+          "Exporta los contactos de WhatsApp Web (grupos, chats y etiquetas) a Google Contacts, al celular o a Excel. Código abierto: todo pasa en tu navegador.",
+      },
+      watextly: {
+        tag: "links y copys de WhatsApp",
+        description:
+          "Crea gratis links de WhatsApp (wa.me) con mensaje, QR o botón para tu web, y textos en negrita y cursiva para Instagram, LinkedIn, TikTok y más. Sin registro.",
+      },
+      kaiflow: {
+        tag: "control de tiempo",
+        description:
+          "Un time tracker privado y local-first en la barra de menú de macOS (Windows y Linux en beta): registro automático por app y ventana, metas, sesiones de foco y revisión semanal. Gratis y de código abierto (MIT).",
+      },
+      captuflow: {
+        tag: "editor de capturas",
+        description:
+          "Captura, anota y edita capturas de pantalla gratis en tu navegador. Sin registro ni instalación, y tus imágenes nunca se suben a un servidor.",
+      },
+    },
+  },
+
   community: {
     title: "Hecho por developers, para developers",
     cards: {
@@ -400,6 +432,7 @@ export const es: Dictionary = {
       product: "producto",
       project: "proyecto",
       community: "comunidad",
+      tools: "más herramientas",
     },
     links: {
       tour: "recorrido",

@@ -117,6 +117,70 @@
   color: var(--dim);
 }
 
+/* "More tools" stands out from the section links: the only amber item in
+   the nav, framed like a key, with the number of tools as a badge. */
+.toolsLink {
+  gap: 0.45rem;
+  min-height: 36px;
+  align-self: center;
+  padding: 0 0.65rem;
+  border: 1px solid var(--amber);
+  background: var(--amber-tint);
+  box-shadow: var(--amber-glow);
+  color: var(--amber);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.toolsLink:hover,
+.toolsLink:focus-visible,
+.toolsLink.active {
+  background: var(--amber);
+  box-shadow: var(--amber-glow-hot);
+  color: var(--ink);
+  text-shadow: none;
+}
+
+.spark {
+  display: inline-block;
+  animation: spark 2.4s ease-in-out infinite;
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.4em;
+  height: 1.4em;
+  padding: 0 0.3em;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.toolsLink:hover .badge,
+.toolsLink:focus-visible .badge,
+.toolsLink.active .badge {
+  background: var(--ink);
+  color: var(--amber);
+}
+
+@keyframes spark {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+}
+
 .right {
   display: flex;
   align-items: center;
@@ -149,8 +213,9 @@
   }
 }
 
-/* Five links plus lang and github need ~970px with the Spanish labels. */
-@media (min-width: 1024px) {
+/* Six links plus lang and github need ~1140px with the Spanish labels
+   ("./herramientas"); 1180px leaves ~40px to spare. */
+@media (min-width: 1180px) {
   .desktopNav {
     display: block;
   }
@@ -184,15 +249,25 @@
   border-bottom: 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1180px) {
   .mobileNav {
     display: none;
   }
 }
 
+.mobileNav a.toolsMobile {
+  gap: 0.5rem;
+  color: var(--amber);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .link {
+  .link,
+  .toolsLink {
     transition: none;
+  }
+
+  .spark {
+    animation: none;
   }
 }
 

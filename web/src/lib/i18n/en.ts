@@ -9,6 +9,7 @@ import {
   SCRIPTS,
   SHELL_MODULES,
   SPELL_COUNT,
+  TOOLS,
 } from "@/lib/site";
 
 const NEW_TAB = "(opens in a new tab)";
@@ -75,6 +76,9 @@ export const en: Dictionary = {
       web: "Website of carlosleoncode, carlosleoncode.com",
       kofi: "Ko-fi page of carlosleoncode",
     },
+    tools: "more tools:",
+    toolsShort: `${TOOLS.length} tools`,
+    toolsShortLabel: `${TOOLS.length} tools: jump to more tools by carlosleoncode`,
   },
 
   nav: {
@@ -87,6 +91,7 @@ export const en: Dictionary = {
       principles: "principles",
       spellbook: "spellbook",
       install: "install",
+      tools: "tools",
     },
     menu: "menu",
     close: "close",
@@ -371,6 +376,33 @@ export const en: Dictionary = {
     configLabel: "Example config.env",
   },
 
+  tools: {
+    title: "More tools by carlosleoncode",
+    lead: "other tools I build and use every day",
+    items: {
+      clcagenda: {
+        tag: "WhatsApp contacts",
+        description:
+          "Export WhatsApp Web contacts (groups, chats and labels) to Google Contacts, your phone or Excel. Open source: everything happens in your browser.",
+      },
+      watextly: {
+        tag: "WhatsApp links & copy",
+        description:
+          "Free WhatsApp links (wa.me) with a message, QR code or website button, plus bold and italic text for Instagram, LinkedIn, TikTok and more. No sign-up.",
+      },
+      kaiflow: {
+        tag: "time tracker",
+        description:
+          "A private, local-first menu bar time tracker for macOS (Windows and Linux in beta): automatic tracking by app and window, goals, focus sessions and a weekly review. Free and open source (MIT).",
+      },
+      captuflow: {
+        tag: "screenshot editor",
+        description:
+          "Capture, annotate and edit screenshots for free in your browser. No sign-up or install, and your images never leave your device.",
+      },
+    },
+  },
+
   community: {
     title: "Built by developers, for developers",
     cards: {
@@ -397,7 +429,12 @@ export const en: Dictionary = {
     label: "Footer",
     tagline:
       "The developer productivity toolkit that lives in your terminal. Safe, fast and hackable.",
-    columns: { product: "product", project: "project", community: "community" },
+    columns: {
+      product: "product",
+      project: "project",
+      community: "community",
+      tools: "more tools",
+    },
     links: {
       tour: "tour",
       spellbook: "spellbook",
